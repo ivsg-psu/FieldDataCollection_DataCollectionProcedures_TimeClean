@@ -104,7 +104,11 @@ function varargout = fcn_Laps_breakDataIntoLapIndices(...
 %      start and end conditions. If not specified, then no excursion point
 %      is used. The same type is used as the start_definition.
 %
-%      fig_num: a figure number to plot results.
+%    fig_num: a figure number to plot results. If set to -1, skips any
+%     input checking or debugging, no figures will be generated, and sets
+%     up code to maximize speed. As well, if given, this forces the
+%     variable types to be displayed as output and as well makes the input
+%     check process verbose
 %
 % OUTPUTS:
 %
