@@ -1,11 +1,19 @@
 % script_test_fcn_TimeClean_checkDataTimeConsistency.m
 % tests fcn_TimeClean_checkDataTimeConsistency.m
 
-% Revision history
-% 2023_06_19 - sbrennan@psu.edu
-% -- wrote the code originally
-% 2023_06_30 - sbrennan@psu.edu
-% -- fixed verbose mode bug
+% REVISION HISTORY
+% 
+% 2023_06_19 by Sean Brennan, sbrennan@psu.edu
+% - Wrote the code originally
+% 
+% 2023_06_30 by Sean Brennan, sbrennan@psu.edu
+% - Fixed verbose mode bug
+
+% TO-DO:
+%
+% 2025_11_24 by Sean Brennan, sbrennan@psu.edu
+% - (insert items here)
+
 
 
 %% Set up the workspace
@@ -32,8 +40,8 @@ fid = 1;
 
 
 % List what will be plotted, and the figure numbers
-plotFlags.fig_num_checkTimeSamplingConsistency_GPSTime = 1111;
-plotFlags.fig_num_checkTimeSamplingConsistency_ROSTime = 2222;
+plotFlags.figNum_checkTimeSamplingConsistency_GPSTime = 1111;
+plotFlags.figNum_checkTimeSamplingConsistency_ROSTime = 2222;
 
 
 fprintf(1,'\nCASE 2: basic consistency check, no errors, verbose\n');

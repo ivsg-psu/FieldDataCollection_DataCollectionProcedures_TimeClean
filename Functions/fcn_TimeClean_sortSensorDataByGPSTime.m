@@ -43,17 +43,24 @@ function fixed_dataStructure = fcn_TimeClean_sortSensorDataByGPSTime(dataStructu
 % This function was written on 2023_07_01 by S. Brennan
 % Questions or comments? sbrennan@psu.edu
 
-% Revision history:
+% REVISION HISTORY:
 %
-% 2023_07_01: sbrennan@psu.edu
-% -- wrote the code originally
-% 2024_09_28 - S. Brennan
-% -- updated the debug flags area
-% -- fixed bug where offending sensor is set wrong
-% -- fixed fid bug where it is used in debugging
+% 2023_07_01 by Sean Brennan, sbrennan@psu.edu
+% - Wrote the code originally
+% 
+% 2024_09_28 by Sean Brennan, sbrennan@psu.edu
+% - Updated the debug flags area
+% - Fixed bug where offending sensor is set wrong
+% - Fixed fid bug where it is used in debugging
+
+% TO-DO:
+%
+% 2025_11_24 by Sean Brennan, sbrennan@psu.edu
+% - (insert items here)
 
 
-% Check if flag_max_speed set. This occurs if the fig_num variable input
+
+% Check if flag_max_speed set. This occurs if the figNum variable input
 % argument (varargin) is given a number of -1, which is not a valid figure
 % number.
 flag_max_speed = 0;
@@ -65,11 +72,11 @@ else
     % Check to see if we are externally setting debug mode to be "on"
     flag_do_debug = 0; % % % % Flag to plot the results for debugging
     flag_check_inputs = 1; % Flag to perform input checking
-    MATLABFLAG_DATACLEAN_FLAG_CHECK_INPUTS = getenv("MATLABFLAG_DATACLEAN_FLAG_CHECK_INPUTS");
-    MATLABFLAG_DATACLEAN_FLAG_DO_DEBUG = getenv("MATLABFLAG_DATACLEAN_FLAG_DO_DEBUG");
-    if ~isempty(MATLABFLAG_DATACLEAN_FLAG_CHECK_INPUTS) && ~isempty(MATLABFLAG_DATACLEAN_FLAG_DO_DEBUG)
-        flag_do_debug = str2double(MATLABFLAG_DATACLEAN_FLAG_DO_DEBUG);
-        flag_check_inputs  = str2double(MATLABFLAG_DATACLEAN_FLAG_CHECK_INPUTS);
+    MATLABFLAG_TIMECLEAN_FLAG_CHECK_INPUTS = getenv("MATLABFLAG_TIMECLEAN_FLAG_CHECK_INPUTS");
+    MATLABFLAG_TIMECLEAN_FLAG_DO_DEBUG = getenv("MATLABFLAG_TIMECLEAN_FLAG_DO_DEBUG");
+    if ~isempty(MATLABFLAG_TIMECLEAN_FLAG_CHECK_INPUTS) && ~isempty(MATLABFLAG_TIMECLEAN_FLAG_DO_DEBUG)
+        flag_do_debug = str2double(MATLABFLAG_TIMECLEAN_FLAG_DO_DEBUG);
+        flag_check_inputs  = str2double(MATLABFLAG_TIMECLEAN_FLAG_CHECK_INPUTS);
     end
 end
 
@@ -78,9 +85,9 @@ end
 if flag_do_debug
     st = dbstack; %#ok<*UNRCH>
     fprintf(1,'STARTING function: %s, in file: %s\n',st(1).name,st(1).file);
-    debug_fig_num = 999978; %#ok<NASGU>
+    debug_figNum = 999978; %#ok<NASGU>
 else
-    debug_fig_num = []; %#ok<NASGU>
+    debug_figNum = []; %#ok<NASGU>
 end
 
 

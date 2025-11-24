@@ -1,9 +1,16 @@
 % script_test_fcn_TimeClean_fillMissingsInGPSUnits.m
 % tests fcn_TimeClean_fillMissingsInGPSUnits.m
 
-% Revision history
+% REVISION HISTORY:
+% 
 % 2024_10_02 - xfc5113@psu.edu
-% -- wrote the code originally
+% - Wrote the code originally
+
+% TO-DO:
+%
+% 2025_11_24 by Sean Brennan, sbrennan@psu.edu
+% - (insert items here)
+
 
 
 %% Set up the workspace
@@ -32,8 +39,8 @@ close all
 % setenv('MATLABFLAG_PLOTROAD_REFERENCE_ALTITUDE','344.189');
 
 %% Basic demonstration
-fig_num = 1;
-figure(fig_num);
+figNum = 1;
+figure(figNum);
 clf;
 
 % Note that, if a field is missing, it still counts as 'merged'
@@ -75,21 +82,21 @@ testStructure.GPS_SparkFun_CenterFront = GPSdataStructure;
 
 % Check structure
 fid = 1;
-fixed_dataStructure = fcn_TimeClean_fillMissingsInGPSUnits(testStructure, (fid), (fig_num));
+fixed_dataStructure = fcn_TimeClean_fillMissingsInGPSUnits(testStructure, (fid), (figNum));
 
 % Check fixed structure
 
 
 %% CASE 900: Real world data
-fig_num = 900;
-figure(fig_num);
+figNum = 900;
+figure(figNum);
 clf;
 
 fullExampleFilePath = fullfile(cd,'Data','ExampleData_fillMissingsInGPSUnits.mat');
 load(fullExampleFilePath,'dataStructure');
 
 fid = 1;
-fixed_dataStructure = fcn_TimeClean_fillMissingsInGPSUnits(dataStructure, (fid), (fig_num));
+fixed_dataStructure = fcn_TimeClean_fillMissingsInGPSUnits(dataStructure, (fid), (figNum));
 
 
 

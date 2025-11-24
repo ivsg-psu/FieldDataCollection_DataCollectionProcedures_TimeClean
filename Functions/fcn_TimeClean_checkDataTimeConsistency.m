@@ -46,8 +46,8 @@ function [flags,offending_sensor] = fcn_TimeClean_checkDataTimeConsistency(dataS
 %      generated, and sets up code to maximize speed. The following flags
 %      are currently used:
 %
-%            plotFlags.fig_num_checkTimeSamplingConsistency_GPSTime
-%            plotFlags.fig_num_checkTimeSamplingConsistency_ROSTime
+%            plotFlags.figNum_checkTimeSamplingConsistency_GPSTime
+%            plotFlags.figNum_checkTimeSamplingConsistency_ROSTime
 %
 % OUTPUTS:
 %
@@ -104,40 +104,53 @@ function [flags,offending_sensor] = fcn_TimeClean_checkDataTimeConsistency(dataS
 % This function was written on 2023_06_19 by S. Brennan
 % Questions or comments? sbrennan@psu.edu 
 
-% Revision history:
+% REVISION HISTORY:
 %     
-% 2023_06_12: sbrennan@psu.edu
-% -- wrote the code originally 
-% 2023_06_24 - sbrennan@psu.edu
-% -- added fcn_INTERNAL_checkIfFieldInAnySensor and test case in script
-% 2023_06_30 - sbrennan@psu.edu
-% -- fixed verbose mode bug
-% 2023_07_02 - sbrennan@psu.edu
-% -- fixed bug when GPS_Time and ROS_Time are different lengths
-% 2023_07_03 - sbrennan@psu.edu
-% -- added diff check on time
-% 2024_09_27: sbrennan@psu.edu
-% -- updated top comments
-% -- added debug flag area
-% -- fixed fid printing error
-% -- added fig_num input, fixed the plot flag
-% -- fixed warning and errors
+% 2023_06_12 by Sean Brennan, sbrennan@psu.edu
+% - Wrote the code originally 
+% 
+% 2023_06_24 by Sean Brennan, sbrennan@psu.edu
+% - Added fcn_INTERNAL_checkIfFieldInAnySensor and test case in script
+% 
+% 2023_06_30 by Sean Brennan, sbrennan@psu.edu
+% - Fixed verbose mode bug
+% 
+% 2023_07_02 by Sean Brennan, sbrennan@psu.edu
+% - Fixed bug when GPS_Time and ROS_Time are different lengths
+% 
+% 2023_07_03 by Sean Brennan, sbrennan@psu.edu
+% - Added diff check on time
+% 
+% 2024_09_27 by Sean Brennan, sbrennan@psu.edu
+% - Updated top comments
+% - Added debug flag area
+% - Fixed fid printing error
+% - Added figNum input, fixed the plot flag
+% - Fixed warning and errors
+% 
 % 2024_09_27: xfc5113@psu.edu
-% -- move fcn_TimeClean_checkAllSensorsHaveTriggerTime in the function
-% -- add sensors_without_Trigger_Time as the output of the function
-% 2024_11_07: sbrennan@psu.edu
-% -- added plotFlags instead of fig_num, to allow many different plotting
+% - move fcn_TimeClean_checkAllSensorsHaveTriggerTime in the function
+% - add sensors_without_Trigger_Time as the output of the function
+% 
+% 2024_11_07 by Sean Brennan, sbrennan@psu.edu
+% - Added plotFlags instead of figNum, to allow many different plotting
 %    options
-% -- swapped order on some of the flags, as there's no way that flags can
+% - swapped order on some of the flags, as there's no way that flags can
 % "pass" on one and then "fail" on the other.
 % ROS_Time_strictly_ascends_in_GPS_sensors cannot be tested as that same
 % condition would fail in testing
 % ROS_Time_sample_modes_match_centiSeconds_in_GPS_sensors. So have to
 % test "strictly ascends" first, before "same rate" testing.
 
+% TO-DO:
+%
+% 2025_11_24 by Sean Brennan, sbrennan@psu.edu
+% - (insert items here)
+
+
 %% Debugging and Input checks
 
-% Check if flag_max_speed set. This occurs if the fig_num variable input
+% Check if flag_max_speed set. This occurs if the figNum variable input
 % argument (varargin) is given a number of -1, which is not a valid figure
 % number.
 flag_max_speed = 0;
@@ -149,11 +162,11 @@ else
     % Check to see if we are externally setting debug mode to be "on"
     flag_do_debug = 0; % % % % Flag to plot the results for debugging
     flag_check_inputs = 1; % Flag to perform input checking
-    MATLABFLAG_DATACLEAN_FLAG_CHECK_INPUTS = getenv("MATLABFLAG_DATACLEAN_FLAG_CHECK_INPUTS");
-    MATLABFLAG_DATACLEAN_FLAG_DO_DEBUG = getenv("MATLABFLAG_DATACLEAN_FLAG_DO_DEBUG");
-    if ~isempty(MATLABFLAG_DATACLEAN_FLAG_CHECK_INPUTS) && ~isempty(MATLABFLAG_DATACLEAN_FLAG_DO_DEBUG)
-        flag_do_debug = str2double(MATLABFLAG_DATACLEAN_FLAG_DO_DEBUG);
-        flag_check_inputs  = str2double(MATLABFLAG_DATACLEAN_FLAG_CHECK_INPUTS);
+    MATLABFLAG_TIMECLEAN_FLAG_CHECK_INPUTS = getenv("MATLABFLAG_TIMECLEAN_FLAG_CHECK_INPUTS");
+    MATLABFLAG_TIMECLEAN_FLAG_DO_DEBUG = getenv("MATLABFLAG_TIMECLEAN_FLAG_DO_DEBUG");
+    if ~isempty(MATLABFLAG_TIMECLEAN_FLAG_CHECK_INPUTS) && ~isempty(MATLABFLAG_TIMECLEAN_FLAG_DO_DEBUG)
+        flag_do_debug = str2double(MATLABFLAG_TIMECLEAN_FLAG_DO_DEBUG);
+        flag_check_inputs  = str2double(MATLABFLAG_TIMECLEAN_FLAG_CHECK_INPUTS);
     end
 end
 
@@ -162,9 +175,9 @@ end
 if flag_do_debug
     st = dbstack; %#ok<*UNRCH>
     fprintf(1,'STARTING function: %s, in file: %s\n',st(1).name,st(1).file);
-    debug_fig_num = 999978; %#ok<NASGU>
+    debug_figNum = 999978; %#ok<NASGU>
 else
-    debug_fig_num = []; %#ok<NASGU>
+    debug_figNum = []; %#ok<NASGU>
 end
 
 
@@ -208,8 +221,8 @@ end
 
 % Does user want to specify plotFlags?
 % Set defaults
-plotFlags.fig_num_checkTimeSamplingConsistency_GPSTime = [];
-plotFlags.fig_num_checkTimeSamplingConsistency_ROSTime = [];
+plotFlags.figNum_checkTimeSamplingConsistency_GPSTime = [];
+plotFlags.figNum_checkTimeSamplingConsistency_ROSTime = [];
 flag_do_plots = 0;
 if (0==flag_max_speed) &&  (3<=nargin)
     temp = varargin{end};
@@ -277,7 +290,7 @@ flags = struct;
 %                        Trigger_Time_exists_in_all_GPS_sensors: 1
 
 
-% % Below uses plotFlags.fig_num_checkTimeSamplingConsistency_GPSTime
+% % Below uses plotFlags.figNum_checkTimeSamplingConsistency_GPSTime
 % [flags, offending_sensor] = fcn_TimeClean_checkDataTimeConsistency_GPS(dataStructure, flags, fid, plotFlags);
 
 
@@ -383,7 +396,7 @@ end
 %    * Remove this sensor
 
 verificationTypeFlag = 0; 
-[flags,offending_sensor] = fcn_TimeClean_checkTimeSamplingConsistency(dataStructure,'GPS_Time', verificationTypeFlag, flags, 'GPS',fid, plotFlags.fig_num_checkTimeSamplingConsistency_GPSTime);
+[flags,offending_sensor] = fcn_TimeClean_checkTimeSamplingConsistency(dataStructure,'GPS_Time', verificationTypeFlag, flags, 'GPS',fid, plotFlags.figNum_checkTimeSamplingConsistency_GPSTime);
 if 0==flags.GPS_Time_sample_modes_match_centiSeconds_in_GPS_sensors
     return
 end
@@ -592,9 +605,9 @@ end
 %    * Manually fix, or
 %    * Remove this sensor
 
-% Below uses plotFlags.fig_num_checkTimeSamplingConsistency_ROSTime
+% Below uses plotFlags.figNum_checkTimeSamplingConsistency_ROSTime
 verificationTypeFlag = 0; 
-[flags,offending_sensor] = fcn_TimeClean_checkTimeSamplingConsistency(dataStructure,'ROS_Time', verificationTypeFlag, flags, 'GPS',fid, plotFlags.fig_num_checkTimeSamplingConsistency_ROSTime);
+[flags,offending_sensor] = fcn_TimeClean_checkTimeSamplingConsistency(dataStructure,'ROS_Time', verificationTypeFlag, flags, 'GPS',fid, plotFlags.figNum_checkTimeSamplingConsistency_ROSTime);
 if 0==flags.ROS_Time_sample_modes_match_centiSeconds_in_GPS_sensors
     return
 end
@@ -735,7 +748,7 @@ end
 %    * Resample the sensor's start / end values
 
 verificationTypeFlag = 2;  % Check length of GPSfromROS_Time against centiSeconds
-[flags,offending_sensor] = fcn_TimeClean_checkTimeSamplingConsistency(dataStructure,'GPSfromROS_Time', verificationTypeFlag, flags, 'GPS',fid, plotFlags.fig_num_checkTimeSamplingConsistency_GPSTime);
+[flags,offending_sensor] = fcn_TimeClean_checkTimeSamplingConsistency(dataStructure,'GPSfromROS_Time', verificationTypeFlag, flags, 'GPS',fid, plotFlags.figNum_checkTimeSamplingConsistency_GPSTime);
 if 0==flags.GPSfromROS_Time_sample_counts_match_centiSeconds_in_GPS_sensors
     return
 end
@@ -758,7 +771,7 @@ end
 %    * Resample the sensor?
 
 verificationTypeFlag = 1; 
-[flags,offending_sensor] = fcn_TimeClean_checkTimeSamplingConsistency(dataStructure,'GPSfromROS_Time', verificationTypeFlag, flags, 'GPS',fid, plotFlags.fig_num_checkTimeSamplingConsistency_GPSTime);
+[flags,offending_sensor] = fcn_TimeClean_checkTimeSamplingConsistency(dataStructure,'GPSfromROS_Time', verificationTypeFlag, flags, 'GPS',fid, plotFlags.figNum_checkTimeSamplingConsistency_GPSTime);
 if 0==flags.GPSfromROS_Time_sampling_matches_centiSeconds_in_GPS_sensors
     return
 end
@@ -779,7 +792,7 @@ end
 %    * Resample the sensor?
 
 verificationTypeFlag = 1; 
-[flags,offending_sensor] = fcn_TimeClean_checkTimeSamplingConsistency(dataStructure,'GPSfromROS_Time', verificationTypeFlag, flags, 'GPS',fid, plotFlags.fig_num_checkTimeSamplingConsistency_GPSTime);
+[flags,offending_sensor] = fcn_TimeClean_checkTimeSamplingConsistency(dataStructure,'GPSfromROS_Time', verificationTypeFlag, flags, 'GPS',fid, plotFlags.figNum_checkTimeSamplingConsistency_GPSTime);
 if 0==flags.GPSfromROS_Time_sampling_matches_centiSeconds_in_GPS_sensors
     return
 else

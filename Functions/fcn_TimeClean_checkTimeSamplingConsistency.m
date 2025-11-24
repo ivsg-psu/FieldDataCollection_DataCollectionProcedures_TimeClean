@@ -9,7 +9,7 @@ function [flags,offending_sensor,return_flag] = fcn_TimeClean_checkTimeSamplingC
 %
 %      [flags,offending_sensor] = fcn_TimeClean_checkTimeSamplingConsistency(...
 %          dataStructure, field_name, verificationTypeFlag, ...
-%          (flags), (sensors_to_check), (fid), (fig_num))
+%          (flags), (sensors_to_check), (fid), (figNum))
 %
 % INPUTS:
 %
@@ -50,7 +50,7 @@ function [flags,offending_sensor,return_flag] = fcn_TimeClean_checkTimeSamplingC
 %      fid: a file ID to print results of analysis. If not entered, no
 %      output is given (FID = 0). Set fid to 1 for printing to console.
 %
-%      fig_num: a figure number to plot results. If set to -1, skips any
+%      figNum: a figure number to plot results. If set to -1, skips any
 %      input checking or debugging, no figures will be generated, and sets
 %      up code to maximize speed.
 %
@@ -76,26 +76,34 @@ function [flags,offending_sensor,return_flag] = fcn_TimeClean_checkTimeSamplingC
 % This function was written on 2023_07_01 by S. Brennan
 % Questions or comments? sbrennan@psu.edu 
 
-% Revision history:
+% REVISION HISTORY:
 %     
-% 2023_07_01: sbrennan@psu.edu
-% -- wrote the code originally 
-% 2024_09_29: sbrennan@psu.edu
-% -- updated top comments
-% -- added debug flag area
-% -- added fig_num input, fixed the plot flag
-% -- fixed warning and errors
-% 2024_11_10: sbrennan@psu.edu
-% -- updated plotting
-% -- updated calculation of consistency to match values where the data
+% 2023_07_01 by Sean Brennan, sbrennan@psu.edu
+% - Wrote the code originally 
+% 
+% 2024_09_29 by Sean Brennan, sbrennan@psu.edu
+% - Updated top comments
+% - Added debug flag area
+% - Added figNum input, fixed the plot flag
+% - Fixed warning and errors
+% 
+% 2024_11_10 by Sean Brennan, sbrennan@psu.edu
+% - Updated plotting
+% - Updated calculation of consistency to match values where the data
 %    would round
-% -- updated debugging outputs
-% -- added verificationTypeFlag
+% - Updated debugging outputs
+% - Added verificationTypeFlag
+
+% TO-DO:
+%
+% 2025_11_24 by Sean Brennan, sbrennan@psu.edu
+% - (insert items here)
+
 
 
 %% Debugging and Input checks
 
-% Check if flag_max_speed set. This occurs if the fig_num variable input
+% Check if flag_max_speed set. This occurs if the figNum variable input
 % argument (varargin) is given a number of -1, which is not a valid figure
 % number.
 flag_max_speed = 0;
@@ -107,11 +115,11 @@ else
     % Check to see if we are externally setting debug mode to be "on"
     flag_do_debug = 0; % % % % Flag to plot the results for debugging
     flag_check_inputs = 1; % Flag to perform input checking
-    MATLABFLAG_DATACLEAN_FLAG_CHECK_INPUTS = getenv("MATLABFLAG_DATACLEAN_FLAG_CHECK_INPUTS");
-    MATLABFLAG_DATACLEAN_FLAG_DO_DEBUG = getenv("MATLABFLAG_DATACLEAN_FLAG_DO_DEBUG");
-    if ~isempty(MATLABFLAG_DATACLEAN_FLAG_CHECK_INPUTS) && ~isempty(MATLABFLAG_DATACLEAN_FLAG_DO_DEBUG)
-        flag_do_debug = str2double(MATLABFLAG_DATACLEAN_FLAG_DO_DEBUG);
-        flag_check_inputs  = str2double(MATLABFLAG_DATACLEAN_FLAG_CHECK_INPUTS);
+    MATLABFLAG_TIMECLEAN_FLAG_CHECK_INPUTS = getenv("MATLABFLAG_TIMECLEAN_FLAG_CHECK_INPUTS");
+    MATLABFLAG_TIMECLEAN_FLAG_DO_DEBUG = getenv("MATLABFLAG_TIMECLEAN_FLAG_DO_DEBUG");
+    if ~isempty(MATLABFLAG_TIMECLEAN_FLAG_CHECK_INPUTS) && ~isempty(MATLABFLAG_TIMECLEAN_FLAG_DO_DEBUG)
+        flag_do_debug = str2double(MATLABFLAG_TIMECLEAN_FLAG_DO_DEBUG);
+        flag_check_inputs  = str2double(MATLABFLAG_TIMECLEAN_FLAG_CHECK_INPUTS);
     end
 end
 
@@ -120,9 +128,9 @@ end
 if flag_do_debug
     st = dbstack; %#ok<*UNRCH>
     fprintf(1,'STARTING function: %s, in file: %s\n',st(1).name,st(1).file);
-    debug_fig_num = 999978; %#ok<NASGU>
+    debug_figNum = 999978; %#ok<NASGU>
 else
-    debug_fig_num = []; %#ok<NASGU>
+    debug_figNum = []; %#ok<NASGU>
 end
 
 %% check input arguments
@@ -190,12 +198,12 @@ if (0==flag_max_speed)
 end
 
 
-% Does user want to specify fig_num?
+% Does user want to specify figNum?
 flag_do_plots = 0;
 if (0==flag_max_speed) &&  (7<=nargin)
     temp = varargin{end};
     if ~isempty(temp)
-        fig_num = temp;
+        figNum = temp;
         flag_do_plots = 1;
     end
 end
@@ -425,14 +433,14 @@ end
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 % Does this need to be plotted, and is figure NOT open already?
-if flag_do_plots && 1==verificationTypeFlag && isempty(findobj('Number',fig_num))
+if flag_do_plots && 1==verificationTypeFlag && isempty(findobj('Number',figNum))
 
-    figure(fig_num);
-    set(fig_num,'WindowState','maximized');
+    figure(figNum);
+    set(figNum,'WindowState','maximized');
 
     
     % check whether the figure already has data
-    % temp_h = figure(fig_num); 
+    % temp_h = figure(figNum); 
     % flag_rescale_axis = 0;
     % if isempty(get(temp_h,'Children'))
     %     flag_rescale_axis = 1;
@@ -530,7 +538,7 @@ if flag_do_plots && 1==verificationTypeFlag && isempty(findobj('Number',fig_num)
         end
 
 
-        fcn_plotRoad_plotLLI([LLdata Idata], (plotFormat), colorMapToUse, (fig_num));
+        fcn_plotRoad_plotLLI([LLdata Idata], (plotFormat), colorMapToUse, (figNum));
 
         % h_legend = legend(legend_entries);
         % set(h_legend,'Interpreter','none','FontSize',6)

@@ -1,17 +1,24 @@
 % script_test_fcn_TimeClean_cleanTime.m
 % tests fcn_TimeClean_cleanTime.m
 
-% Revision history
-% 2024_09_09 - sbrennan@psu.edu
-% -- wrote the code originally
+% REVISION HISTORY:
+% 
+% 2024_09_09 by Sean Brennan, sbrennan@psu.edu
+% - Wrote the code originally
+
+% TO-DO:
+%
+% 2025_11_24 by Sean Brennan, sbrennan@psu.edu
+% - (insert items here)
+
 
 %% Set up the workspace
 close all
 
 %% Test 1: Load and clean a single bag file
-fig_num = 1;
-if ~isempty(findobj('Number',fig_num))
-    figure(fig_num);
+figNum = 1;
+if ~isempty(findobj('Number',figNum))
+    figure(figNum);
     clf;
 end
 
@@ -39,9 +46,9 @@ saveFlags.flag_forceImageOverwrite = 1;
 saveFlags.flag_forceMATfileOverwrite = 1;
 
 % List what will be plotted, and the figure numbers
-plotFlags.fig_num_checkTimeSamplingConsistency_GPSTime = 1111;
-plotFlags.fig_num_checkTimeSamplingConsistency_ROSTime = 2222;
-plotFlags.fig_num_fitROSTime2GPSTime                   = 3333;
+plotFlags.figNum_checkTimeSamplingConsistency_GPSTime = 1111;
+plotFlags.figNum_checkTimeSamplingConsistency_ROSTime = 2222;
+plotFlags.figNum_fitROSTime2GPSTime                   = 3333;
 
 dataStructure_cleanedNames = fcn_TimeClean_cleanNaming(dataStructure, (fid), (Flags), (-1));
 dataStructure_cleanedTime = fcn_TimeClean_cleanTime(dataStructure_cleanedNames, (fid), (Flags), (saveFlags), (plotFlags));
@@ -51,9 +58,9 @@ assert(isstruct(dataStructure_cleanedNames))
 
 
 %% Test 1: Load all bag files from one given directory and all subdirectories
-% fig_num = 1;
-% if ~isempty(findobj('Number',fig_num))
-%     figure(fig_num);
+% figNum = 1;
+% if ~isempty(findobj('Number',figNum))
+%     figure(figNum);
 %     clf;
 % end
 
@@ -85,8 +92,8 @@ saveFlags.flag_forceImageOverwrite = 1;
 saveFlags.flag_forceMATfileOverwrite = 1;
 
 % List what will be plotted, and the figure numbers
-plotFlags.fig_num_checkTimeSamplingConsistency_GPSTime = []; %1111;
-plotFlags.fig_num_checkTimeSamplingConsistency_ROSTime = []; %2222;
+plotFlags.figNum_checkTimeSamplingConsistency_GPSTime = []; %1111;
+plotFlags.figNum_checkTimeSamplingConsistency_ROSTime = []; %2222;
 
 % Call the function
 rawDataCellArray = fcn_LoadRawDataToMATLAB_loadRawDataFromDirectories(rootdirs, Identifiers, (bagQueryString), (fid), (Flags), (saveFlags), (plotFlags));

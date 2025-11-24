@@ -1,11 +1,19 @@
 % script_test_fcn_TimeClean_convertROSTimeToSeconds.m
 % tests fcn_TimeClean_convertROSTimeToSeconds.m
 
-% Revision history
-% 2023_07_01 - sbrennan@psu.edu
-% -- wrote the code originally
-% 2024_09_27 - sbrennan@psu.edu
-% -- cleaned up script for automated testing
+% REVISION HISTORY
+% 
+% 2023_07_01 by Sean Brennan, sbrennan@psu.edu
+% - Wrote the code originally
+% 
+% 2024_09_27 by Sean Brennan, sbrennan@psu.edu
+% - cleaned up script for automated testing
+
+% TO-DO:
+%
+% 2025_11_24 by Sean Brennan, sbrennan@psu.edu
+% - (insert items here)
+
 
 %% Set up the workspace
 close all

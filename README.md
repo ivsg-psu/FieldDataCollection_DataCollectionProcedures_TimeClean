@@ -1,5 +1,4 @@
-
-# FeatureExtraction_DataClean_BreakDataIntoLaps
+# FieldDataCollection_DataCollectionProcedures_TimeClean
 
 <!--
 The following template is based on:
@@ -13,13 +12,13 @@ Search for this, and you will find!
     <img src="images/logo.png" alt="Logo" width="80" height="80">
   </a> -->
 
-  <h2 align="center"> FeatureExtraction_DataClean_BreakDataIntoLaps
+  <h2 align="center"> FieldDataCollection_DataCollectionProcedures_TimeClean
   </h2>
 
   <pre align="center">
-    <img src=".\Images\RaceTrack.jpg" alt="main laps picture" width="960" height="540">
+    <img src=".\Images\FieldDataCollection_DataCollectionProcedures_TimeClean.jpg" alt="main FieldDataCollection_DataCollectionProcedures_TimeClean picture" width="960" height="540">
     <!--figcaption>Fig.1 - The typical progression of map generation.</figcaption -->
-    <!--font size="-2">Photo by <a href="https://unsplash.com/ko/@samuelchenard?utm_source=unsplash&utm_medium=referral&utm_content=creditCopyText">Samuel Chenard</a> on <a href="https://unsplash.com/photos/Bdc8uzY9EPw?utm_source=unsplash&utm_medium=referral&utm_content=creditCopyText">Unsplash</a></font -->
+    <font size="-2">Photo by <a href="https://unsplash.com/@aronvisuals?utm_source=unsplash&utm_medium=referral&utm_content=creditCopyText">Aron Visuals</a> on <a href="https://unsplash.com/photos/selective-focus-photo-of-brown-and-blue-hourglass-on-stones-BXOXnQ26B7o?utm_source=unsplash&utm_medium=referral&utm_content=creditCopyText">Unsplash</a></font>
 </pre>
 
   <p align="center">
@@ -118,7 +117,7 @@ To get a local copy up and running follow these simple steps.
 2. Clone the repo
 
    ```sh
-   git clone https://github.com/ivsg-psu/FeatureExtraction_DataClean_BreakDataIntoLaps
+   git clone https://github.com/ivsg-psu/FieldDataCollection_DataCollectionProcedures_TimeClean
    ```
 
 3. Run the main code in the root of the folder (script_demo_Laps.m), this will download the required utilities for this code, unzip the zip files into a Utilities folder (.\Utilities), and update the MATLAB path to include the Utility locations. This install process will only occur the first time. Note: to force the install to occur again, delete the Utilities directory and clear all global variables in MATLAB (type: "clear global *").
@@ -394,7 +393,7 @@ This code is still in development (alpha testing)
 
 Sean Brennan - sbrennan@psu.edu
 
-Project Link: [hhttps://github.com/ivsg-psu/FeatureExtraction_DataClean_BreakDataIntoLaps](https://github.com/ivsg-psu/FeatureExtraction_DataClean_BreakDataIntoLaps)
+Project Link: [hhttps://github.com/ivsg-psu/FieldDataCollection_DataCollectionProcedures_TimeClean](https://github.com/ivsg-psu/FieldDataCollection_DataCollectionProcedures_TimeClean)
 
 <a href="#featureextraction_dataclean_breakdataintolaps">Back to top</a>
 

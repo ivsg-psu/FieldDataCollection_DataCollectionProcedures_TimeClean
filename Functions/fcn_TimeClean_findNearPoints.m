@@ -3,7 +3,7 @@ function [nearbyIndicies, Nnearby] = fcn_TimeClean_findNearPoints(ENU_data, sear
 %
 % FORMAT:
 %
-%       nearbyIndicies = fcn_TimeClean_findNearPoints(fcn_TimeClean_findNearPoints, searchRadiusAndAngles, (fig_num))
+%       nearbyIndicies = fcn_TimeClean_findNearPoints(fcn_TimeClean_findNearPoints, searchRadiusAndAngles, (figNum))
 %
 % INPUTS:
 %
@@ -20,7 +20,7 @@ function [nearbyIndicies, Nnearby] = fcn_TimeClean_findNearPoints(ENU_data, sear
 %
 %      (OPTIONAL INPUTS)
 %
-%      fig_num: a figure number to plot results. If set to -1, skips any
+%      figNum: a figure number to plot results. If set to -1, skips any
 %      input checking or debugging, no figures will be generated, and sets
 %      up code to maximize speed.
 %
@@ -48,14 +48,29 @@ function [nearbyIndicies, Nnearby] = fcn_TimeClean_findNearPoints(ENU_data, sear
 % Questions or comments? sbrennan@psu.edu
 
 % Revision History
+
+% REVISION HISTORY:
+%
 % 2024_10_27 by S. Brennan, sbrennan@psu.edu
-% -- started function by modifying fcn _ DataClean _ findNearPoints
+% - started function by modifying fcn _ DataClean _ findNearPoints
+%
+% 2025_11_24 by Sean Brennan, sbrennan@psu.edu
+% - Added rev history
+% - Added TO+_DO list
+
+% TO-DO:
+%
+% 2025_11_24 by Sean Brennan, sbrennan@psu.edu
+% - (insert items here)
+
+
 
 %% Debugging and Input checks
 
-% Check if flag_max_speed set. This occurs if the fig_num variable input
+% Check if flag_max_speed set. This occurs if the figNum variable input
 % argument (varargin) is given a number of -1, which is not a valid figure
 % number.
+MAX_NARGIN = 3; % The largest Number of argument inputs to the function
 flag_max_speed = 0;
 if (nargin==3 && isequal(varargin{end},-1))
     flag_do_debug = 0; % % % % Flag to plot the results for debugging
@@ -65,11 +80,11 @@ else
     % Check to see if we are externally setting debug mode to be "on"
     flag_do_debug = 0; % % % % Flag to plot the results for debugging
     flag_check_inputs = 1; % Flag to perform input checking
-    MATLABFLAG_PLOTCV2X_FLAG_CHECK_INPUTS = getenv("MATLABFLAG_PLOTCV2X_FLAG_CHECK_INPUTS");
-    MATLABFLAG_PLOTCV2X_FLAG_DO_DEBUG = getenv("MATLABFLAG_PLOTCV2X_FLAG_DO_DEBUG");
-    if ~isempty(MATLABFLAG_PLOTCV2X_FLAG_CHECK_INPUTS) && ~isempty(MATLABFLAG_PLOTCV2X_FLAG_DO_DEBUG)
-        flag_do_debug = str2double(MATLABFLAG_PLOTCV2X_FLAG_DO_DEBUG);
-        flag_check_inputs  = str2double(MATLABFLAG_PLOTCV2X_FLAG_CHECK_INPUTS);
+    MATLABFLAG_TIMECLEAN_FLAG_CHECK_INPUTS = getenv("MATLABFLAG_TIMECLEAN_FLAG_CHECK_INPUTS");
+    MATLABFLAG_TIMECLEAN_FLAG_DO_DEBUG = getenv("MATLABFLAG_TIMECLEAN_FLAG_DO_DEBUG");
+    if ~isempty(MATLABFLAG_TIMECLEAN_FLAG_CHECK_INPUTS) && ~isempty(MATLABFLAG_TIMECLEAN_FLAG_DO_DEBUG)
+        flag_do_debug = str2double(MATLABFLAG_TIMECLEAN_FLAG_DO_DEBUG);
+        flag_check_inputs  = str2double(MATLABFLAG_TIMECLEAN_FLAG_CHECK_INPUTS);
     end
 end
 
@@ -78,9 +93,9 @@ end
 if flag_do_debug
     st = dbstack; %#ok<*UNRCH>
     fprintf(1,'STARTING function: %s, in file: %s\n',st(1).name,st(1).file);
-    debug_fig_num = 999978; %#ok<NASGU>
+    debug_figNum = 999978; %#ok<NASGU>
 else
-    debug_fig_num = []; %#ok<NASGU>
+    debug_figNum = []; %#ok<NASGU>
 end
 
 %% check input arguments
@@ -99,18 +114,18 @@ end
 if 0 == flag_max_speed
     if flag_check_inputs == 1
         % Are there the right number of inputs?
-        narginchk(2,3);
+        narginchk(2,MAX_NARGIN);
 
     end
 end
 
-% Does user want to specify fig_num?
+% Does user want to specify figNum?
 flag_do_plots = 0;
-fig_num = []; % Initialize the figure number to be empty
-if (0==flag_max_speed) && (3 <= nargin)
+figNum = []; % Initialize the figure number to be empty
+if (0==flag_max_speed) && (MAX_NARGIN == nargin)
     temp = varargin{end};
     if ~isempty(temp)
-        fig_num = temp;
+        figNum = temp;
         flag_do_plots = 1;
     end
 end
@@ -194,7 +209,7 @@ end
 % animation if the user has entered a name for the mov file
 if flag_do_plots == 1
 
-    figure(fig_num);
+    figure(figNum);
 
     % Pick a random value to plot
     randomIndex = round(rand*(Ndata-1))+1;
@@ -228,22 +243,22 @@ if flag_do_plots == 1
     pointsInside.LineWidth = 1;
 
     % Plot the input data
-    fcn_plotRoad_plotXY((ENU_data(:,1:2)), (plotFormat), (fig_num));
+    fcn_plotRoad_plotXY((ENU_data(:,1:2)), (plotFormat), (figNum));
 
     % Plot the test point
-    h1 = fcn_plotRoad_plotXY((ENU_data(ith_point,1:2)), (testPointFormat), (fig_num));
+    h1 = fcn_plotRoad_plotXY((ENU_data(ith_point,1:2)), (testPointFormat), (figNum));
 
     % Plot the bounding circle
     Nangles = 45;
     theta = linspace(0, 2*pi, Nangles)'; 
     CircleXData = ones(Nangles,1)*ENU_data(ith_point,1) + searchRadius*cos(theta);
     CircleYData = ones(Nangles,1)*ENU_data(ith_point,2) + searchRadius*sin(theta);
-    h2 = fcn_plotRoad_plotXY([CircleXData CircleYData], (circleFormat), (fig_num));
+    h2 = fcn_plotRoad_plotXY([CircleXData CircleYData], (circleFormat), (figNum));
 
     % Plot the points inside the bounding circle
     indicesNearby = nearbyIndicies{ith_point};
     if ~isempty(indicesNearby)
-        h3 = fcn_plotRoad_plotXY((ENU_data(indicesNearby,1:2)), (pointsInside), (fig_num));
+        h3 = fcn_plotRoad_plotXY((ENU_data(indicesNearby,1:2)), (pointsInside), (figNum));
     end
 
 

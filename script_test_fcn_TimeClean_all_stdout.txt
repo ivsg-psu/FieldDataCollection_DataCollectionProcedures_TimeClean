@@ -1,0 +1,2122 @@
+<strong>Checking root folder:
+	C:\Users\snb10\Desktop\GitHubRepos\IVSG\FieldDataCollection\DataCollectionProcedures\TimeClean\Functions:
+</strong><strong></strong><strong>	Checking that there is 1 m-file in root folder: </strong><strong>PASSED.
+</strong><strong>	Checking that there is a demo file, script_demo_TimeClean.m: </strong><strong>PASSED.
+</strong><strong>	Checking that there is a README.md file: </strong><strong>PASSED.
+</strong><strong>	Checking that there is a Functions subfolder: </strong><strong>PASSED.
+</strong><strong>	Checking that there is a Data subfolder: </strong><strong>PASSED.
+</strong><strong>	Checking that there is a Documents subfolder: </strong><strong>PASSED.
+</strong><strong>	Checking that there is a Installer subfolder: </strong><strong>PASSED.
+</strong><strong>	Checking that there is a Images subfolder: </strong><strong>PASSED.
+</strong><strong>Checking main demo file:
+	script_demo_TimeClean.m:
+</strong><strong>	Checking that main demo contains required strings: </strong><strong>	Checking that it contains "REVISION HISTORY": </strong><strong>PASSED.
+</strong><strong>	Checking that it contains "TO-DO": </strong><strong>PASSED.
+</strong><strong>	Checking that it contains "MATLABFLAG_TIMECLEAN_FLAG_CHECK_INPUTS": </strong><strong>FAILED.
+</strong><strong>	Checking that it contains "MATLABFLAG_TIMECLEAN_FLAG_DO_DEBUG": </strong><strong>FAILED.
+</strong><strong>	Checking that it contains "fcn_DebugTools_autoInstallRepos": </strong><strong>PASSED.
+</strong><strong>Checking functions folder:
+	C:\Users\snb10\Desktop\GitHubRepos\IVSG\FieldDataCollection\DataCollectionProcedures\TimeClean\Functions:
+</strong><strong>	Checking that functions folder contains no forbidden strings: </strong><strong>PASSED.
+</strong><strong>	Checking that functions folder contains no warning strings: </strong><strong>FAILED.
+</strong>
+
+		m-filename                                                         	string found?	
+Folder: C:\Users\snb10\Desktop\GitHubRepos\IVSG\FieldDataCollection\DataCollectionProcedures\TimeClean\Functions:
+	1	fcn_DataClean_cleanTime_OLD.m                                      	1            	
+	2	fcn_TimeClean_checkConsistencyOfStartEnd.m                         	1            	
+	3	fcn_TimeClean_checkDataStrictlyIncreasing.m                        	1            	
+	4	fcn_TimeClean_checkDataTimeConsistency.m                           	1            	
+	5	fcn_TimeClean_checkFieldCountMatchesTimeCount.m                    	1            	
+	6	fcn_TimeClean_checkFieldDifferencesForJumps.m                      	1            	
+	7	fcn_TimeClean_checkFieldDifferencesForMissings.m                   	1            	
+	8	fcn_TimeClean_checkIfFieldHasRepeatedValues.m                      	1            	
+	9	fcn_TimeClean_checkIfFieldInSensors.m                              	1            	
+	10	fcn_TimeClean_checkTimeRoundsCorrectly.m                           	1            	
+	11	fcn_TimeClean_checkTimeSamplingConsistency.m                       	1            	
+	12	fcn_TimeClean_cleanNaming.m                                        	1            	
+	13	fcn_TimeClean_cleanTime.m                                          	1            	
+	14	fcn_TimeClean_convertROSTimeToSeconds.m                            	1            	
+	15	fcn_TimeClean_correctTimeZoneErrorsInGPSTime.m                     	0            	
+	16	fcn_TimeClean_fillGPSTimeFromROSTime.m                             	1            	
+	17	fcn_TimeClean_fillMissingsInGPSUnits.m                             	1            	
+	18	fcn_TimeClean_findNearPoints.m                                     	1            	
+	19	fcn_TimeClean_fitROSTime2GPSTime.m                                 	1            	
+	20	fcn_TimeClean_predictGPSTimeFromROSTime.m                          	1            	
+	21	fcn_TimeClean_sortSensorDataByGPSTime.m                            	1            	
+	22	fcn_TimeClean_trimRepeatsFromField.m                               	1            	
+	23	script_test_all_functions.m                                        	0            	
+	24	script_test_fcn_DataClean_cleanTime.m                              	1            	
+	25	script_test_fcn_TimeClean_checkConsistencyOfStartEnd.m             	1            	
+	26	script_test_fcn_TimeClean_checkDataStrictlyIncreasing.m            	1            	
+	27	script_test_fcn_TimeClean_checkDataTimeConsistency.m               	1            	
+	28	script_test_fcn_TimeClean_checkFieldCountMatchesTimeCount.m        	0            	
+	29	script_test_fcn_TimeClean_checkFieldDifferencesForJumps.m          	0            	
+	30	script_test_fcn_TimeClean_checkFieldDifferencesForMissings.m       	0            	
+	31	script_test_fcn_TimeClean_checkIfFieldHasRepeatedValues.m          	1            	
+	32	script_test_fcn_TimeClean_checkIfFieldInSensors.m                  	0            	
+	33	script_test_fcn_TimeClean_checkTimeRoundsCorrectly.m               	0            	
+	34	script_test_fcn_TimeClean_checkTimeSamplingConsistency.m           	1            	
+	35	script_test_fcn_TimeClean_cleanNaming.m                            	1            	
+	36	script_test_fcn_TimeClean_cleanTime.m                              	1            	
+	37	script_test_fcn_TimeClean_convertROSTimeToSeconds.m                	0            	
+	38	script_test_fcn_TimeClean_correctTimeZoneErrorsInGPSTime.m         	0            	
+	39	script_test_fcn_TimeClean_fillGPSTimeFromROSTime.m                 	1            	
+	40	script_test_fcn_TimeClean_fillMissingsInGPSUnits.m                 	1            	
+	41	script_test_fcn_TimeClean_findNearPoints.m                         	1            	
+	42	script_test_fcn_TimeClean_fitROSTime2GPSTime.m                     	1            	
+	43	script_test_fcn_TimeClean_predictGPSTimeFromROSTime.m              	1            	
+	44	script_test_fcn_TimeClean_sortSensorDataByGPSTime.m                	0            	
+	45	script_test_fcn_TimeClean_trimRepeatsFromField.m                   	0            	
+[Warning: A "fig_num" string was found in one of the functions or scripts - see listing
+above. This should be fixed to maintain compatibilty.] 
+[> In <a href="matlab:matlab.lang.internal.introspective.errorDocCallback('script_test_all_functions', 'C:\Users\snb10\Desktop\GitHubRepos\IVSG\FieldDataCollection\DataCollectionProcedures\TimeClean\Functions\script_test_all_functions.m', 221)" style="font-weight:bold">script_test_all_functions</a> (<a href="matlab: opentoline('C:\Users\snb10\Desktop\GitHubRepos\IVSG\FieldDataCollection\DataCollectionProcedures\TimeClean\Functions\script_test_all_functions.m',221,0)">line 221</a>)] 
+<strong>FAILED.
+</strong>
+
+		m-filename                                                         	string found?	
+Folder: C:\Users\snb10\Desktop\GitHubRepos\IVSG\FieldDataCollection\DataCollectionProcedures\TimeClean\Functions:
+	1	fcn_DataClean_cleanTime_OLD.m                                      	1            	
+	2	fcn_TimeClean_checkConsistencyOfStartEnd.m                         	1            	
+	3	fcn_TimeClean_checkDataStrictlyIncreasing.m                        	1            	
+	4	fcn_TimeClean_checkDataTimeConsistency.m                           	1            	
+	5	fcn_TimeClean_checkFieldCountMatchesTimeCount.m                    	1            	
+	6	fcn_TimeClean_checkFieldDifferencesForJumps.m                      	1            	
+	7	fcn_TimeClean_checkFieldDifferencesForMissings.m                   	1            	
+	8	fcn_TimeClean_checkIfFieldHasRepeatedValues.m                      	1            	
+	9	fcn_TimeClean_checkIfFieldInSensors.m                              	1            	
+	10	fcn_TimeClean_checkTimeRoundsCorrectly.m                           	1            	
+	11	fcn_TimeClean_checkTimeSamplingConsistency.m                       	1            	
+	12	fcn_TimeClean_cleanNaming.m                                        	1            	
+	13	fcn_TimeClean_cleanTime.m                                          	1            	
+	14	fcn_TimeClean_convertROSTimeToSeconds.m                            	1            	
+	15	fcn_TimeClean_correctTimeZoneErrorsInGPSTime.m                     	1            	
+	16	fcn_TimeClean_fillGPSTimeFromROSTime.m                             	1            	
+	17	fcn_TimeClean_fillMissingsInGPSUnits.m                             	1            	
+	18	fcn_TimeClean_findNearPoints.m                                     	1            	
+	19	fcn_TimeClean_fitROSTime2GPSTime.m                                 	1            	
+	20	fcn_TimeClean_predictGPSTimeFromROSTime.m                          	1            	
+	21	fcn_TimeClean_sortSensorDataByGPSTime.m                            	1            	
+	22	fcn_TimeClean_trimRepeatsFromField.m                               	1            	
+	23	script_test_all_functions.m                                        	0            	
+	24	script_test_fcn_DataClean_cleanTime.m                              	1            	
+	25	script_test_fcn_TimeClean_checkConsistencyOfStartEnd.m             	1            	
+	26	script_test_fcn_TimeClean_checkDataStrictlyIncreasing.m            	1            	
+	27	script_test_fcn_TimeClean_checkDataTimeConsistency.m               	1            	
+	28	script_test_fcn_TimeClean_checkFieldCountMatchesTimeCount.m        	1            	
+	29	script_test_fcn_TimeClean_checkFieldDifferencesForJumps.m          	1            	
+	30	script_test_fcn_TimeClean_checkFieldDifferencesForMissings.m       	1            	
+	31	script_test_fcn_TimeClean_checkIfFieldHasRepeatedValues.m          	1            	
+	32	script_test_fcn_TimeClean_checkIfFieldInSensors.m                  	1            	
+	33	script_test_fcn_TimeClean_checkTimeRoundsCorrectly.m               	1            	
+	34	script_test_fcn_TimeClean_checkTimeSamplingConsistency.m           	1            	
+	35	script_test_fcn_TimeClean_cleanNaming.m                            	1            	
+	36	script_test_fcn_TimeClean_cleanTime.m                              	1            	
+	37	script_test_fcn_TimeClean_convertROSTimeToSeconds.m                	1            	
+	38	script_test_fcn_TimeClean_correctTimeZoneErrorsInGPSTime.m         	1            	
+	39	script_test_fcn_TimeClean_fillGPSTimeFromROSTime.m                 	1            	
+	40	script_test_fcn_TimeClean_fillMissingsInGPSUnits.m                 	1            	
+	41	script_test_fcn_TimeClean_findNearPoints.m                         	0            	
+	42	script_test_fcn_TimeClean_fitROSTime2GPSTime.m                     	1            	
+	43	script_test_fcn_TimeClean_predictGPSTimeFromROSTime.m              	1            	
+	44	script_test_fcn_TimeClean_sortSensorDataByGPSTime.m                	1            	
+	45	script_test_fcn_TimeClean_trimRepeatsFromField.m                   	1            	
+[Warning: A "% --" string was found in one of the functions or scripts - see listing above.
+This should be fixed to maintain compatibilty.] 
+[> In <a href="matlab:matlab.lang.internal.introspective.errorDocCallback('script_test_all_functions', 'C:\Users\snb10\Desktop\GitHubRepos\IVSG\FieldDataCollection\DataCollectionProcedures\TimeClean\Functions\script_test_all_functions.m', 221)" style="font-weight:bold">script_test_all_functions</a> (<a href="matlab: opentoline('C:\Users\snb10\Desktop\GitHubRepos\IVSG\FieldDataCollection\DataCollectionProcedures\TimeClean\Functions\script_test_all_functions.m',221,0)">line 221</a>)] 
+<strong>	Checking that all files in functions folder contains required strings: </strong><strong>FAILED.
+</strong>
+
+		m-filename                                                         	string found?	
+Folder: C:\Users\snb10\Desktop\GitHubRepos\IVSG\FieldDataCollection\DataCollectionProcedures\TimeClean\Functions:
+	1	fcn_DataClean_cleanTime_OLD.m                                      	0            	
+	2	fcn_TimeClean_checkConsistencyOfStartEnd.m                         	0            	
+	3	fcn_TimeClean_checkDataStrictlyIncreasing.m                        	0            	
+	4	fcn_TimeClean_checkDataTimeConsistency.m                           	0            	
+	5	fcn_TimeClean_checkFieldCountMatchesTimeCount.m                    	0            	
+	6	fcn_TimeClean_checkFieldDifferencesForJumps.m                      	0            	
+	7	fcn_TimeClean_checkFieldDifferencesForMissings.m                   	0            	
+	8	fcn_TimeClean_checkIfFieldHasRepeatedValues.m                      	0            	
+	9	fcn_TimeClean_checkIfFieldInSensors.m                              	0            	
+	10	fcn_TimeClean_checkTimeRoundsCorrectly.m                           	0            	
+	11	fcn_TimeClean_checkTimeSamplingConsistency.m                       	0            	
+	12	fcn_TimeClean_cleanNaming.m                                        	0            	
+	13	fcn_TimeClean_cleanTime.m                                          	0            	
+	14	fcn_TimeClean_convertROSTimeToSeconds.m                            	0            	
+	15	fcn_TimeClean_correctTimeZoneErrorsInGPSTime.m                     	0            	
+	16	fcn_TimeClean_fillGPSTimeFromROSTime.m                             	0            	
+	17	fcn_TimeClean_fillMissingsInGPSUnits.m                             	0            	
+	18	fcn_TimeClean_findNearPoints.m                                     	0            	
+	19	fcn_TimeClean_fitROSTime2GPSTime.m                                 	0            	
+	20	fcn_TimeClean_predictGPSTimeFromROSTime.m                          	0            	
+	21	fcn_TimeClean_sortSensorDataByGPSTime.m                            	0            	
+	22	fcn_TimeClean_trimRepeatsFromField.m                               	0            	
+	23	script_test_all_functions.m                                        	1            	
+	24	script_test_fcn_DataClean_cleanTime.m                              	0            	
+	25	script_test_fcn_TimeClean_checkConsistencyOfStartEnd.m             	0            	
+	26	script_test_fcn_TimeClean_checkDataStrictlyIncreasing.m            	0            	
+	27	script_test_fcn_TimeClean_checkDataTimeConsistency.m               	0            	
+	28	script_test_fcn_TimeClean_checkFieldCountMatchesTimeCount.m        	0            	
+	29	script_test_fcn_TimeClean_checkFieldDifferencesForJumps.m          	0            	
+	30	script_test_fcn_TimeClean_checkFieldDifferencesForMissings.m       	0            	
+	31	script_test_fcn_TimeClean_checkIfFieldHasRepeatedValues.m          	0            	
+	32	script_test_fcn_TimeClean_checkIfFieldInSensors.m                  	0            	
+	33	script_test_fcn_TimeClean_checkTimeRoundsCorrectly.m               	0            	
+	34	script_test_fcn_TimeClean_checkTimeSamplingConsistency.m           	0            	
+	35	script_test_fcn_TimeClean_cleanNaming.m                            	0            	
+	36	script_test_fcn_TimeClean_cleanTime.m                              	0            	
+	37	script_test_fcn_TimeClean_convertROSTimeToSeconds.m                	0            	
+	38	script_test_fcn_TimeClean_correctTimeZoneErrorsInGPSTime.m         	0            	
+	39	script_test_fcn_TimeClean_fillGPSTimeFromROSTime.m                 	0            	
+	40	script_test_fcn_TimeClean_fillMissingsInGPSUnits.m                 	0            	
+	41	script_test_fcn_TimeClean_findNearPoints.m                         	0            	
+	42	script_test_fcn_TimeClean_fitROSTime2GPSTime.m                     	0            	
+	43	script_test_fcn_TimeClean_predictGPSTimeFromROSTime.m              	0            	
+	44	script_test_fcn_TimeClean_sortSensorDataByGPSTime.m                	0            	
+	45	script_test_fcn_TimeClean_trimRepeatsFromField.m                   	0            	
+{Error using <a href="matlab:matlab.lang.internal.introspective.errorDocCallback('script_test_all_functions', 'C:\Users\snb10\Desktop\GitHubRepos\IVSG\FieldDataCollection\DataCollectionProcedures\TimeClean\Functions\script_test_all_functions.m', 247)" style="font-weight:bold">script_test_all_functions</a> (<a href="matlab: opentoline('C:\Users\snb10\Desktop\GitHubRepos\IVSG\FieldDataCollection\DataCollectionProcedures\TimeClean\Functions\script_test_all_functions.m',247,0)">line 247</a>)
+A "REVISION HISTORY" required string was NOT found in one of the functions or scripts -
+see listing above. This should be fixed to maintain compatibilty.} 
+if system_dependent('IsDebugMode')==1, dbcont; end
+<strong>Searching and Replacing common naming errors in folder:
+	C:\Users\snb10\Desktop\GitHubRepos\IVSG\FieldDataCollection\DataCollectionProcedures\TimeClean\Functions
+</strong><strong>	Checking for string: % - wrote and replacing with % - Wrote: </strong><strong>PASSED.
+</strong>if system_dependent('IsDebugMode')==1, dbcont; end
+<strong>	Checking for string: % - added and replacing with % - Added: </strong><strong>PASSED.
+</strong>if system_dependent('IsDebugMode')==1, dbcont; end
+<strong>	Checking for string: % - removed and replacing with % - Removed: </strong><strong>PASSED.
+</strong>if system_dependent('IsDebugMode')==1, dbcont; end
+<strong>	Checking for string: % - updated and replacing with % - Updated: </strong><strong>PASSED.
+</strong>if system_dependent('IsDebugMode')==1, dbcont; end
+<strong>	Checking for string: % - renamed and replacing with % - Renamed: </strong><strong>FAILED.
+</strong>
+
+		m-filename                                                         	string found?	
+Folder: C:\Users\snb10\Desktop\GitHubRepos\IVSG\FieldDataCollection\DataCollectionProcedures\TimeClean\Functions:
+	1	fcn_DataClean_cleanTime_OLD.m                                      	0            	
+	2	fcn_TimeClean_checkConsistencyOfStartEnd.m                         	0            	
+	3	fcn_TimeClean_checkDataStrictlyIncreasing.m                        	0            	
+	4	fcn_TimeClean_checkDataTimeConsistency.m                           	0            	
+	5	fcn_TimeClean_checkFieldCountMatchesTimeCount.m                    	0            	
+	6	fcn_TimeClean_checkFieldDifferencesForJumps.m                      	0            	
+	7	fcn_TimeClean_checkFieldDifferencesForMissings.m                   	0            	
+	8	fcn_TimeClean_checkIfFieldHasRepeatedValues.m                      	0            	
+	9	fcn_TimeClean_checkIfFieldInSensors.m                              	0            	
+	10	fcn_TimeClean_checkTimeRoundsCorrectly.m                           	0            	
+	11	fcn_TimeClean_checkTimeSamplingConsistency.m                       	0            	
+	12	fcn_TimeClean_cleanNaming.m                                        	1            	
+	13	fcn_TimeClean_cleanTime.m                                          	0            	
+	14	fcn_TimeClean_convertROSTimeToSeconds.m                            	0            	
+	15	fcn_TimeClean_correctTimeZoneErrorsInGPSTime.m                     	0            	
+	16	fcn_TimeClean_fillGPSTimeFromROSTime.m                             	0            	
+	17	fcn_TimeClean_fillMissingsInGPSUnits.m                             	0            	
+	18	fcn_TimeClean_findNearPoints.m                                     	0            	
+	19	fcn_TimeClean_fitROSTime2GPSTime.m                                 	0            	
+	20	fcn_TimeClean_predictGPSTimeFromROSTime.m                          	0            	
+	21	fcn_TimeClean_sortSensorDataByGPSTime.m                            	0            	
+	22	fcn_TimeClean_trimRepeatsFromField.m                               	0            	
+	23	script_test_all_functions.m                                        	0            	
+	24	script_test_fcn_DataClean_cleanTime.m                              	0            	
+	25	script_test_fcn_TimeClean_checkConsistencyOfStartEnd.m             	0            	
+	26	script_test_fcn_TimeClean_checkDataStrictlyIncreasing.m            	0            	
+	27	script_test_fcn_TimeClean_checkDataTimeConsistency.m               	0            	
+	28	script_test_fcn_TimeClean_checkFieldCountMatchesTimeCount.m        	0            	
+	29	script_test_fcn_TimeClean_checkFieldDifferencesForJumps.m          	0            	
+	30	script_test_fcn_TimeClean_checkFieldDifferencesForMissings.m       	0            	
+	31	script_test_fcn_TimeClean_checkIfFieldHasRepeatedValues.m          	0            	
+	32	script_test_fcn_TimeClean_checkIfFieldInSensors.m                  	0            	
+	33	script_test_fcn_TimeClean_checkTimeRoundsCorrectly.m               	0            	
+	34	script_test_fcn_TimeClean_checkTimeSamplingConsistency.m           	0            	
+	35	script_test_fcn_TimeClean_cleanNaming.m                            	1            	
+	36	script_test_fcn_TimeClean_cleanTime.m                              	0            	
+	37	script_test_fcn_TimeClean_convertROSTimeToSeconds.m                	0            	
+	38	script_test_fcn_TimeClean_correctTimeZoneErrorsInGPSTime.m         	0            	
+	39	script_test_fcn_TimeClean_fillGPSTimeFromROSTime.m                 	0            	
+	40	script_test_fcn_TimeClean_fillMissingsInGPSUnits.m                 	0            	
+	41	script_test_fcn_TimeClean_findNearPoints.m                         	0            	
+	42	script_test_fcn_TimeClean_fitROSTime2GPSTime.m                     	0            	
+	43	script_test_fcn_TimeClean_predictGPSTimeFromROSTime.m              	0            	
+	44	script_test_fcn_TimeClean_sortSensorDataByGPSTime.m                	0            	
+	45	script_test_fcn_TimeClean_trimRepeatsFromField.m                   	0            	
+[Warning: A "% - renamed" was found in one of the functions - see listing above.] 
+<strong>
+	INITIATING REPLACEMENT of % - renamed with % - Renamed.
+</strong>Changed 0 instances, skipped 0 comments in fcn_DataClean_cleanTime_OLD.m
+Changed 0 instances, skipped 0 comments in fcn_TimeClean_checkConsistencyOfStartEnd.m
+Changed 0 instances, skipped 0 comments in fcn_TimeClean_checkDataStrictlyIncreasing.m
+Changed 0 instances, skipped 0 comments in fcn_TimeClean_checkDataTimeConsistency.m
+Changed 0 instances, skipped 0 comments in fcn_TimeClean_checkFieldCountMatchesTimeCount.m
+Changed 0 instances, skipped 0 comments in fcn_TimeClean_checkFieldDifferencesForJumps.m
+Changed 0 instances, skipped 0 comments in fcn_TimeClean_checkFieldDifferencesForMissings.m
+Changed 0 instances, skipped 0 comments in fcn_TimeClean_checkIfFieldHasRepeatedValues.m
+Changed 0 instances, skipped 0 comments in fcn_TimeClean_checkIfFieldInSensors.m
+Changed 0 instances, skipped 0 comments in fcn_TimeClean_checkTimeRoundsCorrectly.m
+Changed 0 instances, skipped 0 comments in fcn_TimeClean_checkTimeSamplingConsistency.m
+Changed 1 instances, skipped 0 comments in fcn_TimeClean_cleanNaming.m
+Changed 0 instances, skipped 0 comments in fcn_TimeClean_cleanTime.m
+Changed 0 instances, skipped 0 comments in fcn_TimeClean_convertROSTimeToSeconds.m
+Changed 0 instances, skipped 0 comments in fcn_TimeClean_correctTimeZoneErrorsInGPSTime.m
+Changed 0 instances, skipped 0 comments in fcn_TimeClean_fillGPSTimeFromROSTime.m
+Changed 0 instances, skipped 0 comments in fcn_TimeClean_fillMissingsInGPSUnits.m
+Changed 0 instances, skipped 0 comments in fcn_TimeClean_findNearPoints.m
+Changed 0 instances, skipped 0 comments in fcn_TimeClean_fitROSTime2GPSTime.m
+Changed 0 instances, skipped 0 comments in fcn_TimeClean_predictGPSTimeFromROSTime.m
+Changed 0 instances, skipped 0 comments in fcn_TimeClean_sortSensorDataByGPSTime.m
+Changed 0 instances, skipped 0 comments in fcn_TimeClean_trimRepeatsFromField.m
+Changed 0 instances, skipped 0 comments in script_test_fcn_DataClean_cleanTime.m
+Changed 0 instances, skipped 0 comments in script_test_fcn_TimeClean_checkConsistencyOfStartEnd.m
+Changed 0 instances, skipped 0 comments in script_test_fcn_TimeClean_checkDataStrictlyIncreasing.m
+Changed 0 instances, skipped 0 comments in script_test_fcn_TimeClean_checkDataTimeConsistency.m
+Changed 0 instances, skipped 0 comments in script_test_fcn_TimeClean_checkFieldCountMatchesTimeCount.m
+Changed 0 instances, skipped 0 comments in script_test_fcn_TimeClean_checkFieldDifferencesForJumps.m
+Changed 0 instances, skipped 0 comments in script_test_fcn_TimeClean_checkFieldDifferencesForMissings.m
+Changed 0 instances, skipped 0 comments in script_test_fcn_TimeClean_checkIfFieldHasRepeatedValues.m
+Changed 0 instances, skipped 0 comments in script_test_fcn_TimeClean_checkIfFieldInSensors.m
+Changed 0 instances, skipped 0 comments in script_test_fcn_TimeClean_checkTimeRoundsCorrectly.m
+Changed 0 instances, skipped 0 comments in script_test_fcn_TimeClean_checkTimeSamplingConsistency.m
+Changed 1 instances, skipped 0 comments in script_test_fcn_TimeClean_cleanNaming.m
+Changed 0 instances, skipped 0 comments in script_test_fcn_TimeClean_cleanTime.m
+Changed 0 instances, skipped 0 comments in script_test_fcn_TimeClean_convertROSTimeToSeconds.m
+Changed 0 instances, skipped 0 comments in script_test_fcn_TimeClean_correctTimeZoneErrorsInGPSTime.m
+Changed 0 instances, skipped 0 comments in script_test_fcn_TimeClean_fillGPSTimeFromROSTime.m
+Changed 0 instances, skipped 0 comments in script_test_fcn_TimeClean_fillMissingsInGPSUnits.m
+Changed 0 instances, skipped 0 comments in script_test_fcn_TimeClean_findNearPoints.m
+Changed 0 instances, skipped 0 comments in script_test_fcn_TimeClean_fitROSTime2GPSTime.m
+Changed 0 instances, skipped 0 comments in script_test_fcn_TimeClean_predictGPSTimeFromROSTime.m
+Changed 0 instances, skipped 0 comments in script_test_fcn_TimeClean_sortSensorDataByGPSTime.m
+Changed 0 instances, skipped 0 comments in script_test_fcn_TimeClean_trimRepeatsFromField.m
+if system_dependent('IsDebugMode')==1, dbcont; end
+<strong>	Checking for string: % - changed and replacing with % - Changed: </strong><strong>PASSED.
+</strong>if system_dependent('IsDebugMode')==1, dbcont; end
+<strong>	Checking for string: % - fixed and replacing with % - Fixed: </strong><strong>PASSED.
+</strong>if system_dependent('IsDebugMode')==1, dbcont; end
+<strong>	Checking for string: % - first and replacing with % - First: </strong><strong>PASSED.
+</strong>if system_dependent('IsDebugMode')==1, dbcont; end
+<strong>	Checking for string: % -- and replacing with % -: </strong><strong>FAILED.
+</strong>
+
+		m-filename                                                         	string found?	
+Folder: C:\Users\snb10\Desktop\GitHubRepos\IVSG\FieldDataCollection\DataCollectionProcedures\TimeClean\Functions:
+	1	fcn_DataClean_cleanTime_OLD.m                                      	1            	
+	2	fcn_TimeClean_checkConsistencyOfStartEnd.m                         	1            	
+	3	fcn_TimeClean_checkDataStrictlyIncreasing.m                        	1            	
+	4	fcn_TimeClean_checkDataTimeConsistency.m                           	1            	
+	5	fcn_TimeClean_checkFieldCountMatchesTimeCount.m                    	1            	
+	6	fcn_TimeClean_checkFieldDifferencesForJumps.m                      	1            	
+	7	fcn_TimeClean_checkFieldDifferencesForMissings.m                   	1            	
+	8	fcn_TimeClean_checkIfFieldHasRepeatedValues.m                      	1            	
+	9	fcn_TimeClean_checkIfFieldInSensors.m                              	1            	
+	10	fcn_TimeClean_checkTimeRoundsCorrectly.m                           	1            	
+	11	fcn_TimeClean_checkTimeSamplingConsistency.m                       	1            	
+	12	fcn_TimeClean_cleanNaming.m                                        	1            	
+	13	fcn_TimeClean_cleanTime.m                                          	1            	
+	14	fcn_TimeClean_convertROSTimeToSeconds.m                            	1            	
+	15	fcn_TimeClean_correctTimeZoneErrorsInGPSTime.m                     	1            	
+	16	fcn_TimeClean_fillGPSTimeFromROSTime.m                             	1            	
+	17	fcn_TimeClean_fillMissingsInGPSUnits.m                             	1            	
+	18	fcn_TimeClean_findNearPoints.m                                     	1            	
+	19	fcn_TimeClean_fitROSTime2GPSTime.m                                 	1            	
+	20	fcn_TimeClean_predictGPSTimeFromROSTime.m                          	1            	
+	21	fcn_TimeClean_sortSensorDataByGPSTime.m                            	1            	
+	22	fcn_TimeClean_trimRepeatsFromField.m                               	1            	
+	23	script_test_all_functions.m                                        	0            	
+	24	script_test_fcn_DataClean_cleanTime.m                              	1            	
+	25	script_test_fcn_TimeClean_checkConsistencyOfStartEnd.m             	1            	
+	26	script_test_fcn_TimeClean_checkDataStrictlyIncreasing.m            	1            	
+	27	script_test_fcn_TimeClean_checkDataTimeConsistency.m               	1            	
+	28	script_test_fcn_TimeClean_checkFieldCountMatchesTimeCount.m        	1            	
+	29	script_test_fcn_TimeClean_checkFieldDifferencesForJumps.m          	1            	
+	30	script_test_fcn_TimeClean_checkFieldDifferencesForMissings.m       	1            	
+	31	script_test_fcn_TimeClean_checkIfFieldHasRepeatedValues.m          	1            	
+	32	script_test_fcn_TimeClean_checkIfFieldInSensors.m                  	1            	
+	33	script_test_fcn_TimeClean_checkTimeRoundsCorrectly.m               	1            	
+	34	script_test_fcn_TimeClean_checkTimeSamplingConsistency.m           	1            	
+	35	script_test_fcn_TimeClean_cleanNaming.m                            	1            	
+	36	script_test_fcn_TimeClean_cleanTime.m                              	1            	
+	37	script_test_fcn_TimeClean_convertROSTimeToSeconds.m                	1            	
+	38	script_test_fcn_TimeClean_correctTimeZoneErrorsInGPSTime.m         	1            	
+	39	script_test_fcn_TimeClean_fillGPSTimeFromROSTime.m                 	1            	
+	40	script_test_fcn_TimeClean_fillMissingsInGPSUnits.m                 	1            	
+	41	script_test_fcn_TimeClean_findNearPoints.m                         	0            	
+	42	script_test_fcn_TimeClean_fitROSTime2GPSTime.m                     	1            	
+	43	script_test_fcn_TimeClean_predictGPSTimeFromROSTime.m              	1            	
+	44	script_test_fcn_TimeClean_sortSensorDataByGPSTime.m                	1            	
+	45	script_test_fcn_TimeClean_trimRepeatsFromField.m                   	1            	
+[Warning: A "% --" was found in one of the functions - see listing above.] 
+<strong>
+	INITIATING REPLACEMENT of % -- with % -.
+</strong>Changed 12 instances, skipped 0 comments in fcn_DataClean_cleanTime_OLD.m
+Changed 5 instances, skipped 0 comments in fcn_TimeClean_checkConsistencyOfStartEnd.m
+Changed 1 instances, skipped 0 comments in fcn_TimeClean_checkDataStrictlyIncreasing.m
+Changed 14 instances, skipped 0 comments in fcn_TimeClean_checkDataTimeConsistency.m
+Changed 6 instances, skipped 0 comments in fcn_TimeClean_checkFieldCountMatchesTimeCount.m
+Changed 5 instances, skipped 0 comments in fcn_TimeClean_checkFieldDifferencesForJumps.m
+Changed 7 instances, skipped 0 comments in fcn_TimeClean_checkFieldDifferencesForMissings.m
+Changed 1 instances, skipped 0 comments in fcn_TimeClean_checkIfFieldHasRepeatedValues.m
+Changed 6 instances, skipped 0 comments in fcn_TimeClean_checkIfFieldInSensors.m
+Changed 6 instances, skipped 0 comments in fcn_TimeClean_checkTimeRoundsCorrectly.m
+Changed 9 instances, skipped 0 comments in fcn_TimeClean_checkTimeSamplingConsistency.m
+Changed 4 instances, skipped 0 comments in fcn_TimeClean_cleanNaming.m
+Changed 12 instances, skipped 0 comments in fcn_TimeClean_cleanTime.m
+Changed 4 instances, skipped 0 comments in fcn_TimeClean_convertROSTimeToSeconds.m
+Changed 1 instances, skipped 0 comments in fcn_TimeClean_correctTimeZoneErrorsInGPSTime.m
+Changed 1 instances, skipped 0 comments in fcn_TimeClean_fillGPSTimeFromROSTime.m
+Changed 9 instances, skipped 0 comments in fcn_TimeClean_fillMissingsInGPSUnits.m
+Changed 1 instances, skipped 0 comments in fcn_TimeClean_findNearPoints.m
+Changed 1 instances, skipped 0 comments in fcn_TimeClean_fitROSTime2GPSTime.m
+Changed 1 instances, skipped 0 comments in fcn_TimeClean_predictGPSTimeFromROSTime.m
+Changed 4 instances, skipped 0 comments in fcn_TimeClean_sortSensorDataByGPSTime.m
+Changed 4 instances, skipped 0 comments in fcn_TimeClean_trimRepeatsFromField.m
+Changed 1 instances, skipped 0 comments in script_test_fcn_DataClean_cleanTime.m
+Changed 1 instances, skipped 0 comments in script_test_fcn_TimeClean_checkConsistencyOfStartEnd.m
+Changed 1 instances, skipped 0 comments in script_test_fcn_TimeClean_checkDataStrictlyIncreasing.m
+Changed 2 instances, skipped 0 comments in script_test_fcn_TimeClean_checkDataTimeConsistency.m
+Changed 1 instances, skipped 0 comments in script_test_fcn_TimeClean_checkFieldCountMatchesTimeCount.m
+Changed 1 instances, skipped 0 comments in script_test_fcn_TimeClean_checkFieldDifferencesForJumps.m
+Changed 1 instances, skipped 0 comments in script_test_fcn_TimeClean_checkFieldDifferencesForMissings.m
+Changed 1 instances, skipped 0 comments in script_test_fcn_TimeClean_checkIfFieldHasRepeatedValues.m
+Changed 1 instances, skipped 0 comments in script_test_fcn_TimeClean_checkIfFieldInSensors.m
+Changed 1 instances, skipped 0 comments in script_test_fcn_TimeClean_checkTimeRoundsCorrectly.m
+Changed 2 instances, skipped 0 comments in script_test_fcn_TimeClean_checkTimeSamplingConsistency.m
+Changed 1 instances, skipped 0 comments in script_test_fcn_TimeClean_cleanNaming.m
+Changed 1 instances, skipped 0 comments in script_test_fcn_TimeClean_cleanTime.m
+Changed 2 instances, skipped 0 comments in script_test_fcn_TimeClean_convertROSTimeToSeconds.m
+Changed 1 instances, skipped 0 comments in script_test_fcn_TimeClean_correctTimeZoneErrorsInGPSTime.m
+Changed 1 instances, skipped 0 comments in script_test_fcn_TimeClean_fillGPSTimeFromROSTime.m
+Changed 1 instances, skipped 0 comments in script_test_fcn_TimeClean_fillMissingsInGPSUnits.m
+Changed 0 instances, skipped 0 comments in script_test_fcn_TimeClean_findNearPoints.m
+Changed 1 instances, skipped 0 comments in script_test_fcn_TimeClean_fitROSTime2GPSTime.m
+Changed 1 instances, skipped 0 comments in script_test_fcn_TimeClean_predictGPSTimeFromROSTime.m
+Changed 1 instances, skipped 0 comments in script_test_fcn_TimeClean_sortSensorDataByGPSTime.m
+Changed 1 instances, skipped 0 comments in script_test_fcn_TimeClean_trimRepeatsFromField.m
+if system_dependent('IsDebugMode')==1, dbcont; end
+<strong>	Checking for string: TO DO and replacing with TO-DO: </strong><strong>PASSED.
+</strong>if system_dependent('IsDebugMode')==1, dbcont; end
+<strong>	Checking for string: Revision history and replacing with REVISION HISTORY: </strong><strong>FAILED.
+</strong>
+
+		m-filename                                                         	string found?	
+Folder: C:\Users\snb10\Desktop\GitHubRepos\IVSG\FieldDataCollection\DataCollectionProcedures\TimeClean\Functions:
+	1	fcn_DataClean_cleanTime_OLD.m                                      	1            	
+	2	fcn_TimeClean_checkConsistencyOfStartEnd.m                         	1            	
+	3	fcn_TimeClean_checkDataStrictlyIncreasing.m                        	1            	
+	4	fcn_TimeClean_checkDataTimeConsistency.m                           	1            	
+	5	fcn_TimeClean_checkFieldCountMatchesTimeCount.m                    	1            	
+	6	fcn_TimeClean_checkFieldDifferencesForJumps.m                      	1            	
+	7	fcn_TimeClean_checkFieldDifferencesForMissings.m                   	1            	
+	8	fcn_TimeClean_checkIfFieldHasRepeatedValues.m                      	1            	
+	9	fcn_TimeClean_checkIfFieldInSensors.m                              	1            	
+	10	fcn_TimeClean_checkTimeRoundsCorrectly.m                           	1            	
+	11	fcn_TimeClean_checkTimeSamplingConsistency.m                       	1            	
+	12	fcn_TimeClean_cleanNaming.m                                        	1            	
+	13	fcn_TimeClean_cleanTime.m                                          	1            	
+	14	fcn_TimeClean_convertROSTimeToSeconds.m                            	1            	
+	15	fcn_TimeClean_correctTimeZoneErrorsInGPSTime.m                     	1            	
+	16	fcn_TimeClean_fillGPSTimeFromROSTime.m                             	1            	
+	17	fcn_TimeClean_fillMissingsInGPSUnits.m                             	1            	
+	18	fcn_TimeClean_findNearPoints.m                                     	0            	
+	19	fcn_TimeClean_fitROSTime2GPSTime.m                                 	1            	
+	20	fcn_TimeClean_predictGPSTimeFromROSTime.m                          	1            	
+	21	fcn_TimeClean_sortSensorDataByGPSTime.m                            	1            	
+	22	fcn_TimeClean_trimRepeatsFromField.m                               	1            	
+	23	script_test_all_functions.m                                        	0            	
+	24	script_test_fcn_DataClean_cleanTime.m                              	1            	
+	25	script_test_fcn_TimeClean_checkConsistencyOfStartEnd.m             	1            	
+	26	script_test_fcn_TimeClean_checkDataStrictlyIncreasing.m            	1            	
+	27	script_test_fcn_TimeClean_checkDataTimeConsistency.m               	1            	
+	28	script_test_fcn_TimeClean_checkFieldCountMatchesTimeCount.m        	1            	
+	29	script_test_fcn_TimeClean_checkFieldDifferencesForJumps.m          	1            	
+	30	script_test_fcn_TimeClean_checkFieldDifferencesForMissings.m       	1            	
+	31	script_test_fcn_TimeClean_checkIfFieldHasRepeatedValues.m          	1            	
+	32	script_test_fcn_TimeClean_checkIfFieldInSensors.m                  	1            	
+	33	script_test_fcn_TimeClean_checkTimeRoundsCorrectly.m               	1            	
+	34	script_test_fcn_TimeClean_checkTimeSamplingConsistency.m           	1            	
+	35	script_test_fcn_TimeClean_cleanNaming.m                            	1            	
+	36	script_test_fcn_TimeClean_cleanTime.m                              	1            	
+	37	script_test_fcn_TimeClean_convertROSTimeToSeconds.m                	1            	
+	38	script_test_fcn_TimeClean_correctTimeZoneErrorsInGPSTime.m         	1            	
+	39	script_test_fcn_TimeClean_fillGPSTimeFromROSTime.m                 	1            	
+	40	script_test_fcn_TimeClean_fillMissingsInGPSUnits.m                 	1            	
+	41	script_test_fcn_TimeClean_findNearPoints.m                         	0            	
+	42	script_test_fcn_TimeClean_fitROSTime2GPSTime.m                     	1            	
+	43	script_test_fcn_TimeClean_predictGPSTimeFromROSTime.m              	1            	
+	44	script_test_fcn_TimeClean_sortSensorDataByGPSTime.m                	1            	
+	45	script_test_fcn_TimeClean_trimRepeatsFromField.m                   	1            	
+[Warning: A "Revision history" was found in one of the functions - see listing above.] 
+<strong>
+	INITIATING REPLACEMENT of Revision history with REVISION HISTORY.
+</strong>Changed 1 instances, skipped 0 comments in fcn_DataClean_cleanTime_OLD.m
+Changed 1 instances, skipped 0 comments in fcn_TimeClean_checkConsistencyOfStartEnd.m
+Changed 1 instances, skipped 0 comments in fcn_TimeClean_checkDataStrictlyIncreasing.m
+Changed 1 instances, skipped 0 comments in fcn_TimeClean_checkDataTimeConsistency.m
+Changed 1 instances, skipped 0 comments in fcn_TimeClean_checkFieldCountMatchesTimeCount.m
+Changed 1 instances, skipped 0 comments in fcn_TimeClean_checkFieldDifferencesForJumps.m
+Changed 1 instances, skipped 0 comments in fcn_TimeClean_checkFieldDifferencesForMissings.m
+Changed 1 instances, skipped 0 comments in fcn_TimeClean_checkIfFieldHasRepeatedValues.m
+Changed 1 instances, skipped 0 comments in fcn_TimeClean_checkIfFieldInSensors.m
+Changed 1 instances, skipped 0 comments in fcn_TimeClean_checkTimeRoundsCorrectly.m
+Changed 1 instances, skipped 0 comments in fcn_TimeClean_checkTimeSamplingConsistency.m
+Changed 1 instances, skipped 0 comments in fcn_TimeClean_cleanNaming.m
+Changed 1 instances, skipped 0 comments in fcn_TimeClean_cleanTime.m
+Changed 1 instances, skipped 0 comments in fcn_TimeClean_convertROSTimeToSeconds.m
+Changed 1 instances, skipped 0 comments in fcn_TimeClean_correctTimeZoneErrorsInGPSTime.m
+Changed 1 instances, skipped 0 comments in fcn_TimeClean_fillGPSTimeFromROSTime.m
+Changed 1 instances, skipped 0 comments in fcn_TimeClean_fillMissingsInGPSUnits.m
+Changed 0 instances, skipped 0 comments in fcn_TimeClean_findNearPoints.m
+Changed 1 instances, skipped 0 comments in fcn_TimeClean_fitROSTime2GPSTime.m
+Changed 1 instances, skipped 0 comments in fcn_TimeClean_predictGPSTimeFromROSTime.m
+Changed 1 instances, skipped 0 comments in fcn_TimeClean_sortSensorDataByGPSTime.m
+Changed 1 instances, skipped 0 comments in fcn_TimeClean_trimRepeatsFromField.m
+Changed 1 instances, skipped 0 comments in script_test_fcn_DataClean_cleanTime.m
+Changed 1 instances, skipped 0 comments in script_test_fcn_TimeClean_checkConsistencyOfStartEnd.m
+Changed 1 instances, skipped 0 comments in script_test_fcn_TimeClean_checkDataStrictlyIncreasing.m
+Changed 1 instances, skipped 0 comments in script_test_fcn_TimeClean_checkDataTimeConsistency.m
+Changed 1 instances, skipped 0 comments in script_test_fcn_TimeClean_checkFieldCountMatchesTimeCount.m
+Changed 1 instances, skipped 0 comments in script_test_fcn_TimeClean_checkFieldDifferencesForJumps.m
+Changed 1 instances, skipped 0 comments in script_test_fcn_TimeClean_checkFieldDifferencesForMissings.m
+Changed 1 instances, skipped 0 comments in script_test_fcn_TimeClean_checkIfFieldHasRepeatedValues.m
+Changed 1 instances, skipped 0 comments in script_test_fcn_TimeClean_checkIfFieldInSensors.m
+Changed 1 instances, skipped 0 comments in script_test_fcn_TimeClean_checkTimeRoundsCorrectly.m
+Changed 1 instances, skipped 0 comments in script_test_fcn_TimeClean_checkTimeSamplingConsistency.m
+Changed 1 instances, skipped 0 comments in script_test_fcn_TimeClean_cleanNaming.m
+Changed 1 instances, skipped 0 comments in script_test_fcn_TimeClean_cleanTime.m
+Changed 1 instances, skipped 0 comments in script_test_fcn_TimeClean_convertROSTimeToSeconds.m
+Changed 1 instances, skipped 0 comments in script_test_fcn_TimeClean_correctTimeZoneErrorsInGPSTime.m
+Changed 1 instances, skipped 0 comments in script_test_fcn_TimeClean_fillGPSTimeFromROSTime.m
+Changed 1 instances, skipped 0 comments in script_test_fcn_TimeClean_fillMissingsInGPSUnits.m
+Changed 0 instances, skipped 0 comments in script_test_fcn_TimeClean_findNearPoints.m
+Changed 1 instances, skipped 0 comments in script_test_fcn_TimeClean_fitROSTime2GPSTime.m
+Changed 1 instances, skipped 0 comments in script_test_fcn_TimeClean_predictGPSTimeFromROSTime.m
+Changed 1 instances, skipped 0 comments in script_test_fcn_TimeClean_sortSensorDataByGPSTime.m
+Changed 1 instances, skipped 0 comments in script_test_fcn_TimeClean_trimRepeatsFromField.m
+if system_dependent('IsDebugMode')==1, dbcont; end
+<strong>	Checking for string: % Updates and replacing with % REVISION HISTORY: </strong><strong>PASSED.
+</strong>if system_dependent('IsDebugMode')==1, dbcont; end
+<strong>	Checking for string: % UPDATES and replacing with % REVISION HISTORY: </strong><strong>PASSED.
+</strong>if system_dependent('IsDebugMode')==1, dbcont; end
+<strong>	Checking for string: fig_num and replacing with figNum: </strong><strong>FAILED.
+</strong>
+
+		m-filename                                                         	string found?	
+Folder: C:\Users\snb10\Desktop\GitHubRepos\IVSG\FieldDataCollection\DataCollectionProcedures\TimeClean\Functions:
+	1	fcn_DataClean_cleanTime_OLD.m                                      	1            	
+	2	fcn_TimeClean_checkConsistencyOfStartEnd.m                         	1            	
+	3	fcn_TimeClean_checkDataStrictlyIncreasing.m                        	1            	
+	4	fcn_TimeClean_checkDataTimeConsistency.m                           	1            	
+	5	fcn_TimeClean_checkFieldCountMatchesTimeCount.m                    	1            	
+	6	fcn_TimeClean_checkFieldDifferencesForJumps.m                      	1            	
+	7	fcn_TimeClean_checkFieldDifferencesForMissings.m                   	1            	
+	8	fcn_TimeClean_checkIfFieldHasRepeatedValues.m                      	1            	
+	9	fcn_TimeClean_checkIfFieldInSensors.m                              	1            	
+	10	fcn_TimeClean_checkTimeRoundsCorrectly.m                           	1            	
+	11	fcn_TimeClean_checkTimeSamplingConsistency.m                       	1            	
+	12	fcn_TimeClean_cleanNaming.m                                        	1            	
+	13	fcn_TimeClean_cleanTime.m                                          	1            	
+	14	fcn_TimeClean_convertROSTimeToSeconds.m                            	1            	
+	15	fcn_TimeClean_correctTimeZoneErrorsInGPSTime.m                     	0            	
+	16	fcn_TimeClean_fillGPSTimeFromROSTime.m                             	1            	
+	17	fcn_TimeClean_fillMissingsInGPSUnits.m                             	1            	
+	18	fcn_TimeClean_findNearPoints.m                                     	1            	
+	19	fcn_TimeClean_fitROSTime2GPSTime.m                                 	1            	
+	20	fcn_TimeClean_predictGPSTimeFromROSTime.m                          	1            	
+	21	fcn_TimeClean_sortSensorDataByGPSTime.m                            	1            	
+	22	fcn_TimeClean_trimRepeatsFromField.m                               	1            	
+	23	script_test_all_functions.m                                        	0            	
+	24	script_test_fcn_DataClean_cleanTime.m                              	1            	
+	25	script_test_fcn_TimeClean_checkConsistencyOfStartEnd.m             	1            	
+	26	script_test_fcn_TimeClean_checkDataStrictlyIncreasing.m            	1            	
+	27	script_test_fcn_TimeClean_checkDataTimeConsistency.m               	1            	
+	28	script_test_fcn_TimeClean_checkFieldCountMatchesTimeCount.m        	0            	
+	29	script_test_fcn_TimeClean_checkFieldDifferencesForJumps.m          	0            	
+	30	script_test_fcn_TimeClean_checkFieldDifferencesForMissings.m       	0            	
+	31	script_test_fcn_TimeClean_checkIfFieldHasRepeatedValues.m          	1            	
+	32	script_test_fcn_TimeClean_checkIfFieldInSensors.m                  	0            	
+	33	script_test_fcn_TimeClean_checkTimeRoundsCorrectly.m               	0            	
+	34	script_test_fcn_TimeClean_checkTimeSamplingConsistency.m           	1            	
+	35	script_test_fcn_TimeClean_cleanNaming.m                            	1            	
+	36	script_test_fcn_TimeClean_cleanTime.m                              	1            	
+	37	script_test_fcn_TimeClean_convertROSTimeToSeconds.m                	0            	
+	38	script_test_fcn_TimeClean_correctTimeZoneErrorsInGPSTime.m         	0            	
+	39	script_test_fcn_TimeClean_fillGPSTimeFromROSTime.m                 	1            	
+	40	script_test_fcn_TimeClean_fillMissingsInGPSUnits.m                 	1            	
+	41	script_test_fcn_TimeClean_findNearPoints.m                         	1            	
+	42	script_test_fcn_TimeClean_fitROSTime2GPSTime.m                     	1            	
+	43	script_test_fcn_TimeClean_predictGPSTimeFromROSTime.m              	1            	
+	44	script_test_fcn_TimeClean_sortSensorDataByGPSTime.m                	0            	
+	45	script_test_fcn_TimeClean_trimRepeatsFromField.m                   	0            	
+[Warning: A "fig_num" was found in one of the functions - see listing above.] 
+<strong>
+	INITIATING REPLACEMENT of fig_num with figNum.
+</strong>Changed 19 instances, skipped 0 comments in fcn_DataClean_cleanTime_OLD.m
+Changed 9 instances, skipped 0 comments in fcn_TimeClean_checkConsistencyOfStartEnd.m
+Changed 8 instances, skipped 0 comments in fcn_TimeClean_checkDataStrictlyIncreasing.m
+Changed 16 instances, skipped 0 comments in fcn_TimeClean_checkDataTimeConsistency.m
+Changed 4 instances, skipped 0 comments in fcn_TimeClean_checkFieldCountMatchesTimeCount.m
+Changed 3 instances, skipped 0 comments in fcn_TimeClean_checkFieldDifferencesForJumps.m
+Changed 3 instances, skipped 0 comments in fcn_TimeClean_checkFieldDifferencesForMissings.m
+Changed 8 instances, skipped 0 comments in fcn_TimeClean_checkIfFieldHasRepeatedValues.m
+Changed 8 instances, skipped 0 comments in fcn_TimeClean_checkIfFieldInSensors.m
+Changed 4 instances, skipped 0 comments in fcn_TimeClean_checkTimeRoundsCorrectly.m
+Changed 13 instances, skipped 0 comments in fcn_TimeClean_checkTimeSamplingConsistency.m
+Changed 7 instances, skipped 0 comments in fcn_TimeClean_cleanNaming.m
+Changed 19 instances, skipped 0 comments in fcn_TimeClean_cleanTime.m
+Changed 3 instances, skipped 0 comments in fcn_TimeClean_convertROSTimeToSeconds.m
+Changed 0 instances, skipped 0 comments in fcn_TimeClean_correctTimeZoneErrorsInGPSTime.m
+Changed 8 instances, skipped 0 comments in fcn_TimeClean_fillGPSTimeFromROSTime.m
+Changed 9 instances, skipped 0 comments in fcn_TimeClean_fillMissingsInGPSUnits.m
+Changed 13 instances, skipped 0 comments in fcn_TimeClean_findNearPoints.m
+Changed 8 instances, skipped 0 comments in fcn_TimeClean_fitROSTime2GPSTime.m
+Changed 8 instances, skipped 0 comments in fcn_TimeClean_predictGPSTimeFromROSTime.m
+Changed 3 instances, skipped 0 comments in fcn_TimeClean_sortSensorDataByGPSTime.m
+Changed 3 instances, skipped 0 comments in fcn_TimeClean_trimRepeatsFromField.m
+Changed 11 instances, skipped 0 comments in script_test_fcn_DataClean_cleanTime.m
+Changed 30 instances, skipped 0 comments in script_test_fcn_TimeClean_checkConsistencyOfStartEnd.m
+Changed 25 instances, skipped 0 comments in script_test_fcn_TimeClean_checkDataStrictlyIncreasing.m
+Changed 2 instances, skipped 0 comments in script_test_fcn_TimeClean_checkDataTimeConsistency.m
+Changed 0 instances, skipped 0 comments in script_test_fcn_TimeClean_checkFieldCountMatchesTimeCount.m
+Changed 0 instances, skipped 0 comments in script_test_fcn_TimeClean_checkFieldDifferencesForJumps.m
+Changed 0 instances, skipped 0 comments in script_test_fcn_TimeClean_checkFieldDifferencesForMissings.m
+Changed 24 instances, skipped 0 comments in script_test_fcn_TimeClean_checkIfFieldHasRepeatedValues.m
+Changed 0 instances, skipped 0 comments in script_test_fcn_TimeClean_checkIfFieldInSensors.m
+Changed 0 instances, skipped 0 comments in script_test_fcn_TimeClean_checkTimeRoundsCorrectly.m
+Changed 60 instances, skipped 0 comments in script_test_fcn_TimeClean_checkTimeSamplingConsistency.m
+Changed 4 instances, skipped 0 comments in script_test_fcn_TimeClean_cleanNaming.m
+Changed 11 instances, skipped 0 comments in script_test_fcn_TimeClean_cleanTime.m
+Changed 0 instances, skipped 0 comments in script_test_fcn_TimeClean_convertROSTimeToSeconds.m
+Changed 0 instances, skipped 0 comments in script_test_fcn_TimeClean_correctTimeZoneErrorsInGPSTime.m
+Changed 15 instances, skipped 0 comments in script_test_fcn_TimeClean_fillGPSTimeFromROSTime.m
+Changed 6 instances, skipped 0 comments in script_test_fcn_TimeClean_fillMissingsInGPSUnits.m
+Changed 19 instances, skipped 0 comments in script_test_fcn_TimeClean_findNearPoints.m
+Changed 4 instances, skipped 0 comments in script_test_fcn_TimeClean_fitROSTime2GPSTime.m
+Changed 4 instances, skipped 0 comments in script_test_fcn_TimeClean_predictGPSTimeFromROSTime.m
+Changed 0 instances, skipped 0 comments in script_test_fcn_TimeClean_sortSensorDataByGPSTime.m
+Changed 0 instances, skipped 0 comments in script_test_fcn_TimeClean_trimRepeatsFromField.m
+if system_dependent('IsDebugMode')==1, dbcont; end
+<strong>	Checking for string: : sbrennan@psu.edu and replacing with  by Sean Brennan, sbrennan@psu.edu: </strong><strong>FAILED.
+</strong>
+
+		m-filename                                                         	string found?	
+Folder: C:\Users\snb10\Desktop\GitHubRepos\IVSG\FieldDataCollection\DataCollectionProcedures\TimeClean\Functions:
+	1	fcn_DataClean_cleanTime_OLD.m                                      	0            	
+	2	fcn_TimeClean_checkConsistencyOfStartEnd.m                         	1            	
+	3	fcn_TimeClean_checkDataStrictlyIncreasing.m                        	1            	
+	4	fcn_TimeClean_checkDataTimeConsistency.m                           	1            	
+	5	fcn_TimeClean_checkFieldCountMatchesTimeCount.m                    	1            	
+	6	fcn_TimeClean_checkFieldDifferencesForJumps.m                      	1            	
+	7	fcn_TimeClean_checkFieldDifferencesForMissings.m                   	1            	
+	8	fcn_TimeClean_checkIfFieldHasRepeatedValues.m                      	1            	
+	9	fcn_TimeClean_checkIfFieldInSensors.m                              	1            	
+	10	fcn_TimeClean_checkTimeRoundsCorrectly.m                           	1            	
+	11	fcn_TimeClean_checkTimeSamplingConsistency.m                       	1            	
+	12	fcn_TimeClean_cleanNaming.m                                        	0            	
+	13	fcn_TimeClean_cleanTime.m                                          	0            	
+	14	fcn_TimeClean_convertROSTimeToSeconds.m                            	1            	
+	15	fcn_TimeClean_correctTimeZoneErrorsInGPSTime.m                     	1            	
+	16	fcn_TimeClean_fillGPSTimeFromROSTime.m                             	1            	
+	17	fcn_TimeClean_fillMissingsInGPSUnits.m                             	0            	
+	18	fcn_TimeClean_findNearPoints.m                                     	0            	
+	19	fcn_TimeClean_fitROSTime2GPSTime.m                                 	1            	
+	20	fcn_TimeClean_predictGPSTimeFromROSTime.m                          	1            	
+	21	fcn_TimeClean_sortSensorDataByGPSTime.m                            	1            	
+	22	fcn_TimeClean_trimRepeatsFromField.m                               	1            	
+	23	script_test_all_functions.m                                        	0            	
+	24	script_test_fcn_DataClean_cleanTime.m                              	0            	
+	25	script_test_fcn_TimeClean_checkConsistencyOfStartEnd.m             	0            	
+	26	script_test_fcn_TimeClean_checkDataStrictlyIncreasing.m            	0            	
+	27	script_test_fcn_TimeClean_checkDataTimeConsistency.m               	0            	
+	28	script_test_fcn_TimeClean_checkFieldCountMatchesTimeCount.m        	0            	
+	29	script_test_fcn_TimeClean_checkFieldDifferencesForJumps.m          	0            	
+	30	script_test_fcn_TimeClean_checkFieldDifferencesForMissings.m       	0            	
+	31	script_test_fcn_TimeClean_checkIfFieldHasRepeatedValues.m          	0            	
+	32	script_test_fcn_TimeClean_checkIfFieldInSensors.m                  	0            	
+	33	script_test_fcn_TimeClean_checkTimeRoundsCorrectly.m               	0            	
+	34	script_test_fcn_TimeClean_checkTimeSamplingConsistency.m           	0            	
+	35	script_test_fcn_TimeClean_cleanNaming.m                            	0            	
+	36	script_test_fcn_TimeClean_cleanTime.m                              	0            	
+	37	script_test_fcn_TimeClean_convertROSTimeToSeconds.m                	0            	
+	38	script_test_fcn_TimeClean_correctTimeZoneErrorsInGPSTime.m         	0            	
+	39	script_test_fcn_TimeClean_fillGPSTimeFromROSTime.m                 	0            	
+	40	script_test_fcn_TimeClean_fillMissingsInGPSUnits.m                 	0            	
+	41	script_test_fcn_TimeClean_findNearPoints.m                         	0            	
+	42	script_test_fcn_TimeClean_fitROSTime2GPSTime.m                     	0            	
+	43	script_test_fcn_TimeClean_predictGPSTimeFromROSTime.m              	0            	
+	44	script_test_fcn_TimeClean_sortSensorDataByGPSTime.m                	0            	
+	45	script_test_fcn_TimeClean_trimRepeatsFromField.m                   	0            	
+[Warning: A ": sbrennan@psu.edu" was found in one of the functions - see listing above.] 
+<strong>
+	INITIATING REPLACEMENT of : sbrennan@psu.edu with  by Sean Brennan, sbrennan@psu.edu.
+</strong>Changed 0 instances, skipped 0 comments in fcn_DataClean_cleanTime_OLD.m
+Changed 2 instances, skipped 0 comments in fcn_TimeClean_checkConsistencyOfStartEnd.m
+Changed 1 instances, skipped 0 comments in fcn_TimeClean_checkDataStrictlyIncreasing.m
+Changed 3 instances, skipped 0 comments in fcn_TimeClean_checkDataTimeConsistency.m
+Changed 2 instances, skipped 0 comments in fcn_TimeClean_checkFieldCountMatchesTimeCount.m
+Changed 3 instances, skipped 0 comments in fcn_TimeClean_checkFieldDifferencesForJumps.m
+Changed 3 instances, skipped 0 comments in fcn_TimeClean_checkFieldDifferencesForMissings.m
+Changed 1 instances, skipped 0 comments in fcn_TimeClean_checkIfFieldHasRepeatedValues.m
+Changed 1 instances, skipped 0 comments in fcn_TimeClean_checkIfFieldInSensors.m
+Changed 2 instances, skipped 0 comments in fcn_TimeClean_checkTimeRoundsCorrectly.m
+Changed 3 instances, skipped 0 comments in fcn_TimeClean_checkTimeSamplingConsistency.m
+Changed 0 instances, skipped 0 comments in fcn_TimeClean_cleanNaming.m
+Changed 0 instances, skipped 0 comments in fcn_TimeClean_cleanTime.m
+Changed 1 instances, skipped 0 comments in fcn_TimeClean_convertROSTimeToSeconds.m
+Changed 1 instances, skipped 0 comments in fcn_TimeClean_correctTimeZoneErrorsInGPSTime.m
+Changed 1 instances, skipped 0 comments in fcn_TimeClean_fillGPSTimeFromROSTime.m
+Changed 0 instances, skipped 0 comments in fcn_TimeClean_fillMissingsInGPSUnits.m
+Changed 0 instances, skipped 0 comments in fcn_TimeClean_findNearPoints.m
+Changed 1 instances, skipped 0 comments in fcn_TimeClean_fitROSTime2GPSTime.m
+Changed 1 instances, skipped 0 comments in fcn_TimeClean_predictGPSTimeFromROSTime.m
+Changed 1 instances, skipped 0 comments in fcn_TimeClean_sortSensorDataByGPSTime.m
+Changed 1 instances, skipped 0 comments in fcn_TimeClean_trimRepeatsFromField.m
+Changed 0 instances, skipped 0 comments in script_test_fcn_DataClean_cleanTime.m
+Changed 0 instances, skipped 0 comments in script_test_fcn_TimeClean_checkConsistencyOfStartEnd.m
+Changed 0 instances, skipped 0 comments in script_test_fcn_TimeClean_checkDataStrictlyIncreasing.m
+Changed 0 instances, skipped 0 comments in script_test_fcn_TimeClean_checkDataTimeConsistency.m
+Changed 0 instances, skipped 0 comments in script_test_fcn_TimeClean_checkFieldCountMatchesTimeCount.m
+Changed 0 instances, skipped 0 comments in script_test_fcn_TimeClean_checkFieldDifferencesForJumps.m
+Changed 0 instances, skipped 0 comments in script_test_fcn_TimeClean_checkFieldDifferencesForMissings.m
+Changed 0 instances, skipped 0 comments in script_test_fcn_TimeClean_checkIfFieldHasRepeatedValues.m
+Changed 0 instances, skipped 0 comments in script_test_fcn_TimeClean_checkIfFieldInSensors.m
+Changed 0 instances, skipped 0 comments in script_test_fcn_TimeClean_checkTimeRoundsCorrectly.m
+Changed 0 instances, skipped 0 comments in script_test_fcn_TimeClean_checkTimeSamplingConsistency.m
+Changed 0 instances, skipped 0 comments in script_test_fcn_TimeClean_cleanNaming.m
+Changed 0 instances, skipped 0 comments in script_test_fcn_TimeClean_cleanTime.m
+Changed 0 instances, skipped 0 comments in script_test_fcn_TimeClean_convertROSTimeToSeconds.m
+Changed 0 instances, skipped 0 comments in script_test_fcn_TimeClean_correctTimeZoneErrorsInGPSTime.m
+Changed 0 instances, skipped 0 comments in script_test_fcn_TimeClean_fillGPSTimeFromROSTime.m
+Changed 0 instances, skipped 0 comments in script_test_fcn_TimeClean_fillMissingsInGPSUnits.m
+Changed 0 instances, skipped 0 comments in script_test_fcn_TimeClean_findNearPoints.m
+Changed 0 instances, skipped 0 comments in script_test_fcn_TimeClean_fitROSTime2GPSTime.m
+Changed 0 instances, skipped 0 comments in script_test_fcn_TimeClean_predictGPSTimeFromROSTime.m
+Changed 0 instances, skipped 0 comments in script_test_fcn_TimeClean_sortSensorDataByGPSTime.m
+Changed 0 instances, skipped 0 comments in script_test_fcn_TimeClean_trimRepeatsFromField.m
+if system_dependent('IsDebugMode')==1, dbcont; end
+<strong>	Checking for string:  - Sean Brennan, sbrennan@psu.edu and replacing with  by Sean Brennan, sbrennan@psu.edu: </strong><strong>PASSED.
+</strong>if system_dependent('IsDebugMode')==1, dbcont; end
+<strong>	Checking for string:  - S. Brennan and replacing with  by Sean Brennan, sbrennan@psu.edu: </strong><strong>FAILED.
+</strong>
+
+		m-filename                                                         	string found?	
+Folder: C:\Users\snb10\Desktop\GitHubRepos\IVSG\FieldDataCollection\DataCollectionProcedures\TimeClean\Functions:
+	1	fcn_DataClean_cleanTime_OLD.m                                      	1            	
+	2	fcn_TimeClean_checkConsistencyOfStartEnd.m                         	0            	
+	3	fcn_TimeClean_checkDataStrictlyIncreasing.m                        	0            	
+	4	fcn_TimeClean_checkDataTimeConsistency.m                           	0            	
+	5	fcn_TimeClean_checkFieldCountMatchesTimeCount.m                    	0            	
+	6	fcn_TimeClean_checkFieldDifferencesForJumps.m                      	0            	
+	7	fcn_TimeClean_checkFieldDifferencesForMissings.m                   	0            	
+	8	fcn_TimeClean_checkIfFieldHasRepeatedValues.m                      	0            	
+	9	fcn_TimeClean_checkIfFieldInSensors.m                              	0            	
+	10	fcn_TimeClean_checkTimeRoundsCorrectly.m                           	0            	
+	11	fcn_TimeClean_checkTimeSamplingConsistency.m                       	0            	
+	12	fcn_TimeClean_cleanNaming.m                                        	0            	
+	13	fcn_TimeClean_cleanTime.m                                          	1            	
+	14	fcn_TimeClean_convertROSTimeToSeconds.m                            	1            	
+	15	fcn_TimeClean_correctTimeZoneErrorsInGPSTime.m                     	0            	
+	16	fcn_TimeClean_fillGPSTimeFromROSTime.m                             	0            	
+	17	fcn_TimeClean_fillMissingsInGPSUnits.m                             	1            	
+	18	fcn_TimeClean_findNearPoints.m                                     	0            	
+	19	fcn_TimeClean_fitROSTime2GPSTime.m                                 	0            	
+	20	fcn_TimeClean_predictGPSTimeFromROSTime.m                          	0            	
+	21	fcn_TimeClean_sortSensorDataByGPSTime.m                            	1            	
+	22	fcn_TimeClean_trimRepeatsFromField.m                               	1            	
+	23	script_test_all_functions.m                                        	0            	
+	24	script_test_fcn_DataClean_cleanTime.m                              	0            	
+	25	script_test_fcn_TimeClean_checkConsistencyOfStartEnd.m             	0            	
+	26	script_test_fcn_TimeClean_checkDataStrictlyIncreasing.m            	0            	
+	27	script_test_fcn_TimeClean_checkDataTimeConsistency.m               	0            	
+	28	script_test_fcn_TimeClean_checkFieldCountMatchesTimeCount.m        	0            	
+	29	script_test_fcn_TimeClean_checkFieldDifferencesForJumps.m          	0            	
+	30	script_test_fcn_TimeClean_checkFieldDifferencesForMissings.m       	0            	
+	31	script_test_fcn_TimeClean_checkIfFieldHasRepeatedValues.m          	0            	
+	32	script_test_fcn_TimeClean_checkIfFieldInSensors.m                  	0            	
+	33	script_test_fcn_TimeClean_checkTimeRoundsCorrectly.m               	0            	
+	34	script_test_fcn_TimeClean_checkTimeSamplingConsistency.m           	0            	
+	35	script_test_fcn_TimeClean_cleanNaming.m                            	0            	
+	36	script_test_fcn_TimeClean_cleanTime.m                              	0            	
+	37	script_test_fcn_TimeClean_convertROSTimeToSeconds.m                	0            	
+	38	script_test_fcn_TimeClean_correctTimeZoneErrorsInGPSTime.m         	0            	
+	39	script_test_fcn_TimeClean_fillGPSTimeFromROSTime.m                 	0            	
+	40	script_test_fcn_TimeClean_fillMissingsInGPSUnits.m                 	0            	
+	41	script_test_fcn_TimeClean_findNearPoints.m                         	0            	
+	42	script_test_fcn_TimeClean_fitROSTime2GPSTime.m                     	0            	
+	43	script_test_fcn_TimeClean_predictGPSTimeFromROSTime.m              	0            	
+	44	script_test_fcn_TimeClean_sortSensorDataByGPSTime.m                	0            	
+	45	script_test_fcn_TimeClean_trimRepeatsFromField.m                   	0            	
+[Warning: A " - S. Brennan" was found in one of the functions - see listing above.] 
+<strong>
+	INITIATING REPLACEMENT of  - S. Brennan with  by Sean Brennan, sbrennan@psu.edu.
+</strong>Changed 2 instances, skipped 0 comments in fcn_DataClean_cleanTime_OLD.m
+Changed 0 instances, skipped 0 comments in fcn_TimeClean_checkConsistencyOfStartEnd.m
+Changed 0 instances, skipped 0 comments in fcn_TimeClean_checkDataStrictlyIncreasing.m
+Changed 0 instances, skipped 0 comments in fcn_TimeClean_checkDataTimeConsistency.m
+Changed 0 instances, skipped 0 comments in fcn_TimeClean_checkFieldCountMatchesTimeCount.m
+Changed 0 instances, skipped 0 comments in fcn_TimeClean_checkFieldDifferencesForJumps.m
+Changed 0 instances, skipped 0 comments in fcn_TimeClean_checkFieldDifferencesForMissings.m
+Changed 0 instances, skipped 0 comments in fcn_TimeClean_checkIfFieldHasRepeatedValues.m
+Changed 0 instances, skipped 0 comments in fcn_TimeClean_checkIfFieldInSensors.m
+Changed 0 instances, skipped 0 comments in fcn_TimeClean_checkTimeRoundsCorrectly.m
+Changed 0 instances, skipped 0 comments in fcn_TimeClean_checkTimeSamplingConsistency.m
+Changed 0 instances, skipped 0 comments in fcn_TimeClean_cleanNaming.m
+Changed 2 instances, skipped 0 comments in fcn_TimeClean_cleanTime.m
+Changed 1 instances, skipped 0 comments in fcn_TimeClean_convertROSTimeToSeconds.m
+Changed 0 instances, skipped 0 comments in fcn_TimeClean_correctTimeZoneErrorsInGPSTime.m
+Changed 0 instances, skipped 0 comments in fcn_TimeClean_fillGPSTimeFromROSTime.m
+Changed 2 instances, skipped 0 comments in fcn_TimeClean_fillMissingsInGPSUnits.m
+Changed 0 instances, skipped 0 comments in fcn_TimeClean_findNearPoints.m
+Changed 0 instances, skipped 0 comments in fcn_TimeClean_fitROSTime2GPSTime.m
+Changed 0 instances, skipped 0 comments in fcn_TimeClean_predictGPSTimeFromROSTime.m
+Changed 1 instances, skipped 0 comments in fcn_TimeClean_sortSensorDataByGPSTime.m
+Changed 1 instances, skipped 0 comments in fcn_TimeClean_trimRepeatsFromField.m
+Changed 0 instances, skipped 0 comments in script_test_fcn_DataClean_cleanTime.m
+Changed 0 instances, skipped 0 comments in script_test_fcn_TimeClean_checkConsistencyOfStartEnd.m
+Changed 0 instances, skipped 0 comments in script_test_fcn_TimeClean_checkDataStrictlyIncreasing.m
+Changed 0 instances, skipped 0 comments in script_test_fcn_TimeClean_checkDataTimeConsistency.m
+Changed 0 instances, skipped 0 comments in script_test_fcn_TimeClean_checkFieldCountMatchesTimeCount.m
+Changed 0 instances, skipped 0 comments in script_test_fcn_TimeClean_checkFieldDifferencesForJumps.m
+Changed 0 instances, skipped 0 comments in script_test_fcn_TimeClean_checkFieldDifferencesForMissings.m
+Changed 0 instances, skipped 0 comments in script_test_fcn_TimeClean_checkIfFieldHasRepeatedValues.m
+Changed 0 instances, skipped 0 comments in script_test_fcn_TimeClean_checkIfFieldInSensors.m
+Changed 0 instances, skipped 0 comments in script_test_fcn_TimeClean_checkTimeRoundsCorrectly.m
+Changed 0 instances, skipped 0 comments in script_test_fcn_TimeClean_checkTimeSamplingConsistency.m
+Changed 0 instances, skipped 0 comments in script_test_fcn_TimeClean_cleanNaming.m
+Changed 0 instances, skipped 0 comments in script_test_fcn_TimeClean_cleanTime.m
+Changed 0 instances, skipped 0 comments in script_test_fcn_TimeClean_convertROSTimeToSeconds.m
+Changed 0 instances, skipped 0 comments in script_test_fcn_TimeClean_correctTimeZoneErrorsInGPSTime.m
+Changed 0 instances, skipped 0 comments in script_test_fcn_TimeClean_fillGPSTimeFromROSTime.m
+Changed 0 instances, skipped 0 comments in script_test_fcn_TimeClean_fillMissingsInGPSUnits.m
+Changed 0 instances, skipped 0 comments in script_test_fcn_TimeClean_findNearPoints.m
+Changed 0 instances, skipped 0 comments in script_test_fcn_TimeClean_fitROSTime2GPSTime.m
+Changed 0 instances, skipped 0 comments in script_test_fcn_TimeClean_predictGPSTimeFromROSTime.m
+Changed 0 instances, skipped 0 comments in script_test_fcn_TimeClean_sortSensorDataByGPSTime.m
+Changed 0 instances, skipped 0 comments in script_test_fcn_TimeClean_trimRepeatsFromField.m
+if system_dependent('IsDebugMode')==1, dbcont; end
+<strong>Searching and Replacing common naming errors in folder:
+	C:\Users\snb10\Desktop\GitHubRepos\IVSG\FieldDataCollection\DataCollectionProcedures\TimeClean\Functions
+</strong><strong>	Checking for string: % - wrote and replacing with % - Wrote: </strong><strong>FAILED.
+</strong>
+
+		m-filename                                                         	string found?	
+Folder: C:\Users\snb10\Desktop\GitHubRepos\IVSG\FieldDataCollection\DataCollectionProcedures\TimeClean\Functions:
+	1	fcn_DataClean_cleanTime_OLD.m                                      	1            	
+	2	fcn_TimeClean_checkConsistencyOfStartEnd.m                         	1            	
+	3	fcn_TimeClean_checkDataStrictlyIncreasing.m                        	1            	
+	4	fcn_TimeClean_checkDataTimeConsistency.m                           	1            	
+	5	fcn_TimeClean_checkFieldCountMatchesTimeCount.m                    	1            	
+	6	fcn_TimeClean_checkFieldDifferencesForJumps.m                      	1            	
+	7	fcn_TimeClean_checkFieldDifferencesForMissings.m                   	1            	
+	8	fcn_TimeClean_checkIfFieldHasRepeatedValues.m                      	1            	
+	9	fcn_TimeClean_checkIfFieldInSensors.m                              	1            	
+	10	fcn_TimeClean_checkTimeRoundsCorrectly.m                           	1            	
+	11	fcn_TimeClean_checkTimeSamplingConsistency.m                       	1            	
+	12	fcn_TimeClean_cleanNaming.m                                        	1            	
+	13	fcn_TimeClean_cleanTime.m                                          	1            	
+	14	fcn_TimeClean_convertROSTimeToSeconds.m                            	1            	
+	15	fcn_TimeClean_correctTimeZoneErrorsInGPSTime.m                     	1            	
+	16	fcn_TimeClean_fillGPSTimeFromROSTime.m                             	1            	
+	17	fcn_TimeClean_fillMissingsInGPSUnits.m                             	0            	
+	18	fcn_TimeClean_findNearPoints.m                                     	0            	
+	19	fcn_TimeClean_fitROSTime2GPSTime.m                                 	1            	
+	20	fcn_TimeClean_predictGPSTimeFromROSTime.m                          	1            	
+	21	fcn_TimeClean_sortSensorDataByGPSTime.m                            	1            	
+	22	fcn_TimeClean_trimRepeatsFromField.m                               	1            	
+	23	script_test_all_functions.m                                        	0            	
+	24	script_test_fcn_DataClean_cleanTime.m                              	1            	
+	25	script_test_fcn_TimeClean_checkConsistencyOfStartEnd.m             	1            	
+	26	script_test_fcn_TimeClean_checkDataStrictlyIncreasing.m            	1            	
+	27	script_test_fcn_TimeClean_checkDataTimeConsistency.m               	1            	
+	28	script_test_fcn_TimeClean_checkFieldCountMatchesTimeCount.m        	1            	
+	29	script_test_fcn_TimeClean_checkFieldDifferencesForJumps.m          	1            	
+	30	script_test_fcn_TimeClean_checkFieldDifferencesForMissings.m       	1            	
+	31	script_test_fcn_TimeClean_checkIfFieldHasRepeatedValues.m          	1            	
+	32	script_test_fcn_TimeClean_checkIfFieldInSensors.m                  	1            	
+	33	script_test_fcn_TimeClean_checkTimeRoundsCorrectly.m               	1            	
+	34	script_test_fcn_TimeClean_checkTimeSamplingConsistency.m           	1            	
+	35	script_test_fcn_TimeClean_cleanNaming.m                            	1            	
+	36	script_test_fcn_TimeClean_cleanTime.m                              	1            	
+	37	script_test_fcn_TimeClean_convertROSTimeToSeconds.m                	1            	
+	38	script_test_fcn_TimeClean_correctTimeZoneErrorsInGPSTime.m         	1            	
+	39	script_test_fcn_TimeClean_fillGPSTimeFromROSTime.m                 	1            	
+	40	script_test_fcn_TimeClean_fillMissingsInGPSUnits.m                 	1            	
+	41	script_test_fcn_TimeClean_findNearPoints.m                         	0            	
+	42	script_test_fcn_TimeClean_fitROSTime2GPSTime.m                     	1            	
+	43	script_test_fcn_TimeClean_predictGPSTimeFromROSTime.m              	1            	
+	44	script_test_fcn_TimeClean_sortSensorDataByGPSTime.m                	1            	
+	45	script_test_fcn_TimeClean_trimRepeatsFromField.m                   	1            	
+[Warning: A "% - wrote" was found in one of the functions - see listing above.] 
+<strong>
+	INITIATING REPLACEMENT of % - wrote with % - Wrote.
+</strong>Changed 1 instances, skipped 0 comments in fcn_DataClean_cleanTime_OLD.m
+Changed 1 instances, skipped 0 comments in fcn_TimeClean_checkConsistencyOfStartEnd.m
+Changed 1 instances, skipped 0 comments in fcn_TimeClean_checkDataStrictlyIncreasing.m
+Changed 1 instances, skipped 0 comments in fcn_TimeClean_checkDataTimeConsistency.m
+Changed 1 instances, skipped 0 comments in fcn_TimeClean_checkFieldCountMatchesTimeCount.m
+Changed 1 instances, skipped 0 comments in fcn_TimeClean_checkFieldDifferencesForJumps.m
+Changed 1 instances, skipped 0 comments in fcn_TimeClean_checkFieldDifferencesForMissings.m
+Changed 1 instances, skipped 0 comments in fcn_TimeClean_checkIfFieldHasRepeatedValues.m
+Changed 1 instances, skipped 0 comments in fcn_TimeClean_checkIfFieldInSensors.m
+Changed 1 instances, skipped 0 comments in fcn_TimeClean_checkTimeRoundsCorrectly.m
+Changed 1 instances, skipped 0 comments in fcn_TimeClean_checkTimeSamplingConsistency.m
+Changed 1 instances, skipped 0 comments in fcn_TimeClean_cleanNaming.m
+Changed 1 instances, skipped 0 comments in fcn_TimeClean_cleanTime.m
+Changed 1 instances, skipped 0 comments in fcn_TimeClean_convertROSTimeToSeconds.m
+Changed 1 instances, skipped 0 comments in fcn_TimeClean_correctTimeZoneErrorsInGPSTime.m
+Changed 1 instances, skipped 0 comments in fcn_TimeClean_fillGPSTimeFromROSTime.m
+Changed 0 instances, skipped 0 comments in fcn_TimeClean_fillMissingsInGPSUnits.m
+Changed 0 instances, skipped 0 comments in fcn_TimeClean_findNearPoints.m
+Changed 1 instances, skipped 0 comments in fcn_TimeClean_fitROSTime2GPSTime.m
+Changed 1 instances, skipped 0 comments in fcn_TimeClean_predictGPSTimeFromROSTime.m
+Changed 1 instances, skipped 0 comments in fcn_TimeClean_sortSensorDataByGPSTime.m
+Changed 1 instances, skipped 0 comments in fcn_TimeClean_trimRepeatsFromField.m
+Changed 1 instances, skipped 0 comments in script_test_fcn_DataClean_cleanTime.m
+Changed 1 instances, skipped 0 comments in script_test_fcn_TimeClean_checkConsistencyOfStartEnd.m
+Changed 1 instances, skipped 0 comments in script_test_fcn_TimeClean_checkDataStrictlyIncreasing.m
+Changed 1 instances, skipped 0 comments in script_test_fcn_TimeClean_checkDataTimeConsistency.m
+Changed 1 instances, skipped 0 comments in script_test_fcn_TimeClean_checkFieldCountMatchesTimeCount.m
+Changed 1 instances, skipped 0 comments in script_test_fcn_TimeClean_checkFieldDifferencesForJumps.m
+Changed 1 instances, skipped 0 comments in script_test_fcn_TimeClean_checkFieldDifferencesForMissings.m
+Changed 1 instances, skipped 0 comments in script_test_fcn_TimeClean_checkIfFieldHasRepeatedValues.m
+Changed 1 instances, skipped 0 comments in script_test_fcn_TimeClean_checkIfFieldInSensors.m
+Changed 1 instances, skipped 0 comments in script_test_fcn_TimeClean_checkTimeRoundsCorrectly.m
+Changed 1 instances, skipped 0 comments in script_test_fcn_TimeClean_checkTimeSamplingConsistency.m
+Changed 1 instances, skipped 0 comments in script_test_fcn_TimeClean_cleanNaming.m
+Changed 1 instances, skipped 0 comments in script_test_fcn_TimeClean_cleanTime.m
+Changed 1 instances, skipped 0 comments in script_test_fcn_TimeClean_convertROSTimeToSeconds.m
+Changed 1 instances, skipped 0 comments in script_test_fcn_TimeClean_correctTimeZoneErrorsInGPSTime.m
+Changed 1 instances, skipped 0 comments in script_test_fcn_TimeClean_fillGPSTimeFromROSTime.m
+Changed 1 instances, skipped 0 comments in script_test_fcn_TimeClean_fillMissingsInGPSUnits.m
+Changed 0 instances, skipped 0 comments in script_test_fcn_TimeClean_findNearPoints.m
+Changed 1 instances, skipped 0 comments in script_test_fcn_TimeClean_fitROSTime2GPSTime.m
+Changed 1 instances, skipped 0 comments in script_test_fcn_TimeClean_predictGPSTimeFromROSTime.m
+Changed 1 instances, skipped 0 comments in script_test_fcn_TimeClean_sortSensorDataByGPSTime.m
+Changed 1 instances, skipped 0 comments in script_test_fcn_TimeClean_trimRepeatsFromField.m
+<strong>	Checking for string: % - added and replacing with % - Added: </strong><strong>FAILED.
+</strong>
+
+		m-filename                                                         	string found?	
+Folder: C:\Users\snb10\Desktop\GitHubRepos\IVSG\FieldDataCollection\DataCollectionProcedures\TimeClean\Functions:
+	1	fcn_DataClean_cleanTime_OLD.m                                      	1            	
+	2	fcn_TimeClean_checkConsistencyOfStartEnd.m                         	1            	
+	3	fcn_TimeClean_checkDataStrictlyIncreasing.m                        	0            	
+	4	fcn_TimeClean_checkDataTimeConsistency.m                           	1            	
+	5	fcn_TimeClean_checkFieldCountMatchesTimeCount.m                    	1            	
+	6	fcn_TimeClean_checkFieldDifferencesForJumps.m                      	1            	
+	7	fcn_TimeClean_checkFieldDifferencesForMissings.m                   	1            	
+	8	fcn_TimeClean_checkIfFieldHasRepeatedValues.m                      	0            	
+	9	fcn_TimeClean_checkIfFieldInSensors.m                              	1            	
+	10	fcn_TimeClean_checkTimeRoundsCorrectly.m                           	1            	
+	11	fcn_TimeClean_checkTimeSamplingConsistency.m                       	1            	
+	12	fcn_TimeClean_cleanNaming.m                                        	0            	
+	13	fcn_TimeClean_cleanTime.m                                          	1            	
+	14	fcn_TimeClean_convertROSTimeToSeconds.m                            	0            	
+	15	fcn_TimeClean_correctTimeZoneErrorsInGPSTime.m                     	0            	
+	16	fcn_TimeClean_fillGPSTimeFromROSTime.m                             	0            	
+	17	fcn_TimeClean_fillMissingsInGPSUnits.m                             	1            	
+	18	fcn_TimeClean_findNearPoints.m                                     	0            	
+	19	fcn_TimeClean_fitROSTime2GPSTime.m                                 	0            	
+	20	fcn_TimeClean_predictGPSTimeFromROSTime.m                          	0            	
+	21	fcn_TimeClean_sortSensorDataByGPSTime.m                            	0            	
+	22	fcn_TimeClean_trimRepeatsFromField.m                               	0            	
+	23	script_test_all_functions.m                                        	0            	
+	24	script_test_fcn_DataClean_cleanTime.m                              	0            	
+	25	script_test_fcn_TimeClean_checkConsistencyOfStartEnd.m             	0            	
+	26	script_test_fcn_TimeClean_checkDataStrictlyIncreasing.m            	0            	
+	27	script_test_fcn_TimeClean_checkDataTimeConsistency.m               	0            	
+	28	script_test_fcn_TimeClean_checkFieldCountMatchesTimeCount.m        	0            	
+	29	script_test_fcn_TimeClean_checkFieldDifferencesForJumps.m          	0            	
+	30	script_test_fcn_TimeClean_checkFieldDifferencesForMissings.m       	0            	
+	31	script_test_fcn_TimeClean_checkIfFieldHasRepeatedValues.m          	0            	
+	32	script_test_fcn_TimeClean_checkIfFieldInSensors.m                  	0            	
+	33	script_test_fcn_TimeClean_checkTimeRoundsCorrectly.m               	0            	
+	34	script_test_fcn_TimeClean_checkTimeSamplingConsistency.m           	0            	
+	35	script_test_fcn_TimeClean_cleanNaming.m                            	0            	
+	36	script_test_fcn_TimeClean_cleanTime.m                              	0            	
+	37	script_test_fcn_TimeClean_convertROSTimeToSeconds.m                	0            	
+	38	script_test_fcn_TimeClean_correctTimeZoneErrorsInGPSTime.m         	0            	
+	39	script_test_fcn_TimeClean_fillGPSTimeFromROSTime.m                 	0            	
+	40	script_test_fcn_TimeClean_fillMissingsInGPSUnits.m                 	0            	
+	41	script_test_fcn_TimeClean_findNearPoints.m                         	0            	
+	42	script_test_fcn_TimeClean_fitROSTime2GPSTime.m                     	0            	
+	43	script_test_fcn_TimeClean_predictGPSTimeFromROSTime.m              	0            	
+	44	script_test_fcn_TimeClean_sortSensorDataByGPSTime.m                	0            	
+	45	script_test_fcn_TimeClean_trimRepeatsFromField.m                   	0            	
+[Warning: A "% - added" was found in one of the functions - see listing above.] 
+<strong>
+	INITIATING REPLACEMENT of % - added with % - Added.
+</strong>Changed 1 instances, skipped 0 comments in fcn_DataClean_cleanTime_OLD.m
+Changed 2 instances, skipped 0 comments in fcn_TimeClean_checkConsistencyOfStartEnd.m
+Changed 0 instances, skipped 0 comments in fcn_TimeClean_checkDataStrictlyIncreasing.m
+Changed 5 instances, skipped 0 comments in fcn_TimeClean_checkDataTimeConsistency.m
+Changed 2 instances, skipped 0 comments in fcn_TimeClean_checkFieldCountMatchesTimeCount.m
+Changed 1 instances, skipped 0 comments in fcn_TimeClean_checkFieldDifferencesForJumps.m
+Changed 2 instances, skipped 0 comments in fcn_TimeClean_checkFieldDifferencesForMissings.m
+Changed 0 instances, skipped 0 comments in fcn_TimeClean_checkIfFieldHasRepeatedValues.m
+Changed 4 instances, skipped 0 comments in fcn_TimeClean_checkIfFieldInSensors.m
+Changed 2 instances, skipped 0 comments in fcn_TimeClean_checkTimeRoundsCorrectly.m
+Changed 3 instances, skipped 0 comments in fcn_TimeClean_checkTimeSamplingConsistency.m
+Changed 0 instances, skipped 0 comments in fcn_TimeClean_cleanNaming.m
+Changed 1 instances, skipped 0 comments in fcn_TimeClean_cleanTime.m
+Changed 0 instances, skipped 0 comments in fcn_TimeClean_convertROSTimeToSeconds.m
+Changed 0 instances, skipped 0 comments in fcn_TimeClean_correctTimeZoneErrorsInGPSTime.m
+Changed 0 instances, skipped 0 comments in fcn_TimeClean_fillGPSTimeFromROSTime.m
+Changed 3 instances, skipped 0 comments in fcn_TimeClean_fillMissingsInGPSUnits.m
+Changed 0 instances, skipped 0 comments in fcn_TimeClean_findNearPoints.m
+Changed 0 instances, skipped 0 comments in fcn_TimeClean_fitROSTime2GPSTime.m
+Changed 0 instances, skipped 0 comments in fcn_TimeClean_predictGPSTimeFromROSTime.m
+Changed 0 instances, skipped 0 comments in fcn_TimeClean_sortSensorDataByGPSTime.m
+Changed 0 instances, skipped 0 comments in fcn_TimeClean_trimRepeatsFromField.m
+Changed 0 instances, skipped 0 comments in script_test_fcn_DataClean_cleanTime.m
+Changed 0 instances, skipped 0 comments in script_test_fcn_TimeClean_checkConsistencyOfStartEnd.m
+Changed 0 instances, skipped 0 comments in script_test_fcn_TimeClean_checkDataStrictlyIncreasing.m
+Changed 0 instances, skipped 0 comments in script_test_fcn_TimeClean_checkDataTimeConsistency.m
+Changed 0 instances, skipped 0 comments in script_test_fcn_TimeClean_checkFieldCountMatchesTimeCount.m
+Changed 0 instances, skipped 0 comments in script_test_fcn_TimeClean_checkFieldDifferencesForJumps.m
+Changed 0 instances, skipped 0 comments in script_test_fcn_TimeClean_checkFieldDifferencesForMissings.m
+Changed 0 instances, skipped 0 comments in script_test_fcn_TimeClean_checkIfFieldHasRepeatedValues.m
+Changed 0 instances, skipped 0 comments in script_test_fcn_TimeClean_checkIfFieldInSensors.m
+Changed 0 instances, skipped 0 comments in script_test_fcn_TimeClean_checkTimeRoundsCorrectly.m
+Changed 0 instances, skipped 0 comments in script_test_fcn_TimeClean_checkTimeSamplingConsistency.m
+Changed 0 instances, skipped 0 comments in script_test_fcn_TimeClean_cleanNaming.m
+Changed 0 instances, skipped 0 comments in script_test_fcn_TimeClean_cleanTime.m
+Changed 0 instances, skipped 0 comments in script_test_fcn_TimeClean_convertROSTimeToSeconds.m
+Changed 0 instances, skipped 0 comments in script_test_fcn_TimeClean_correctTimeZoneErrorsInGPSTime.m
+Changed 0 instances, skipped 0 comments in script_test_fcn_TimeClean_fillGPSTimeFromROSTime.m
+Changed 0 instances, skipped 0 comments in script_test_fcn_TimeClean_fillMissingsInGPSUnits.m
+Changed 0 instances, skipped 0 comments in script_test_fcn_TimeClean_findNearPoints.m
+Changed 0 instances, skipped 0 comments in script_test_fcn_TimeClean_fitROSTime2GPSTime.m
+Changed 0 instances, skipped 0 comments in script_test_fcn_TimeClean_predictGPSTimeFromROSTime.m
+Changed 0 instances, skipped 0 comments in script_test_fcn_TimeClean_sortSensorDataByGPSTime.m
+Changed 0 instances, skipped 0 comments in script_test_fcn_TimeClean_trimRepeatsFromField.m
+<strong>	Checking for string: % - removed and replacing with % - Removed: </strong><strong>FAILED.
+</strong>
+
+		m-filename                                                         	string found?	
+Folder: C:\Users\snb10\Desktop\GitHubRepos\IVSG\FieldDataCollection\DataCollectionProcedures\TimeClean\Functions:
+	1	fcn_DataClean_cleanTime_OLD.m                                      	1            	
+	2	fcn_TimeClean_checkConsistencyOfStartEnd.m                         	0            	
+	3	fcn_TimeClean_checkDataStrictlyIncreasing.m                        	0            	
+	4	fcn_TimeClean_checkDataTimeConsistency.m                           	0            	
+	5	fcn_TimeClean_checkFieldCountMatchesTimeCount.m                    	0            	
+	6	fcn_TimeClean_checkFieldDifferencesForJumps.m                      	0            	
+	7	fcn_TimeClean_checkFieldDifferencesForMissings.m                   	0            	
+	8	fcn_TimeClean_checkIfFieldHasRepeatedValues.m                      	0            	
+	9	fcn_TimeClean_checkIfFieldInSensors.m                              	0            	
+	10	fcn_TimeClean_checkTimeRoundsCorrectly.m                           	0            	
+	11	fcn_TimeClean_checkTimeSamplingConsistency.m                       	0            	
+	12	fcn_TimeClean_cleanNaming.m                                        	0            	
+	13	fcn_TimeClean_cleanTime.m                                          	1            	
+	14	fcn_TimeClean_convertROSTimeToSeconds.m                            	0            	
+	15	fcn_TimeClean_correctTimeZoneErrorsInGPSTime.m                     	0            	
+	16	fcn_TimeClean_fillGPSTimeFromROSTime.m                             	0            	
+	17	fcn_TimeClean_fillMissingsInGPSUnits.m                             	1            	
+	18	fcn_TimeClean_findNearPoints.m                                     	0            	
+	19	fcn_TimeClean_fitROSTime2GPSTime.m                                 	0            	
+	20	fcn_TimeClean_predictGPSTimeFromROSTime.m                          	0            	
+	21	fcn_TimeClean_sortSensorDataByGPSTime.m                            	0            	
+	22	fcn_TimeClean_trimRepeatsFromField.m                               	0            	
+	23	script_test_all_functions.m                                        	0            	
+	24	script_test_fcn_DataClean_cleanTime.m                              	0            	
+	25	script_test_fcn_TimeClean_checkConsistencyOfStartEnd.m             	0            	
+	26	script_test_fcn_TimeClean_checkDataStrictlyIncreasing.m            	0            	
+	27	script_test_fcn_TimeClean_checkDataTimeConsistency.m               	0            	
+	28	script_test_fcn_TimeClean_checkFieldCountMatchesTimeCount.m        	0            	
+	29	script_test_fcn_TimeClean_checkFieldDifferencesForJumps.m          	0            	
+	30	script_test_fcn_TimeClean_checkFieldDifferencesForMissings.m       	0            	
+	31	script_test_fcn_TimeClean_checkIfFieldHasRepeatedValues.m          	0            	
+	32	script_test_fcn_TimeClean_checkIfFieldInSensors.m                  	0            	
+	33	script_test_fcn_TimeClean_checkTimeRoundsCorrectly.m               	0            	
+	34	script_test_fcn_TimeClean_checkTimeSamplingConsistency.m           	0            	
+	35	script_test_fcn_TimeClean_cleanNaming.m                            	0            	
+	36	script_test_fcn_TimeClean_cleanTime.m                              	0            	
+	37	script_test_fcn_TimeClean_convertROSTimeToSeconds.m                	0            	
+	38	script_test_fcn_TimeClean_correctTimeZoneErrorsInGPSTime.m         	0            	
+	39	script_test_fcn_TimeClean_fillGPSTimeFromROSTime.m                 	0            	
+	40	script_test_fcn_TimeClean_fillMissingsInGPSUnits.m                 	0            	
+	41	script_test_fcn_TimeClean_findNearPoints.m                         	0            	
+	42	script_test_fcn_TimeClean_fitROSTime2GPSTime.m                     	0            	
+	43	script_test_fcn_TimeClean_predictGPSTimeFromROSTime.m              	0            	
+	44	script_test_fcn_TimeClean_sortSensorDataByGPSTime.m                	0            	
+	45	script_test_fcn_TimeClean_trimRepeatsFromField.m                   	0            	
+[Warning: A "% - removed" was found in one of the functions - see listing above.] 
+<strong>
+	INITIATING REPLACEMENT of % - removed with % - Removed.
+</strong>Changed 3 instances, skipped 0 comments in fcn_DataClean_cleanTime_OLD.m
+Changed 0 instances, skipped 0 comments in fcn_TimeClean_checkConsistencyOfStartEnd.m
+Changed 0 instances, skipped 0 comments in fcn_TimeClean_checkDataStrictlyIncreasing.m
+Changed 0 instances, skipped 0 comments in fcn_TimeClean_checkDataTimeConsistency.m
+Changed 0 instances, skipped 0 comments in fcn_TimeClean_checkFieldCountMatchesTimeCount.m
+Changed 0 instances, skipped 0 comments in fcn_TimeClean_checkFieldDifferencesForJumps.m
+Changed 0 instances, skipped 0 comments in fcn_TimeClean_checkFieldDifferencesForMissings.m
+Changed 0 instances, skipped 0 comments in fcn_TimeClean_checkIfFieldHasRepeatedValues.m
+Changed 0 instances, skipped 0 comments in fcn_TimeClean_checkIfFieldInSensors.m
+Changed 0 instances, skipped 0 comments in fcn_TimeClean_checkTimeRoundsCorrectly.m
+Changed 0 instances, skipped 0 comments in fcn_TimeClean_checkTimeSamplingConsistency.m
+Changed 0 instances, skipped 0 comments in fcn_TimeClean_cleanNaming.m
+Changed 3 instances, skipped 0 comments in fcn_TimeClean_cleanTime.m
+Changed 0 instances, skipped 0 comments in fcn_TimeClean_convertROSTimeToSeconds.m
+Changed 0 instances, skipped 0 comments in fcn_TimeClean_correctTimeZoneErrorsInGPSTime.m
+Changed 0 instances, skipped 0 comments in fcn_TimeClean_fillGPSTimeFromROSTime.m
+Changed 1 instances, skipped 0 comments in fcn_TimeClean_fillMissingsInGPSUnits.m
+Changed 0 instances, skipped 0 comments in fcn_TimeClean_findNearPoints.m
+Changed 0 instances, skipped 0 comments in fcn_TimeClean_fitROSTime2GPSTime.m
+Changed 0 instances, skipped 0 comments in fcn_TimeClean_predictGPSTimeFromROSTime.m
+Changed 0 instances, skipped 0 comments in fcn_TimeClean_sortSensorDataByGPSTime.m
+Changed 0 instances, skipped 0 comments in fcn_TimeClean_trimRepeatsFromField.m
+Changed 0 instances, skipped 0 comments in script_test_fcn_DataClean_cleanTime.m
+Changed 0 instances, skipped 0 comments in script_test_fcn_TimeClean_checkConsistencyOfStartEnd.m
+Changed 0 instances, skipped 0 comments in script_test_fcn_TimeClean_checkDataStrictlyIncreasing.m
+Changed 0 instances, skipped 0 comments in script_test_fcn_TimeClean_checkDataTimeConsistency.m
+Changed 0 instances, skipped 0 comments in script_test_fcn_TimeClean_checkFieldCountMatchesTimeCount.m
+Changed 0 instances, skipped 0 comments in script_test_fcn_TimeClean_checkFieldDifferencesForJumps.m
+Changed 0 instances, skipped 0 comments in script_test_fcn_TimeClean_checkFieldDifferencesForMissings.m
+Changed 0 instances, skipped 0 comments in script_test_fcn_TimeClean_checkIfFieldHasRepeatedValues.m
+Changed 0 instances, skipped 0 comments in script_test_fcn_TimeClean_checkIfFieldInSensors.m
+Changed 0 instances, skipped 0 comments in script_test_fcn_TimeClean_checkTimeRoundsCorrectly.m
+Changed 0 instances, skipped 0 comments in script_test_fcn_TimeClean_checkTimeSamplingConsistency.m
+Changed 0 instances, skipped 0 comments in script_test_fcn_TimeClean_cleanNaming.m
+Changed 0 instances, skipped 0 comments in script_test_fcn_TimeClean_cleanTime.m
+Changed 0 instances, skipped 0 comments in script_test_fcn_TimeClean_convertROSTimeToSeconds.m
+Changed 0 instances, skipped 0 comments in script_test_fcn_TimeClean_correctTimeZoneErrorsInGPSTime.m
+Changed 0 instances, skipped 0 comments in script_test_fcn_TimeClean_fillGPSTimeFromROSTime.m
+Changed 0 instances, skipped 0 comments in script_test_fcn_TimeClean_fillMissingsInGPSUnits.m
+Changed 0 instances, skipped 0 comments in script_test_fcn_TimeClean_findNearPoints.m
+Changed 0 instances, skipped 0 comments in script_test_fcn_TimeClean_fitROSTime2GPSTime.m
+Changed 0 instances, skipped 0 comments in script_test_fcn_TimeClean_predictGPSTimeFromROSTime.m
+Changed 0 instances, skipped 0 comments in script_test_fcn_TimeClean_sortSensorDataByGPSTime.m
+Changed 0 instances, skipped 0 comments in script_test_fcn_TimeClean_trimRepeatsFromField.m
+<strong>	Checking for string: % - updated and replacing with % - Updated: </strong><strong>FAILED.
+</strong>
+
+		m-filename                                                         	string found?	
+Folder: C:\Users\snb10\Desktop\GitHubRepos\IVSG\FieldDataCollection\DataCollectionProcedures\TimeClean\Functions:
+	1	fcn_DataClean_cleanTime_OLD.m                                      	0            	
+	2	fcn_TimeClean_checkConsistencyOfStartEnd.m                         	1            	
+	3	fcn_TimeClean_checkDataStrictlyIncreasing.m                        	0            	
+	4	fcn_TimeClean_checkDataTimeConsistency.m                           	1            	
+	5	fcn_TimeClean_checkFieldCountMatchesTimeCount.m                    	1            	
+	6	fcn_TimeClean_checkFieldDifferencesForJumps.m                      	1            	
+	7	fcn_TimeClean_checkFieldDifferencesForMissings.m                   	1            	
+	8	fcn_TimeClean_checkIfFieldHasRepeatedValues.m                      	0            	
+	9	fcn_TimeClean_checkIfFieldInSensors.m                              	0            	
+	10	fcn_TimeClean_checkTimeRoundsCorrectly.m                           	1            	
+	11	fcn_TimeClean_checkTimeSamplingConsistency.m                       	1            	
+	12	fcn_TimeClean_cleanNaming.m                                        	0            	
+	13	fcn_TimeClean_cleanTime.m                                          	0            	
+	14	fcn_TimeClean_convertROSTimeToSeconds.m                            	1            	
+	15	fcn_TimeClean_correctTimeZoneErrorsInGPSTime.m                     	0            	
+	16	fcn_TimeClean_fillGPSTimeFromROSTime.m                             	0            	
+	17	fcn_TimeClean_fillMissingsInGPSUnits.m                             	1            	
+	18	fcn_TimeClean_findNearPoints.m                                     	0            	
+	19	fcn_TimeClean_fitROSTime2GPSTime.m                                 	0            	
+	20	fcn_TimeClean_predictGPSTimeFromROSTime.m                          	0            	
+	21	fcn_TimeClean_sortSensorDataByGPSTime.m                            	1            	
+	22	fcn_TimeClean_trimRepeatsFromField.m                               	1            	
+	23	script_test_all_functions.m                                        	0            	
+	24	script_test_fcn_DataClean_cleanTime.m                              	0            	
+	25	script_test_fcn_TimeClean_checkConsistencyOfStartEnd.m             	0            	
+	26	script_test_fcn_TimeClean_checkDataStrictlyIncreasing.m            	0            	
+	27	script_test_fcn_TimeClean_checkDataTimeConsistency.m               	0            	
+	28	script_test_fcn_TimeClean_checkFieldCountMatchesTimeCount.m        	0            	
+	29	script_test_fcn_TimeClean_checkFieldDifferencesForJumps.m          	0            	
+	30	script_test_fcn_TimeClean_checkFieldDifferencesForMissings.m       	0            	
+	31	script_test_fcn_TimeClean_checkIfFieldHasRepeatedValues.m          	0            	
+	32	script_test_fcn_TimeClean_checkIfFieldInSensors.m                  	0            	
+	33	script_test_fcn_TimeClean_checkTimeRoundsCorrectly.m               	0            	
+	34	script_test_fcn_TimeClean_checkTimeSamplingConsistency.m           	1            	
+	35	script_test_fcn_TimeClean_cleanNaming.m                            	0            	
+	36	script_test_fcn_TimeClean_cleanTime.m                              	0            	
+	37	script_test_fcn_TimeClean_convertROSTimeToSeconds.m                	0            	
+	38	script_test_fcn_TimeClean_correctTimeZoneErrorsInGPSTime.m         	0            	
+	39	script_test_fcn_TimeClean_fillGPSTimeFromROSTime.m                 	0            	
+	40	script_test_fcn_TimeClean_fillMissingsInGPSUnits.m                 	0            	
+	41	script_test_fcn_TimeClean_findNearPoints.m                         	0            	
+	42	script_test_fcn_TimeClean_fitROSTime2GPSTime.m                     	0            	
+	43	script_test_fcn_TimeClean_predictGPSTimeFromROSTime.m              	0            	
+	44	script_test_fcn_TimeClean_sortSensorDataByGPSTime.m                	0            	
+	45	script_test_fcn_TimeClean_trimRepeatsFromField.m                   	0            	
+[Warning: A "% - updated" was found in one of the functions - see listing above.] 
+<strong>
+	INITIATING REPLACEMENT of % - updated with % - Updated.
+</strong>Changed 0 instances, skipped 0 comments in fcn_DataClean_cleanTime_OLD.m
+Changed 1 instances, skipped 0 comments in fcn_TimeClean_checkConsistencyOfStartEnd.m
+Changed 0 instances, skipped 0 comments in fcn_TimeClean_checkDataStrictlyIncreasing.m
+Changed 1 instances, skipped 0 comments in fcn_TimeClean_checkDataTimeConsistency.m
+Changed 1 instances, skipped 0 comments in fcn_TimeClean_checkFieldCountMatchesTimeCount.m
+Changed 1 instances, skipped 0 comments in fcn_TimeClean_checkFieldDifferencesForJumps.m
+Changed 1 instances, skipped 0 comments in fcn_TimeClean_checkFieldDifferencesForMissings.m
+Changed 0 instances, skipped 0 comments in fcn_TimeClean_checkIfFieldHasRepeatedValues.m
+Changed 0 instances, skipped 0 comments in fcn_TimeClean_checkIfFieldInSensors.m
+Changed 1 instances, skipped 0 comments in fcn_TimeClean_checkTimeRoundsCorrectly.m
+Changed 4 instances, skipped 0 comments in fcn_TimeClean_checkTimeSamplingConsistency.m
+Changed 0 instances, skipped 0 comments in fcn_TimeClean_cleanNaming.m
+Changed 0 instances, skipped 0 comments in fcn_TimeClean_cleanTime.m
+Changed 1 instances, skipped 0 comments in fcn_TimeClean_convertROSTimeToSeconds.m
+Changed 0 instances, skipped 0 comments in fcn_TimeClean_correctTimeZoneErrorsInGPSTime.m
+Changed 0 instances, skipped 0 comments in fcn_TimeClean_fillGPSTimeFromROSTime.m
+Changed 1 instances, skipped 0 comments in fcn_TimeClean_fillMissingsInGPSUnits.m
+Changed 0 instances, skipped 0 comments in fcn_TimeClean_findNearPoints.m
+Changed 0 instances, skipped 0 comments in fcn_TimeClean_fitROSTime2GPSTime.m
+Changed 0 instances, skipped 0 comments in fcn_TimeClean_predictGPSTimeFromROSTime.m
+Changed 1 instances, skipped 0 comments in fcn_TimeClean_sortSensorDataByGPSTime.m
+Changed 1 instances, skipped 0 comments in fcn_TimeClean_trimRepeatsFromField.m
+Changed 0 instances, skipped 0 comments in script_test_fcn_DataClean_cleanTime.m
+Changed 0 instances, skipped 0 comments in script_test_fcn_TimeClean_checkConsistencyOfStartEnd.m
+Changed 0 instances, skipped 0 comments in script_test_fcn_TimeClean_checkDataStrictlyIncreasing.m
+Changed 0 instances, skipped 0 comments in script_test_fcn_TimeClean_checkDataTimeConsistency.m
+Changed 0 instances, skipped 0 comments in script_test_fcn_TimeClean_checkFieldCountMatchesTimeCount.m
+Changed 0 instances, skipped 0 comments in script_test_fcn_TimeClean_checkFieldDifferencesForJumps.m
+Changed 0 instances, skipped 0 comments in script_test_fcn_TimeClean_checkFieldDifferencesForMissings.m
+Changed 0 instances, skipped 0 comments in script_test_fcn_TimeClean_checkIfFieldHasRepeatedValues.m
+Changed 0 instances, skipped 0 comments in script_test_fcn_TimeClean_checkIfFieldInSensors.m
+Changed 0 instances, skipped 0 comments in script_test_fcn_TimeClean_checkTimeRoundsCorrectly.m
+Changed 1 instances, skipped 0 comments in script_test_fcn_TimeClean_checkTimeSamplingConsistency.m
+Changed 0 instances, skipped 0 comments in script_test_fcn_TimeClean_cleanNaming.m
+Changed 0 instances, skipped 0 comments in script_test_fcn_TimeClean_cleanTime.m
+Changed 0 instances, skipped 0 comments in script_test_fcn_TimeClean_convertROSTimeToSeconds.m
+Changed 0 instances, skipped 0 comments in script_test_fcn_TimeClean_correctTimeZoneErrorsInGPSTime.m
+Changed 0 instances, skipped 0 comments in script_test_fcn_TimeClean_fillGPSTimeFromROSTime.m
+Changed 0 instances, skipped 0 comments in script_test_fcn_TimeClean_fillMissingsInGPSUnits.m
+Changed 0 instances, skipped 0 comments in script_test_fcn_TimeClean_findNearPoints.m
+Changed 0 instances, skipped 0 comments in script_test_fcn_TimeClean_fitROSTime2GPSTime.m
+Changed 0 instances, skipped 0 comments in script_test_fcn_TimeClean_predictGPSTimeFromROSTime.m
+Changed 0 instances, skipped 0 comments in script_test_fcn_TimeClean_sortSensorDataByGPSTime.m
+Changed 0 instances, skipped 0 comments in script_test_fcn_TimeClean_trimRepeatsFromField.m
+<strong>	Checking for string: % - renamed and replacing with % - Renamed: </strong><strong>PASSED.
+</strong><strong>	Checking for string: % - changed and replacing with % - Changed: </strong><strong>FAILED.
+</strong>
+
+		m-filename                                                         	string found?	
+Folder: C:\Users\snb10\Desktop\GitHubRepos\IVSG\FieldDataCollection\DataCollectionProcedures\TimeClean\Functions:
+	1	fcn_DataClean_cleanTime_OLD.m                                      	0            	
+	2	fcn_TimeClean_checkConsistencyOfStartEnd.m                         	0            	
+	3	fcn_TimeClean_checkDataStrictlyIncreasing.m                        	0            	
+	4	fcn_TimeClean_checkDataTimeConsistency.m                           	0            	
+	5	fcn_TimeClean_checkFieldCountMatchesTimeCount.m                    	0            	
+	6	fcn_TimeClean_checkFieldDifferencesForJumps.m                      	1            	
+	7	fcn_TimeClean_checkFieldDifferencesForMissings.m                   	1            	
+	8	fcn_TimeClean_checkIfFieldHasRepeatedValues.m                      	0            	
+	9	fcn_TimeClean_checkIfFieldInSensors.m                              	0            	
+	10	fcn_TimeClean_checkTimeRoundsCorrectly.m                           	0            	
+	11	fcn_TimeClean_checkTimeSamplingConsistency.m                       	0            	
+	12	fcn_TimeClean_cleanNaming.m                                        	0            	
+	13	fcn_TimeClean_cleanTime.m                                          	0            	
+	14	fcn_TimeClean_convertROSTimeToSeconds.m                            	0            	
+	15	fcn_TimeClean_correctTimeZoneErrorsInGPSTime.m                     	0            	
+	16	fcn_TimeClean_fillGPSTimeFromROSTime.m                             	0            	
+	17	fcn_TimeClean_fillMissingsInGPSUnits.m                             	0            	
+	18	fcn_TimeClean_findNearPoints.m                                     	0            	
+	19	fcn_TimeClean_fitROSTime2GPSTime.m                                 	0            	
+	20	fcn_TimeClean_predictGPSTimeFromROSTime.m                          	0            	
+	21	fcn_TimeClean_sortSensorDataByGPSTime.m                            	0            	
+	22	fcn_TimeClean_trimRepeatsFromField.m                               	0            	
+	23	script_test_all_functions.m                                        	0            	
+	24	script_test_fcn_DataClean_cleanTime.m                              	0            	
+	25	script_test_fcn_TimeClean_checkConsistencyOfStartEnd.m             	0            	
+	26	script_test_fcn_TimeClean_checkDataStrictlyIncreasing.m            	0            	
+	27	script_test_fcn_TimeClean_checkDataTimeConsistency.m               	0            	
+	28	script_test_fcn_TimeClean_checkFieldCountMatchesTimeCount.m        	0            	
+	29	script_test_fcn_TimeClean_checkFieldDifferencesForJumps.m          	0            	
+	30	script_test_fcn_TimeClean_checkFieldDifferencesForMissings.m       	0            	
+	31	script_test_fcn_TimeClean_checkIfFieldHasRepeatedValues.m          	0            	
+	32	script_test_fcn_TimeClean_checkIfFieldInSensors.m                  	0            	
+	33	script_test_fcn_TimeClean_checkTimeRoundsCorrectly.m               	0            	
+	34	script_test_fcn_TimeClean_checkTimeSamplingConsistency.m           	0            	
+	35	script_test_fcn_TimeClean_cleanNaming.m                            	0            	
+	36	script_test_fcn_TimeClean_cleanTime.m                              	0            	
+	37	script_test_fcn_TimeClean_convertROSTimeToSeconds.m                	0            	
+	38	script_test_fcn_TimeClean_correctTimeZoneErrorsInGPSTime.m         	0            	
+	39	script_test_fcn_TimeClean_fillGPSTimeFromROSTime.m                 	0            	
+	40	script_test_fcn_TimeClean_fillMissingsInGPSUnits.m                 	0            	
+	41	script_test_fcn_TimeClean_findNearPoints.m                         	0            	
+	42	script_test_fcn_TimeClean_fitROSTime2GPSTime.m                     	0            	
+	43	script_test_fcn_TimeClean_predictGPSTimeFromROSTime.m              	0            	
+	44	script_test_fcn_TimeClean_sortSensorDataByGPSTime.m                	0            	
+	45	script_test_fcn_TimeClean_trimRepeatsFromField.m                   	0            	
+[Warning: A "% - changed" was found in one of the functions - see listing above.] 
+<strong>
+	INITIATING REPLACEMENT of % - changed with % - Changed.
+</strong>Changed 0 instances, skipped 0 comments in fcn_DataClean_cleanTime_OLD.m
+Changed 0 instances, skipped 0 comments in fcn_TimeClean_checkConsistencyOfStartEnd.m
+Changed 0 instances, skipped 0 comments in fcn_TimeClean_checkDataStrictlyIncreasing.m
+Changed 0 instances, skipped 0 comments in fcn_TimeClean_checkDataTimeConsistency.m
+Changed 0 instances, skipped 0 comments in fcn_TimeClean_checkFieldCountMatchesTimeCount.m
+Changed 1 instances, skipped 0 comments in fcn_TimeClean_checkFieldDifferencesForJumps.m
+Changed 1 instances, skipped 0 comments in fcn_TimeClean_checkFieldDifferencesForMissings.m
+Changed 0 instances, skipped 0 comments in fcn_TimeClean_checkIfFieldHasRepeatedValues.m
+Changed 0 instances, skipped 0 comments in fcn_TimeClean_checkIfFieldInSensors.m
+Changed 0 instances, skipped 0 comments in fcn_TimeClean_checkTimeRoundsCorrectly.m
+Changed 0 instances, skipped 0 comments in fcn_TimeClean_checkTimeSamplingConsistency.m
+Changed 0 instances, skipped 0 comments in fcn_TimeClean_cleanNaming.m
+Changed 0 instances, skipped 0 comments in fcn_TimeClean_cleanTime.m
+Changed 0 instances, skipped 0 comments in fcn_TimeClean_convertROSTimeToSeconds.m
+Changed 0 instances, skipped 0 comments in fcn_TimeClean_correctTimeZoneErrorsInGPSTime.m
+Changed 0 instances, skipped 0 comments in fcn_TimeClean_fillGPSTimeFromROSTime.m
+Changed 0 instances, skipped 0 comments in fcn_TimeClean_fillMissingsInGPSUnits.m
+Changed 0 instances, skipped 0 comments in fcn_TimeClean_findNearPoints.m
+Changed 0 instances, skipped 0 comments in fcn_TimeClean_fitROSTime2GPSTime.m
+Changed 0 instances, skipped 0 comments in fcn_TimeClean_predictGPSTimeFromROSTime.m
+Changed 0 instances, skipped 0 comments in fcn_TimeClean_sortSensorDataByGPSTime.m
+Changed 0 instances, skipped 0 comments in fcn_TimeClean_trimRepeatsFromField.m
+Changed 0 instances, skipped 0 comments in script_test_fcn_DataClean_cleanTime.m
+Changed 0 instances, skipped 0 comments in script_test_fcn_TimeClean_checkConsistencyOfStartEnd.m
+Changed 0 instances, skipped 0 comments in script_test_fcn_TimeClean_checkDataStrictlyIncreasing.m
+Changed 0 instances, skipped 0 comments in script_test_fcn_TimeClean_checkDataTimeConsistency.m
+Changed 0 instances, skipped 0 comments in script_test_fcn_TimeClean_checkFieldCountMatchesTimeCount.m
+Changed 0 instances, skipped 0 comments in script_test_fcn_TimeClean_checkFieldDifferencesForJumps.m
+Changed 0 instances, skipped 0 comments in script_test_fcn_TimeClean_checkFieldDifferencesForMissings.m
+Changed 0 instances, skipped 0 comments in script_test_fcn_TimeClean_checkIfFieldHasRepeatedValues.m
+Changed 0 instances, skipped 0 comments in script_test_fcn_TimeClean_checkIfFieldInSensors.m
+Changed 0 instances, skipped 0 comments in script_test_fcn_TimeClean_checkTimeRoundsCorrectly.m
+Changed 0 instances, skipped 0 comments in script_test_fcn_TimeClean_checkTimeSamplingConsistency.m
+Changed 0 instances, skipped 0 comments in script_test_fcn_TimeClean_cleanNaming.m
+Changed 0 instances, skipped 0 comments in script_test_fcn_TimeClean_cleanTime.m
+Changed 0 instances, skipped 0 comments in script_test_fcn_TimeClean_convertROSTimeToSeconds.m
+Changed 0 instances, skipped 0 comments in script_test_fcn_TimeClean_correctTimeZoneErrorsInGPSTime.m
+Changed 0 instances, skipped 0 comments in script_test_fcn_TimeClean_fillGPSTimeFromROSTime.m
+Changed 0 instances, skipped 0 comments in script_test_fcn_TimeClean_fillMissingsInGPSUnits.m
+Changed 0 instances, skipped 0 comments in script_test_fcn_TimeClean_findNearPoints.m
+Changed 0 instances, skipped 0 comments in script_test_fcn_TimeClean_fitROSTime2GPSTime.m
+Changed 0 instances, skipped 0 comments in script_test_fcn_TimeClean_predictGPSTimeFromROSTime.m
+Changed 0 instances, skipped 0 comments in script_test_fcn_TimeClean_sortSensorDataByGPSTime.m
+Changed 0 instances, skipped 0 comments in script_test_fcn_TimeClean_trimRepeatsFromField.m
+<strong>	Checking for string: % - fixed and replacing with % - Fixed: </strong><strong>FAILED.
+</strong>
+
+		m-filename                                                         	string found?	
+Folder: C:\Users\snb10\Desktop\GitHubRepos\IVSG\FieldDataCollection\DataCollectionProcedures\TimeClean\Functions:
+	1	fcn_DataClean_cleanTime_OLD.m                                      	0            	
+	2	fcn_TimeClean_checkConsistencyOfStartEnd.m                         	1            	
+	3	fcn_TimeClean_checkDataStrictlyIncreasing.m                        	0            	
+	4	fcn_TimeClean_checkDataTimeConsistency.m                           	1            	
+	5	fcn_TimeClean_checkFieldCountMatchesTimeCount.m                    	1            	
+	6	fcn_TimeClean_checkFieldDifferencesForJumps.m                      	1            	
+	7	fcn_TimeClean_checkFieldDifferencesForMissings.m                   	1            	
+	8	fcn_TimeClean_checkIfFieldHasRepeatedValues.m                      	0            	
+	9	fcn_TimeClean_checkIfFieldInSensors.m                              	1            	
+	10	fcn_TimeClean_checkTimeRoundsCorrectly.m                           	1            	
+	11	fcn_TimeClean_checkTimeSamplingConsistency.m                       	1            	
+	12	fcn_TimeClean_cleanNaming.m                                        	0            	
+	13	fcn_TimeClean_cleanTime.m                                          	0            	
+	14	fcn_TimeClean_convertROSTimeToSeconds.m                            	1            	
+	15	fcn_TimeClean_correctTimeZoneErrorsInGPSTime.m                     	0            	
+	16	fcn_TimeClean_fillGPSTimeFromROSTime.m                             	0            	
+	17	fcn_TimeClean_fillMissingsInGPSUnits.m                             	1            	
+	18	fcn_TimeClean_findNearPoints.m                                     	0            	
+	19	fcn_TimeClean_fitROSTime2GPSTime.m                                 	0            	
+	20	fcn_TimeClean_predictGPSTimeFromROSTime.m                          	0            	
+	21	fcn_TimeClean_sortSensorDataByGPSTime.m                            	1            	
+	22	fcn_TimeClean_trimRepeatsFromField.m                               	1            	
+	23	script_test_all_functions.m                                        	0            	
+	24	script_test_fcn_DataClean_cleanTime.m                              	0            	
+	25	script_test_fcn_TimeClean_checkConsistencyOfStartEnd.m             	0            	
+	26	script_test_fcn_TimeClean_checkDataStrictlyIncreasing.m            	0            	
+	27	script_test_fcn_TimeClean_checkDataTimeConsistency.m               	1            	
+	28	script_test_fcn_TimeClean_checkFieldCountMatchesTimeCount.m        	0            	
+	29	script_test_fcn_TimeClean_checkFieldDifferencesForJumps.m          	0            	
+	30	script_test_fcn_TimeClean_checkFieldDifferencesForMissings.m       	0            	
+	31	script_test_fcn_TimeClean_checkIfFieldHasRepeatedValues.m          	0            	
+	32	script_test_fcn_TimeClean_checkIfFieldInSensors.m                  	0            	
+	33	script_test_fcn_TimeClean_checkTimeRoundsCorrectly.m               	0            	
+	34	script_test_fcn_TimeClean_checkTimeSamplingConsistency.m           	0            	
+	35	script_test_fcn_TimeClean_cleanNaming.m                            	0            	
+	36	script_test_fcn_TimeClean_cleanTime.m                              	0            	
+	37	script_test_fcn_TimeClean_convertROSTimeToSeconds.m                	0            	
+	38	script_test_fcn_TimeClean_correctTimeZoneErrorsInGPSTime.m         	0            	
+	39	script_test_fcn_TimeClean_fillGPSTimeFromROSTime.m                 	0            	
+	40	script_test_fcn_TimeClean_fillMissingsInGPSUnits.m                 	0            	
+	41	script_test_fcn_TimeClean_findNearPoints.m                         	0            	
+	42	script_test_fcn_TimeClean_fitROSTime2GPSTime.m                     	0            	
+	43	script_test_fcn_TimeClean_predictGPSTimeFromROSTime.m              	0            	
+	44	script_test_fcn_TimeClean_sortSensorDataByGPSTime.m                	0            	
+	45	script_test_fcn_TimeClean_trimRepeatsFromField.m                   	0            	
+[Warning: A "% - fixed" was found in one of the functions - see listing above.] 
+<strong>
+	INITIATING REPLACEMENT of % - fixed with % - Fixed.
+</strong>Changed 0 instances, skipped 0 comments in fcn_DataClean_cleanTime_OLD.m
+Changed 1 instances, skipped 0 comments in fcn_TimeClean_checkConsistencyOfStartEnd.m
+Changed 0 instances, skipped 0 comments in fcn_TimeClean_checkDataStrictlyIncreasing.m
+Changed 4 instances, skipped 0 comments in fcn_TimeClean_checkDataTimeConsistency.m
+Changed 2 instances, skipped 0 comments in fcn_TimeClean_checkFieldCountMatchesTimeCount.m
+Changed 1 instances, skipped 0 comments in fcn_TimeClean_checkFieldDifferencesForJumps.m
+Changed 2 instances, skipped 0 comments in fcn_TimeClean_checkFieldDifferencesForMissings.m
+Changed 0 instances, skipped 0 comments in fcn_TimeClean_checkIfFieldHasRepeatedValues.m
+Changed 1 instances, skipped 0 comments in fcn_TimeClean_checkIfFieldInSensors.m
+Changed 2 instances, skipped 0 comments in fcn_TimeClean_checkTimeRoundsCorrectly.m
+Changed 1 instances, skipped 0 comments in fcn_TimeClean_checkTimeSamplingConsistency.m
+Changed 0 instances, skipped 0 comments in fcn_TimeClean_cleanNaming.m
+Changed 0 instances, skipped 0 comments in fcn_TimeClean_cleanTime.m
+Changed 2 instances, skipped 0 comments in fcn_TimeClean_convertROSTimeToSeconds.m
+Changed 0 instances, skipped 0 comments in fcn_TimeClean_correctTimeZoneErrorsInGPSTime.m
+Changed 0 instances, skipped 0 comments in fcn_TimeClean_fillGPSTimeFromROSTime.m
+Changed 3 instances, skipped 0 comments in fcn_TimeClean_fillMissingsInGPSUnits.m
+Changed 0 instances, skipped 0 comments in fcn_TimeClean_findNearPoints.m
+Changed 0 instances, skipped 0 comments in fcn_TimeClean_fitROSTime2GPSTime.m
+Changed 0 instances, skipped 0 comments in fcn_TimeClean_predictGPSTimeFromROSTime.m
+Changed 2 instances, skipped 0 comments in fcn_TimeClean_sortSensorDataByGPSTime.m
+Changed 2 instances, skipped 0 comments in fcn_TimeClean_trimRepeatsFromField.m
+Changed 0 instances, skipped 0 comments in script_test_fcn_DataClean_cleanTime.m
+Changed 0 instances, skipped 0 comments in script_test_fcn_TimeClean_checkConsistencyOfStartEnd.m
+Changed 0 instances, skipped 0 comments in script_test_fcn_TimeClean_checkDataStrictlyIncreasing.m
+Changed 1 instances, skipped 0 comments in script_test_fcn_TimeClean_checkDataTimeConsistency.m
+Changed 0 instances, skipped 0 comments in script_test_fcn_TimeClean_checkFieldCountMatchesTimeCount.m
+Changed 0 instances, skipped 0 comments in script_test_fcn_TimeClean_checkFieldDifferencesForJumps.m
+Changed 0 instances, skipped 0 comments in script_test_fcn_TimeClean_checkFieldDifferencesForMissings.m
+Changed 0 instances, skipped 0 comments in script_test_fcn_TimeClean_checkIfFieldHasRepeatedValues.m
+Changed 0 instances, skipped 0 comments in script_test_fcn_TimeClean_checkIfFieldInSensors.m
+Changed 0 instances, skipped 0 comments in script_test_fcn_TimeClean_checkTimeRoundsCorrectly.m
+Changed 0 instances, skipped 0 comments in script_test_fcn_TimeClean_checkTimeSamplingConsistency.m
+Changed 0 instances, skipped 0 comments in script_test_fcn_TimeClean_cleanNaming.m
+Changed 0 instances, skipped 0 comments in script_test_fcn_TimeClean_cleanTime.m
+Changed 0 instances, skipped 0 comments in script_test_fcn_TimeClean_convertROSTimeToSeconds.m
+Changed 0 instances, skipped 0 comments in script_test_fcn_TimeClean_correctTimeZoneErrorsInGPSTime.m
+Changed 0 instances, skipped 0 comments in script_test_fcn_TimeClean_fillGPSTimeFromROSTime.m
+Changed 0 instances, skipped 0 comments in script_test_fcn_TimeClean_fillMissingsInGPSUnits.m
+Changed 0 instances, skipped 0 comments in script_test_fcn_TimeClean_findNearPoints.m
+Changed 0 instances, skipped 0 comments in script_test_fcn_TimeClean_fitROSTime2GPSTime.m
+Changed 0 instances, skipped 0 comments in script_test_fcn_TimeClean_predictGPSTimeFromROSTime.m
+Changed 0 instances, skipped 0 comments in script_test_fcn_TimeClean_sortSensorDataByGPSTime.m
+Changed 0 instances, skipped 0 comments in script_test_fcn_TimeClean_trimRepeatsFromField.m
+<strong>	Checking for string: % - first and replacing with % - First: </strong><strong>PASSED.
+</strong><strong>	Checking for string: % -- and replacing with % -: </strong><strong>PASSED.
+</strong><strong>	Checking for string: TO DO and replacing with TO-DO: </strong><strong>PASSED.
+</strong><strong>	Checking for string: Revision history and replacing with REVISION HISTORY: </strong><strong>PASSED.
+</strong><strong>	Checking for string: % Updates and replacing with % REVISION HISTORY: </strong><strong>PASSED.
+</strong><strong>	Checking for string: % UPDATES and replacing with % REVISION HISTORY: </strong><strong>PASSED.
+</strong><strong>	Checking for string: fig_num and replacing with figNum: </strong><strong>PASSED.
+</strong><strong>	Checking for string: : sbrennan@psu.edu and replacing with  by Sean Brennan, sbrennan@psu.edu: </strong><strong>PASSED.
+</strong><strong>	Checking for string:  - Sean Brennan, sbrennan@psu.edu and replacing with  by Sean Brennan, sbrennan@psu.edu: </strong><strong>PASSED.
+</strong><strong>	Checking for string:  - S. Brennan and replacing with  by Sean Brennan, sbrennan@psu.edu: </strong><strong>PASSED.
+</strong><strong>Searching and Replacing common naming errors in folder:
+	C:\Users\snb10\Desktop\GitHubRepos\IVSG\FieldDataCollection\DataCollectionProcedures\TimeClean\Functions
+</strong><strong>	Checking for string: % - wrote and replacing with % - Wrote: </strong><strong>PASSED.
+</strong><strong>	Checking for string: % - added and replacing with % - Added: </strong><strong>PASSED.
+</strong><strong>	Checking for string: % - removed and replacing with % - Removed: </strong><strong>PASSED.
+</strong><strong>	Checking for string: % - updated and replacing with % - Updated: </strong><strong>PASSED.
+</strong><strong>	Checking for string: % - renamed and replacing with % - Renamed: </strong><strong>PASSED.
+</strong><strong>	Checking for string: % - changed and replacing with % - Changed: </strong><strong>PASSED.
+</strong><strong>	Checking for string: % - fixed and replacing with % - Fixed: </strong><strong>PASSED.
+</strong><strong>	Checking for string: % - first and replacing with % - First: </strong><strong>PASSED.
+</strong><strong>	Checking for string: % -- and replacing with % -: </strong><strong>PASSED.
+</strong><strong>	Checking for string: TO DO and replacing with TO-DO: </strong><strong>PASSED.
+</strong><strong>	Checking for string: Revision history and replacing with REVISION HISTORY: </strong><strong>PASSED.
+</strong><strong>	Checking for string: % Updates and replacing with % REVISION HISTORY: </strong><strong>PASSED.
+</strong><strong>	Checking for string: % UPDATES and replacing with % REVISION HISTORY: </strong><strong>PASSED.
+</strong><strong>	Checking for string: fig_num and replacing with figNum: </strong><strong>PASSED.
+</strong><strong>	Checking for string: : sbrennan@psu.edu and replacing with  by Sean Brennan, sbrennan@psu.edu: </strong><strong>PASSED.
+</strong><strong>	Checking for string:  - Sean Brennan, sbrennan@psu.edu and replacing with  by Sean Brennan, sbrennan@psu.edu: </strong><strong>PASSED.
+</strong><strong>	Checking for string:  - S. Brennan and replacing with  by Sean Brennan, sbrennan@psu.edu: </strong><strong>PASSED.
+</strong>script_test_all_functions
+<strong>Checking root folder:
+	C:\Users\snb10\Desktop\GitHubRepos\IVSG\FieldDataCollection\DataCollectionProcedures\TimeClean\Functions:
+</strong><strong></strong><strong>	Checking that there is 1 m-file in root folder: </strong><strong>PASSED.
+</strong><strong>	Checking that there is a demo file, script_demo_TimeClean.m: </strong><strong>PASSED.
+</strong><strong>	Checking that there is a README.md file: </strong><strong>PASSED.
+</strong><strong>	Checking that there is a Functions subfolder: </strong><strong>PASSED.
+</strong><strong>	Checking that there is a Data subfolder: </strong><strong>PASSED.
+</strong><strong>	Checking that there is a Documents subfolder: </strong><strong>PASSED.
+</strong><strong>	Checking that there is a Installer subfolder: </strong><strong>PASSED.
+</strong><strong>	Checking that there is a Images subfolder: </strong><strong>PASSED.
+</strong><strong>Checking main demo file:
+	script_demo_TimeClean.m:
+</strong><strong>	Checking that main demo contains required strings: </strong><strong>	Checking that it contains "REVISION HISTORY": </strong><strong>PASSED.
+</strong><strong>	Checking that it contains "TO-DO": </strong><strong>PASSED.
+</strong><strong>	Checking that it contains "MATLABFLAG_TIMECLEAN_FLAG_CHECK_INPUTS": </strong><strong>PASSED.
+</strong><strong>	Checking that it contains "MATLABFLAG_TIMECLEAN_FLAG_DO_DEBUG": </strong><strong>PASSED.
+</strong><strong>	Checking that it contains "fcn_DebugTools_autoInstallRepos": </strong><strong>PASSED.
+</strong><strong>Checking functions folder:
+	C:\Users\snb10\Desktop\GitHubRepos\IVSG\FieldDataCollection\DataCollectionProcedures\TimeClean\Functions:
+</strong><strong>	Checking that functions folder contains no forbidden strings: </strong><strong>PASSED.
+</strong><strong>	Checking that functions folder contains no warning strings: </strong><strong>PASSED.
+</strong><strong>	Checking that all files in functions folder contains required strings: </strong><strong>FAILED.
+</strong>
+
+		m-filename                                                         	string found?	
+Folder: C:\Users\snb10\Desktop\GitHubRepos\IVSG\FieldDataCollection\DataCollectionProcedures\TimeClean\Functions:
+	1	fcn_DataClean_cleanTime_OLD.m                                      	1            	
+	2	fcn_TimeClean_checkConsistencyOfStartEnd.m                         	1            	
+	3	fcn_TimeClean_checkDataStrictlyIncreasing.m                        	1            	
+	4	fcn_TimeClean_checkDataTimeConsistency.m                           	1            	
+	5	fcn_TimeClean_checkFieldCountMatchesTimeCount.m                    	1            	
+	6	fcn_TimeClean_checkFieldDifferencesForJumps.m                      	1            	
+	7	fcn_TimeClean_checkFieldDifferencesForMissings.m                   	1            	
+	8	fcn_TimeClean_checkIfFieldHasRepeatedValues.m                      	1            	
+	9	fcn_TimeClean_checkIfFieldInSensors.m                              	1            	
+	10	fcn_TimeClean_checkTimeRoundsCorrectly.m                           	1            	
+	11	fcn_TimeClean_checkTimeSamplingConsistency.m                       	1            	
+	12	fcn_TimeClean_cleanNaming.m                                        	1            	
+	13	fcn_TimeClean_cleanTime.m                                          	1            	
+	14	fcn_TimeClean_convertROSTimeToSeconds.m                            	1            	
+	15	fcn_TimeClean_correctTimeZoneErrorsInGPSTime.m                     	1            	
+	16	fcn_TimeClean_fillGPSTimeFromROSTime.m                             	1            	
+	17	fcn_TimeClean_fillMissingsInGPSUnits.m                             	1            	
+	18	fcn_TimeClean_findNearPoints.m                                     	0            	
+	19	fcn_TimeClean_fitROSTime2GPSTime.m                                 	1            	
+	20	fcn_TimeClean_predictGPSTimeFromROSTime.m                          	1            	
+	21	fcn_TimeClean_sortSensorDataByGPSTime.m                            	1            	
+	22	fcn_TimeClean_trimRepeatsFromField.m                               	1            	
+	23	script_test_all_functions.m                                        	1            	
+	24	script_test_fcn_DataClean_cleanTime.m                              	1            	
+	25	script_test_fcn_TimeClean_checkConsistencyOfStartEnd.m             	1            	
+	26	script_test_fcn_TimeClean_checkDataStrictlyIncreasing.m            	1            	
+	27	script_test_fcn_TimeClean_checkDataTimeConsistency.m               	1            	
+	28	script_test_fcn_TimeClean_checkFieldCountMatchesTimeCount.m        	1            	
+	29	script_test_fcn_TimeClean_checkFieldDifferencesForJumps.m          	1            	
+	30	script_test_fcn_TimeClean_checkFieldDifferencesForMissings.m       	1            	
+	31	script_test_fcn_TimeClean_checkIfFieldHasRepeatedValues.m          	1            	
+	32	script_test_fcn_TimeClean_checkIfFieldInSensors.m                  	1            	
+	33	script_test_fcn_TimeClean_checkTimeRoundsCorrectly.m               	1            	
+	34	script_test_fcn_TimeClean_checkTimeSamplingConsistency.m           	1            	
+	35	script_test_fcn_TimeClean_cleanNaming.m                            	1            	
+	36	script_test_fcn_TimeClean_cleanTime.m                              	1            	
+	37	script_test_fcn_TimeClean_convertROSTimeToSeconds.m                	1            	
+	38	script_test_fcn_TimeClean_correctTimeZoneErrorsInGPSTime.m         	1            	
+	39	script_test_fcn_TimeClean_fillGPSTimeFromROSTime.m                 	1            	
+	40	script_test_fcn_TimeClean_fillMissingsInGPSUnits.m                 	1            	
+	41	script_test_fcn_TimeClean_findNearPoints.m                         	0            	
+	42	script_test_fcn_TimeClean_fitROSTime2GPSTime.m                     	1            	
+	43	script_test_fcn_TimeClean_predictGPSTimeFromROSTime.m              	1            	
+	44	script_test_fcn_TimeClean_sortSensorDataByGPSTime.m                	1            	
+	45	script_test_fcn_TimeClean_trimRepeatsFromField.m                   	1            	
+{Error using <a href="matlab:matlab.lang.internal.introspective.errorDocCallback('script_test_all_functions', 'C:\Users\snb10\Desktop\GitHubRepos\IVSG\FieldDataCollection\DataCollectionProcedures\TimeClean\Functions\script_test_all_functions.m', 247)" style="font-weight:bold">script_test_all_functions</a> (<a href="matlab: opentoline('C:\Users\snb10\Desktop\GitHubRepos\IVSG\FieldDataCollection\DataCollectionProcedures\TimeClean\Functions\script_test_all_functions.m',247,0)">line 247</a>)
+A "REVISION HISTORY" required string was NOT found in one of the functions or scripts - see
+listing above. This should be fixed to maintain compatibilty.} 
+try open('fcn_TimeClean_findNearPoints'); catch edit('fcn_TimeClean_findNearPoints'); end
+try open('script_test_fcn_TimeClean_findNearPoints'); catch edit('script_test_fcn_TimeClean_findNearPoints'); end
+try open('fcn_TimeClean_checkConsistencyOfStartEnd'); catch edit('fcn_TimeClean_checkConsistencyOfStartEnd'); end
+<strong>Searching and Replacing common naming errors in folder:
+	C:\Users\snb10\Desktop\GitHubRepos\IVSG\FieldDataCollection\DataCollectionProcedures\TimeClean\Functions
+</strong><strong>	Checking for string: % - wrote and replacing with % - Wrote: </strong><strong>PASSED.
+</strong><strong>	Checking for string: % - added and replacing with % - Added: </strong><strong>PASSED.
+</strong><strong>	Checking for string: % - removed and replacing with % - Removed: </strong><strong>PASSED.
+</strong><strong>	Checking for string: % - updated and replacing with % - Updated: </strong><strong>PASSED.
+</strong><strong>	Checking for string: % - renamed and replacing with % - Renamed: </strong><strong>PASSED.
+</strong><strong>	Checking for string: % - changed and replacing with % - Changed: </strong><strong>PASSED.
+</strong><strong>	Checking for string: % - fixed and replacing with % - Fixed: </strong><strong>PASSED.
+</strong><strong>	Checking for string: % - first and replacing with % - First: </strong><strong>PASSED.
+</strong><strong>	Checking for string: % -- and replacing with % -: </strong><strong>PASSED.
+</strong><strong>	Checking for string: TO DO and replacing with TO-DO: </strong><strong>PASSED.
+</strong><strong>	Checking for string: Revision history and replacing with REVISION HISTORY: </strong><strong>PASSED.
+</strong><strong>	Checking for string: % Updates and replacing with % REVISION HISTORY: </strong><strong>PASSED.
+</strong><strong>	Checking for string: % UPDATES and replacing with % REVISION HISTORY: </strong><strong>PASSED.
+</strong><strong>	Checking for string: fig_num and replacing with figNum: </strong><strong>PASSED.
+</strong><strong>	Checking for string:  - sbrennan@psu.edu and replacing with  by Sean Brennan, sbrennan@psu.edu: </strong><strong>FAILED.
+</strong>
+
+		m-filename                                                         	string found?	
+Folder: C:\Users\snb10\Desktop\GitHubRepos\IVSG\FieldDataCollection\DataCollectionProcedures\TimeClean\Functions:
+	1	fcn_DataClean_cleanTime_OLD.m                                      	0            	
+	2	fcn_TimeClean_checkConsistencyOfStartEnd.m                         	0            	
+	3	fcn_TimeClean_checkDataStrictlyIncreasing.m                        	0            	
+	4	fcn_TimeClean_checkDataTimeConsistency.m                           	1            	
+	5	fcn_TimeClean_checkFieldCountMatchesTimeCount.m                    	0            	
+	6	fcn_TimeClean_checkFieldDifferencesForJumps.m                      	0            	
+	7	fcn_TimeClean_checkFieldDifferencesForMissings.m                   	1            	
+	8	fcn_TimeClean_checkIfFieldHasRepeatedValues.m                      	0            	
+	9	fcn_TimeClean_checkIfFieldInSensors.m                              	1            	
+	10	fcn_TimeClean_checkTimeRoundsCorrectly.m                           	0            	
+	11	fcn_TimeClean_checkTimeSamplingConsistency.m                       	0            	
+	12	fcn_TimeClean_cleanNaming.m                                        	0            	
+	13	fcn_TimeClean_cleanTime.m                                          	0            	
+	14	fcn_TimeClean_convertROSTimeToSeconds.m                            	0            	
+	15	fcn_TimeClean_correctTimeZoneErrorsInGPSTime.m                     	0            	
+	16	fcn_TimeClean_fillGPSTimeFromROSTime.m                             	0            	
+	17	fcn_TimeClean_fillMissingsInGPSUnits.m                             	0            	
+	18	fcn_TimeClean_findNearPoints.m                                     	0            	
+	19	fcn_TimeClean_fitROSTime2GPSTime.m                                 	0            	
+	20	fcn_TimeClean_predictGPSTimeFromROSTime.m                          	0            	
+	21	fcn_TimeClean_sortSensorDataByGPSTime.m                            	0            	
+	22	fcn_TimeClean_trimRepeatsFromField.m                               	0            	
+	23	script_test_all_functions.m                                        	0            	
+	24	script_test_fcn_DataClean_cleanTime.m                              	1            	
+	25	script_test_fcn_TimeClean_checkConsistencyOfStartEnd.m             	1            	
+	26	script_test_fcn_TimeClean_checkDataStrictlyIncreasing.m            	1            	
+	27	script_test_fcn_TimeClean_checkDataTimeConsistency.m               	1            	
+	28	script_test_fcn_TimeClean_checkFieldCountMatchesTimeCount.m        	1            	
+	29	script_test_fcn_TimeClean_checkFieldDifferencesForJumps.m          	1            	
+	30	script_test_fcn_TimeClean_checkFieldDifferencesForMissings.m       	1            	
+	31	script_test_fcn_TimeClean_checkIfFieldHasRepeatedValues.m          	1            	
+	32	script_test_fcn_TimeClean_checkIfFieldInSensors.m                  	1            	
+	33	script_test_fcn_TimeClean_checkTimeRoundsCorrectly.m               	1            	
+	34	script_test_fcn_TimeClean_checkTimeSamplingConsistency.m           	1            	
+	35	script_test_fcn_TimeClean_cleanNaming.m                            	1            	
+	36	script_test_fcn_TimeClean_cleanTime.m                              	1            	
+	37	script_test_fcn_TimeClean_convertROSTimeToSeconds.m                	1            	
+	38	script_test_fcn_TimeClean_correctTimeZoneErrorsInGPSTime.m         	1            	
+	39	script_test_fcn_TimeClean_fillGPSTimeFromROSTime.m                 	1            	
+	40	script_test_fcn_TimeClean_fillMissingsInGPSUnits.m                 	0            	
+	41	script_test_fcn_TimeClean_findNearPoints.m                         	0            	
+	42	script_test_fcn_TimeClean_fitROSTime2GPSTime.m                     	1            	
+	43	script_test_fcn_TimeClean_predictGPSTimeFromROSTime.m              	1            	
+	44	script_test_fcn_TimeClean_sortSensorDataByGPSTime.m                	1            	
+	45	script_test_fcn_TimeClean_trimRepeatsFromField.m                   	1            	
+[Warning: A " - sbrennan@psu.edu" was found in one of the functions - see listing above.] 
+<strong>
+	INITIATING REPLACEMENT of  - sbrennan@psu.edu with  by Sean Brennan, sbrennan@psu.edu.
+</strong>Changed 0 instances, skipped 0 comments in fcn_DataClean_cleanTime_OLD.m
+Changed 0 instances, skipped 0 comments in fcn_TimeClean_checkConsistencyOfStartEnd.m
+Changed 0 instances, skipped 0 comments in fcn_TimeClean_checkDataStrictlyIncreasing.m
+Changed 4 instances, skipped 0 comments in fcn_TimeClean_checkDataTimeConsistency.m
+Changed 0 instances, skipped 0 comments in fcn_TimeClean_checkFieldCountMatchesTimeCount.m
+Changed 0 instances, skipped 0 comments in fcn_TimeClean_checkFieldDifferencesForJumps.m
+Changed 1 instances, skipped 0 comments in fcn_TimeClean_checkFieldDifferencesForMissings.m
+Changed 0 instances, skipped 0 comments in fcn_TimeClean_checkIfFieldHasRepeatedValues.m
+Changed 3 instances, skipped 0 comments in fcn_TimeClean_checkIfFieldInSensors.m
+Changed 0 instances, skipped 0 comments in fcn_TimeClean_checkTimeRoundsCorrectly.m
+Changed 0 instances, skipped 0 comments in fcn_TimeClean_checkTimeSamplingConsistency.m
+Changed 0 instances, skipped 0 comments in fcn_TimeClean_cleanNaming.m
+Changed 0 instances, skipped 0 comments in fcn_TimeClean_cleanTime.m
+Changed 0 instances, skipped 0 comments in fcn_TimeClean_convertROSTimeToSeconds.m
+Changed 0 instances, skipped 0 comments in fcn_TimeClean_correctTimeZoneErrorsInGPSTime.m
+Changed 0 instances, skipped 0 comments in fcn_TimeClean_fillGPSTimeFromROSTime.m
+Changed 0 instances, skipped 0 comments in fcn_TimeClean_fillMissingsInGPSUnits.m
+Changed 0 instances, skipped 0 comments in fcn_TimeClean_findNearPoints.m
+Changed 0 instances, skipped 0 comments in fcn_TimeClean_fitROSTime2GPSTime.m
+Changed 0 instances, skipped 0 comments in fcn_TimeClean_predictGPSTimeFromROSTime.m
+Changed 0 instances, skipped 0 comments in fcn_TimeClean_sortSensorDataByGPSTime.m
+Changed 0 instances, skipped 0 comments in fcn_TimeClean_trimRepeatsFromField.m
+Changed 1 instances, skipped 0 comments in script_test_fcn_DataClean_cleanTime.m
+Changed 1 instances, skipped 0 comments in script_test_fcn_TimeClean_checkConsistencyOfStartEnd.m
+Changed 1 instances, skipped 0 comments in script_test_fcn_TimeClean_checkDataStrictlyIncreasing.m
+Changed 2 instances, skipped 0 comments in script_test_fcn_TimeClean_checkDataTimeConsistency.m
+Changed 1 instances, skipped 0 comments in script_test_fcn_TimeClean_checkFieldCountMatchesTimeCount.m
+Changed 1 instances, skipped 0 comments in script_test_fcn_TimeClean_checkFieldDifferencesForJumps.m
+Changed 1 instances, skipped 0 comments in script_test_fcn_TimeClean_checkFieldDifferencesForMissings.m
+Changed 1 instances, skipped 0 comments in script_test_fcn_TimeClean_checkIfFieldHasRepeatedValues.m
+Changed 1 instances, skipped 0 comments in script_test_fcn_TimeClean_checkIfFieldInSensors.m
+Changed 1 instances, skipped 0 comments in script_test_fcn_TimeClean_checkTimeRoundsCorrectly.m
+Changed 2 instances, skipped 0 comments in script_test_fcn_TimeClean_checkTimeSamplingConsistency.m
+Changed 1 instances, skipped 0 comments in script_test_fcn_TimeClean_cleanNaming.m
+Changed 1 instances, skipped 0 comments in script_test_fcn_TimeClean_cleanTime.m
+Changed 2 instances, skipped 0 comments in script_test_fcn_TimeClean_convertROSTimeToSeconds.m
+Changed 1 instances, skipped 0 comments in script_test_fcn_TimeClean_correctTimeZoneErrorsInGPSTime.m
+Changed 1 instances, skipped 0 comments in script_test_fcn_TimeClean_fillGPSTimeFromROSTime.m
+Changed 0 instances, skipped 0 comments in script_test_fcn_TimeClean_fillMissingsInGPSUnits.m
+Changed 0 instances, skipped 0 comments in script_test_fcn_TimeClean_findNearPoints.m
+Changed 1 instances, skipped 0 comments in script_test_fcn_TimeClean_fitROSTime2GPSTime.m
+Changed 1 instances, skipped 0 comments in script_test_fcn_TimeClean_predictGPSTimeFromROSTime.m
+Changed 1 instances, skipped 0 comments in script_test_fcn_TimeClean_sortSensorDataByGPSTime.m
+Changed 1 instances, skipped 0 comments in script_test_fcn_TimeClean_trimRepeatsFromField.m
+<strong>	Checking for string: : sbrennan@psu.edu and replacing with  by Sean Brennan, sbrennan@psu.edu: </strong><strong>PASSED.
+</strong><strong>	Checking for string:  - Sean Brennan, sbrennan@psu.edu and replacing with  by Sean Brennan, sbrennan@psu.edu: </strong><strong>PASSED.
+</strong><strong>	Checking for string:  - S. Brennan and replacing with  by Sean Brennan, sbrennan@psu.edu: </strong><strong>PASSED.
+</strong><strong>Searching and Replacing common naming errors in folder:
+	C:\Users\snb10\Desktop\GitHubRepos\IVSG\FieldDataCollection\DataCollectionProcedures\TimeClean\Functions
+</strong><strong>	Checking for string: % - wrote and replacing with % - Wrote: </strong><strong>PASSED.
+</strong><strong>	Checking for string: % - added and replacing with % - Added: </strong><strong>PASSED.
+</strong><strong>	Checking for string: % - removed and replacing with % - Removed: </strong><strong>PASSED.
+</strong><strong>	Checking for string: % - updated and replacing with % - Updated: </strong><strong>PASSED.
+</strong><strong>	Checking for string: % - renamed and replacing with % - Renamed: </strong><strong>PASSED.
+</strong><strong>	Checking for string: % - changed and replacing with % - Changed: </strong><strong>PASSED.
+</strong><strong>	Checking for string: % - fixed and replacing with % - Fixed: </strong><strong>PASSED.
+</strong><strong>	Checking for string: % - first and replacing with % - First: </strong><strong>PASSED.
+</strong><strong>	Checking for string: % -- and replacing with % -: </strong><strong>PASSED.
+</strong><strong>	Checking for string: TO DO and replacing with TO-DO: </strong><strong>PASSED.
+</strong><strong>	Checking for string: Revision history and replacing with REVISION HISTORY: </strong><strong>PASSED.
+</strong><strong>	Checking for string: % Updates and replacing with % REVISION HISTORY: </strong><strong>PASSED.
+</strong><strong>	Checking for string: % UPDATES and replacing with % REVISION HISTORY: </strong><strong>PASSED.
+</strong><strong>	Checking for string: fig_num and replacing with figNum: </strong><strong>PASSED.
+</strong><strong>	Checking for string:  - sbrennan@psu.edu and replacing with  by Sean Brennan, sbrennan@psu.edu: </strong><strong>PASSED.
+</strong><strong>	Checking for string: : sbrennan@psu.edu and replacing with  by Sean Brennan, sbrennan@psu.edu: </strong><strong>PASSED.
+</strong><strong>	Checking for string:  - Sean Brennan, sbrennan@psu.edu and replacing with  by Sean Brennan, sbrennan@psu.edu: </strong><strong>PASSED.
+</strong><strong>	Checking for string:  - S. Brennan and replacing with  by Sean Brennan, sbrennan@psu.edu: </strong><strong>PASSED.
+</strong>script_test_all_functions
+<strong>Checking root folder:
+	C:\Users\snb10\Desktop\GitHubRepos\IVSG\FieldDataCollection\DataCollectionProcedures\TimeClean\Functions:
+</strong><strong></strong><strong>	Checking that there is 1 m-file in root folder: </strong><strong>PASSED.
+</strong><strong>	Checking that there is a demo file, script_demo_TimeClean.m: </strong><strong>PASSED.
+</strong><strong>	Checking that there is a README.md file: </strong><strong>PASSED.
+</strong><strong>	Checking that there is a Functions subfolder: </strong><strong>PASSED.
+</strong><strong>	Checking that there is a Data subfolder: </strong><strong>PASSED.
+</strong><strong>	Checking that there is a Documents subfolder: </strong><strong>PASSED.
+</strong><strong>	Checking that there is a Installer subfolder: </strong><strong>PASSED.
+</strong><strong>	Checking that there is a Images subfolder: </strong><strong>PASSED.
+</strong><strong>Checking main demo file:
+	script_demo_TimeClean.m:
+</strong><strong>	Checking that main demo contains required strings: </strong><strong>	Checking that it contains "REVISION HISTORY": </strong><strong>PASSED.
+</strong><strong>	Checking that it contains "TO-DO": </strong><strong>PASSED.
+</strong><strong>	Checking that it contains "MATLABFLAG_TIMECLEAN_FLAG_CHECK_INPUTS": </strong><strong>PASSED.
+</strong><strong>	Checking that it contains "MATLABFLAG_TIMECLEAN_FLAG_DO_DEBUG": </strong><strong>PASSED.
+</strong><strong>	Checking that it contains "fcn_DebugTools_autoInstallRepos": </strong><strong>PASSED.
+</strong><strong>Checking functions folder:
+	C:\Users\snb10\Desktop\GitHubRepos\IVSG\FieldDataCollection\DataCollectionProcedures\TimeClean\Functions:
+</strong><strong>	Checking that functions folder contains no forbidden strings: </strong><strong>PASSED.
+</strong><strong>	Checking that functions folder contains no warning strings: </strong><strong>PASSED.
+</strong><strong>	Checking that all files in functions folder contains required strings: </strong><strong>PASSED.
+</strong><strong>	Checking that functions within functions folder contains function-required strings: </strong><strong>FAILED.
+</strong>
+
+		m-filename                                                         	string found?	
+Folder: C:\Users\snb10\Desktop\GitHubRepos\IVSG\FieldDataCollection\DataCollectionProcedures\TimeClean\Functions:
+	1	fcn_DataClean_cleanTime_OLD.m                                      	0            	
+	2	fcn_TimeClean_checkConsistencyOfStartEnd.m                         	0            	
+	3	fcn_TimeClean_checkDataStrictlyIncreasing.m                        	0            	
+	4	fcn_TimeClean_checkDataTimeConsistency.m                           	0            	
+	5	fcn_TimeClean_checkFieldCountMatchesTimeCount.m                    	0            	
+	6	fcn_TimeClean_checkFieldDifferencesForJumps.m                      	0            	
+	7	fcn_TimeClean_checkFieldDifferencesForMissings.m                   	0            	
+	8	fcn_TimeClean_checkIfFieldHasRepeatedValues.m                      	0            	
+	9	fcn_TimeClean_checkIfFieldInSensors.m                              	0            	
+	10	fcn_TimeClean_checkTimeRoundsCorrectly.m                           	0            	
+	11	fcn_TimeClean_checkTimeSamplingConsistency.m                       	0            	
+	12	fcn_TimeClean_cleanNaming.m                                        	0            	
+	13	fcn_TimeClean_cleanTime.m                                          	0            	
+	14	fcn_TimeClean_convertROSTimeToSeconds.m                            	0            	
+	15	fcn_TimeClean_correctTimeZoneErrorsInGPSTime.m                     	0            	
+	16	fcn_TimeClean_fillGPSTimeFromROSTime.m                             	0            	
+	17	fcn_TimeClean_fillMissingsInGPSUnits.m                             	0            	
+	18	fcn_TimeClean_findNearPoints.m                                     	0            	
+	19	fcn_TimeClean_fitROSTime2GPSTime.m                                 	0            	
+	20	fcn_TimeClean_predictGPSTimeFromROSTime.m                          	0            	
+	21	fcn_TimeClean_sortSensorDataByGPSTime.m                            	0            	
+	22	fcn_TimeClean_trimRepeatsFromField.m                               	0            	
+{Error using <a href="matlab:matlab.lang.internal.introspective.errorDocCallback('script_test_all_functions', 'C:\Users\snb10\Desktop\GitHubRepos\IVSG\FieldDataCollection\DataCollectionProcedures\TimeClean\Functions\script_test_all_functions.m', 273)" style="font-weight:bold">script_test_all_functions</a> (<a href="matlab: opentoline('C:\Users\snb10\Desktop\GitHubRepos\IVSG\FieldDataCollection\DataCollectionProcedures\TimeClean\Functions\script_test_all_functions.m',273,0)">line 273</a>)
+A "MATLABFLAG_TIMECLEAN_FLAG_CHECK_INPUTS" required string was NOT found in one of the
+functions or scripts - see listing above. This should be fixed to maintain compatibilty.} 
+try open('fcn_DataClean_cleanTime_OLD'); catch edit('fcn_DataClean_cleanTime_OLD'); end
+<strong>Searching and Replacing common naming errors in folder:
+	C:\Users\snb10\Desktop\GitHubRepos\IVSG\FieldDataCollection\DataCollectionProcedures\TimeClean\Functions
+</strong><strong>	Checking for string: _DATACLEAN_ and replacing with _TIMECLEAN_: </strong><strong>FAILED.
+</strong>
+
+		m-filename                                                         	string found?	
+Folder: C:\Users\snb10\Desktop\GitHubRepos\IVSG\FieldDataCollection\DataCollectionProcedures\TimeClean\Functions:
+	1	fcn_DataClean_cleanTime_OLD.m                                      	1            	
+	2	fcn_TimeClean_checkConsistencyOfStartEnd.m                         	1            	
+	3	fcn_TimeClean_checkDataStrictlyIncreasing.m                        	1            	
+	4	fcn_TimeClean_checkDataTimeConsistency.m                           	1            	
+	5	fcn_TimeClean_checkFieldCountMatchesTimeCount.m                    	1            	
+	6	fcn_TimeClean_checkFieldDifferencesForJumps.m                      	1            	
+	7	fcn_TimeClean_checkFieldDifferencesForMissings.m                   	1            	
+	8	fcn_TimeClean_checkIfFieldHasRepeatedValues.m                      	1            	
+	9	fcn_TimeClean_checkIfFieldInSensors.m                              	1            	
+	10	fcn_TimeClean_checkTimeRoundsCorrectly.m                           	1            	
+	11	fcn_TimeClean_checkTimeSamplingConsistency.m                       	1            	
+	12	fcn_TimeClean_cleanNaming.m                                        	1            	
+	13	fcn_TimeClean_cleanTime.m                                          	1            	
+	14	fcn_TimeClean_convertROSTimeToSeconds.m                            	1            	
+	15	fcn_TimeClean_correctTimeZoneErrorsInGPSTime.m                     	0            	
+	16	fcn_TimeClean_fillGPSTimeFromROSTime.m                             	1            	
+	17	fcn_TimeClean_fillMissingsInGPSUnits.m                             	1            	
+	18	fcn_TimeClean_findNearPoints.m                                     	0            	
+	19	fcn_TimeClean_fitROSTime2GPSTime.m                                 	1            	
+	20	fcn_TimeClean_predictGPSTimeFromROSTime.m                          	1            	
+	21	fcn_TimeClean_sortSensorDataByGPSTime.m                            	1            	
+	22	fcn_TimeClean_trimRepeatsFromField.m                               	1            	
+	23	script_test_all_functions.asv                                      	0            	
+	24	script_test_all_functions.m                                        	0            	
+	25	script_test_fcn_DataClean_cleanTime.m                              	0            	
+	26	script_test_fcn_TimeClean_checkConsistencyOfStartEnd.m             	0            	
+	27	script_test_fcn_TimeClean_checkDataStrictlyIncreasing.m            	0            	
+	28	script_test_fcn_TimeClean_checkDataTimeConsistency.m               	0            	
+	29	script_test_fcn_TimeClean_checkFieldCountMatchesTimeCount.m        	0            	
+	30	script_test_fcn_TimeClean_checkFieldDifferencesForJumps.m          	0            	
+	31	script_test_fcn_TimeClean_checkFieldDifferencesForMissings.m       	0            	
+	32	script_test_fcn_TimeClean_checkIfFieldHasRepeatedValues.m          	0            	
+	33	script_test_fcn_TimeClean_checkIfFieldInSensors.m                  	0            	
+	34	script_test_fcn_TimeClean_checkTimeRoundsCorrectly.m               	0            	
+	35	script_test_fcn_TimeClean_checkTimeSamplingConsistency.m           	0            	
+	36	script_test_fcn_TimeClean_cleanNaming.m                            	0            	
+	37	script_test_fcn_TimeClean_cleanTime.m                              	0            	
+	38	script_test_fcn_TimeClean_convertROSTimeToSeconds.m                	0            	
+	39	script_test_fcn_TimeClean_correctTimeZoneErrorsInGPSTime.m         	0            	
+	40	script_test_fcn_TimeClean_fillGPSTimeFromROSTime.m                 	0            	
+	41	script_test_fcn_TimeClean_fillMissingsInGPSUnits.m                 	0            	
+	42	script_test_fcn_TimeClean_findNearPoints.m                         	0            	
+	43	script_test_fcn_TimeClean_fitROSTime2GPSTime.m                     	0            	
+	44	script_test_fcn_TimeClean_predictGPSTimeFromROSTime.m              	0            	
+	45	script_test_fcn_TimeClean_sortSensorDataByGPSTime.m                	0            	
+	46	script_test_fcn_TimeClean_trimRepeatsFromField.m                   	0            	
+[Warning: A "_DATACLEAN_" was found in one of the functions - see listing above.] 
+<strong>
+	INITIATING REPLACEMENT of _DATACLEAN_ with _TIMECLEAN_.
+</strong>Changed 5 instances, skipped 0 comments in fcn_DataClean_cleanTime_OLD.m
+Changed 5 instances, skipped 0 comments in fcn_TimeClean_checkConsistencyOfStartEnd.m
+Changed 5 instances, skipped 0 comments in fcn_TimeClean_checkDataStrictlyIncreasing.m
+Changed 5 instances, skipped 0 comments in fcn_TimeClean_checkDataTimeConsistency.m
+Changed 5 instances, skipped 0 comments in fcn_TimeClean_checkFieldCountMatchesTimeCount.m
+Changed 5 instances, skipped 0 comments in fcn_TimeClean_checkFieldDifferencesForJumps.m
+Changed 5 instances, skipped 0 comments in fcn_TimeClean_checkFieldDifferencesForMissings.m
+Changed 5 instances, skipped 0 comments in fcn_TimeClean_checkIfFieldHasRepeatedValues.m
+Changed 5 instances, skipped 0 comments in fcn_TimeClean_checkIfFieldInSensors.m
+Changed 5 instances, skipped 0 comments in fcn_TimeClean_checkTimeRoundsCorrectly.m
+Changed 5 instances, skipped 0 comments in fcn_TimeClean_checkTimeSamplingConsistency.m
+Changed 5 instances, skipped 0 comments in fcn_TimeClean_cleanNaming.m
+Changed 5 instances, skipped 0 comments in fcn_TimeClean_cleanTime.m
+Changed 5 instances, skipped 0 comments in fcn_TimeClean_convertROSTimeToSeconds.m
+Changed 0 instances, skipped 0 comments in fcn_TimeClean_correctTimeZoneErrorsInGPSTime.m
+Changed 5 instances, skipped 0 comments in fcn_TimeClean_fillGPSTimeFromROSTime.m
+Changed 5 instances, skipped 0 comments in fcn_TimeClean_fillMissingsInGPSUnits.m
+Changed 0 instances, skipped 0 comments in fcn_TimeClean_findNearPoints.m
+Changed 5 instances, skipped 0 comments in fcn_TimeClean_fitROSTime2GPSTime.m
+Changed 5 instances, skipped 0 comments in fcn_TimeClean_predictGPSTimeFromROSTime.m
+Changed 5 instances, skipped 0 comments in fcn_TimeClean_sortSensorDataByGPSTime.m
+Changed 5 instances, skipped 0 comments in fcn_TimeClean_trimRepeatsFromField.m
+Changed 0 instances, skipped 0 comments in script_test_fcn_DataClean_cleanTime.m
+Changed 0 instances, skipped 0 comments in script_test_fcn_TimeClean_checkConsistencyOfStartEnd.m
+Changed 0 instances, skipped 0 comments in script_test_fcn_TimeClean_checkDataStrictlyIncreasing.m
+Changed 0 instances, skipped 0 comments in script_test_fcn_TimeClean_checkDataTimeConsistency.m
+Changed 0 instances, skipped 0 comments in script_test_fcn_TimeClean_checkFieldCountMatchesTimeCount.m
+Changed 0 instances, skipped 0 comments in script_test_fcn_TimeClean_checkFieldDifferencesForJumps.m
+Changed 0 instances, skipped 0 comments in script_test_fcn_TimeClean_checkFieldDifferencesForMissings.m
+Changed 0 instances, skipped 0 comments in script_test_fcn_TimeClean_checkIfFieldHasRepeatedValues.m
+Changed 0 instances, skipped 0 comments in script_test_fcn_TimeClean_checkIfFieldInSensors.m
+Changed 0 instances, skipped 0 comments in script_test_fcn_TimeClean_checkTimeRoundsCorrectly.m
+Changed 0 instances, skipped 0 comments in script_test_fcn_TimeClean_checkTimeSamplingConsistency.m
+Changed 0 instances, skipped 0 comments in script_test_fcn_TimeClean_cleanNaming.m
+Changed 0 instances, skipped 0 comments in script_test_fcn_TimeClean_cleanTime.m
+Changed 0 instances, skipped 0 comments in script_test_fcn_TimeClean_convertROSTimeToSeconds.m
+Changed 0 instances, skipped 0 comments in script_test_fcn_TimeClean_correctTimeZoneErrorsInGPSTime.m
+Changed 0 instances, skipped 0 comments in script_test_fcn_TimeClean_fillGPSTimeFromROSTime.m
+Changed 0 instances, skipped 0 comments in script_test_fcn_TimeClean_fillMissingsInGPSUnits.m
+Changed 0 instances, skipped 0 comments in script_test_fcn_TimeClean_findNearPoints.m
+Changed 0 instances, skipped 0 comments in script_test_fcn_TimeClean_fitROSTime2GPSTime.m
+Changed 0 instances, skipped 0 comments in script_test_fcn_TimeClean_predictGPSTimeFromROSTime.m
+Changed 0 instances, skipped 0 comments in script_test_fcn_TimeClean_sortSensorDataByGPSTime.m
+Changed 0 instances, skipped 0 comments in script_test_fcn_TimeClean_trimRepeatsFromField.m
+<strong>	Checking for string: % - wrote and replacing with % - Wrote: </strong><strong>PASSED.
+</strong><strong>	Checking for string: % - added and replacing with % - Added: </strong><strong>PASSED.
+</strong><strong>	Checking for string: % - removed and replacing with % - Removed: </strong><strong>PASSED.
+</strong><strong>	Checking for string: % - updated and replacing with % - Updated: </strong><strong>PASSED.
+</strong><strong>	Checking for string: % - renamed and replacing with % - Renamed: </strong><strong>PASSED.
+</strong><strong>	Checking for string: % - changed and replacing with % - Changed: </strong><strong>PASSED.
+</strong><strong>	Checking for string: % - fixed and replacing with % - Fixed: </strong><strong>PASSED.
+</strong><strong>	Checking for string: % - first and replacing with % - First: </strong><strong>PASSED.
+</strong><strong>	Checking for string: % -- and replacing with % -: </strong><strong>PASSED.
+</strong><strong>	Checking for string: TO DO and replacing with TO-DO: </strong><strong>PASSED.
+</strong><strong>	Checking for string: Revision history and replacing with REVISION HISTORY: </strong><strong>PASSED.
+</strong><strong>	Checking for string: % Updates and replacing with % REVISION HISTORY: </strong><strong>PASSED.
+</strong><strong>	Checking for string: % UPDATES and replacing with % REVISION HISTORY: </strong><strong>PASSED.
+</strong><strong>	Checking for string: fig_num and replacing with figNum: </strong><strong>PASSED.
+</strong><strong>	Checking for string:  - sbrennan@psu.edu and replacing with  by Sean Brennan, sbrennan@psu.edu: </strong><strong>PASSED.
+</strong><strong>	Checking for string: : sbrennan@psu.edu and replacing with  by Sean Brennan, sbrennan@psu.edu: </strong><strong>PASSED.
+</strong><strong>	Checking for string:  - Sean Brennan, sbrennan@psu.edu and replacing with  by Sean Brennan, sbrennan@psu.edu: </strong><strong>PASSED.
+</strong><strong>	Checking for string:  - S. Brennan and replacing with  by Sean Brennan, sbrennan@psu.edu: </strong><strong>PASSED.
+</strong><strong>Searching and Replacing common naming errors in folder:
+	C:\Users\snb10\Desktop\GitHubRepos\IVSG\FieldDataCollection\DataCollectionProcedures\TimeClean\Functions
+</strong><strong>	Checking for string: _DATACLEAN_ and replacing with _TIMECLEAN_: </strong><strong>PASSED.
+</strong><strong>	Checking for string: % - wrote and replacing with % - Wrote: </strong><strong>PASSED.
+</strong><strong>	Checking for string: % - added and replacing with % - Added: </strong><strong>PASSED.
+</strong><strong>	Checking for string: % - removed and replacing with % - Removed: </strong><strong>PASSED.
+</strong><strong>	Checking for string: % - updated and replacing with % - Updated: </strong><strong>PASSED.
+</strong><strong>	Checking for string: % - renamed and replacing with % - Renamed: </strong><strong>PASSED.
+</strong><strong>	Checking for string: % - changed and replacing with % - Changed: </strong><strong>PASSED.
+</strong><strong>	Checking for string: % - fixed and replacing with % - Fixed: </strong><strong>PASSED.
+</strong><strong>	Checking for string: % - first and replacing with % - First: </strong><strong>PASSED.
+</strong><strong>	Checking for string: % -- and replacing with % -: </strong><strong>PASSED.
+</strong><strong>	Checking for string: TO DO and replacing with TO-DO: </strong><strong>PASSED.
+</strong><strong>	Checking for string: Revision history and replacing with REVISION HISTORY: </strong><strong>PASSED.
+</strong><strong>	Checking for string: % Updates and replacing with % REVISION HISTORY: </strong><strong>PASSED.
+</strong><strong>	Checking for string: % UPDATES and replacing with % REVISION HISTORY: </strong><strong>PASSED.
+</strong><strong>	Checking for string: fig_num and replacing with figNum: </strong><strong>PASSED.
+</strong><strong>	Checking for string:  - sbrennan@psu.edu and replacing with  by Sean Brennan, sbrennan@psu.edu: </strong><strong>PASSED.
+</strong><strong>	Checking for string: : sbrennan@psu.edu and replacing with  by Sean Brennan, sbrennan@psu.edu: </strong><strong>PASSED.
+</strong><strong>	Checking for string:  - Sean Brennan, sbrennan@psu.edu and replacing with  by Sean Brennan, sbrennan@psu.edu: </strong><strong>PASSED.
+</strong><strong>	Checking for string:  - S. Brennan and replacing with  by Sean Brennan, sbrennan@psu.edu: </strong><strong>PASSED.
+</strong>script_test_all_functions
+<strong>Checking root folder:
+	C:\Users\snb10\Desktop\GitHubRepos\IVSG\FieldDataCollection\DataCollectionProcedures\TimeClean\Functions:
+</strong><strong></strong><strong>	Checking that there is 1 m-file in root folder: </strong><strong>PASSED.
+</strong><strong>	Checking that there is a demo file, script_demo_TimeClean.m: </strong><strong>PASSED.
+</strong><strong>	Checking that there is a README.md file: </strong><strong>PASSED.
+</strong><strong>	Checking that there is a Functions subfolder: </strong><strong>PASSED.
+</strong><strong>	Checking that there is a Data subfolder: </strong><strong>PASSED.
+</strong><strong>	Checking that there is a Documents subfolder: </strong><strong>PASSED.
+</strong><strong>	Checking that there is a Installer subfolder: </strong><strong>PASSED.
+</strong><strong>	Checking that there is a Images subfolder: </strong><strong>PASSED.
+</strong><strong>Checking main demo file:
+	script_demo_TimeClean.m:
+</strong><strong>	Checking that main demo contains required strings: </strong><strong>	Checking that it contains "REVISION HISTORY": </strong><strong>PASSED.
+</strong><strong>	Checking that it contains "TO-DO": </strong><strong>PASSED.
+</strong><strong>	Checking that it contains "MATLABFLAG_TIMECLEAN_FLAG_CHECK_INPUTS": </strong><strong>PASSED.
+</strong><strong>	Checking that it contains "MATLABFLAG_TIMECLEAN_FLAG_DO_DEBUG": </strong><strong>PASSED.
+</strong><strong>	Checking that it contains "fcn_DebugTools_autoInstallRepos": </strong><strong>PASSED.
+</strong><strong>Checking functions folder:
+	C:\Users\snb10\Desktop\GitHubRepos\IVSG\FieldDataCollection\DataCollectionProcedures\TimeClean\Functions:
+</strong><strong>	Checking that functions folder contains no forbidden strings: </strong><strong>PASSED.
+</strong><strong>	Checking that functions folder contains no warning strings: </strong><strong>PASSED.
+</strong><strong>	Checking that all files in functions folder contains required strings: </strong><strong>PASSED.
+</strong><strong>	Checking that functions within functions folder contains function-required strings: </strong><strong>FAILED.
+</strong>
+
+		m-filename                                                         	string found?	
+Folder: C:\Users\snb10\Desktop\GitHubRepos\IVSG\FieldDataCollection\DataCollectionProcedures\TimeClean\Functions:
+	1	fcn_DataClean_cleanTime_OLD.m                                      	1            	
+	2	fcn_TimeClean_checkConsistencyOfStartEnd.m                         	1            	
+	3	fcn_TimeClean_checkDataStrictlyIncreasing.m                        	1            	
+	4	fcn_TimeClean_checkDataTimeConsistency.m                           	1            	
+	5	fcn_TimeClean_checkFieldCountMatchesTimeCount.m                    	1            	
+	6	fcn_TimeClean_checkFieldDifferencesForJumps.m                      	1            	
+	7	fcn_TimeClean_checkFieldDifferencesForMissings.m                   	1            	
+	8	fcn_TimeClean_checkIfFieldHasRepeatedValues.m                      	1            	
+	9	fcn_TimeClean_checkIfFieldInSensors.m                              	1            	
+	10	fcn_TimeClean_checkTimeRoundsCorrectly.m                           	1            	
+	11	fcn_TimeClean_checkTimeSamplingConsistency.m                       	1            	
+	12	fcn_TimeClean_cleanNaming.m                                        	1            	
+	13	fcn_TimeClean_cleanTime.m                                          	1            	
+	14	fcn_TimeClean_convertROSTimeToSeconds.m                            	1            	
+	15	fcn_TimeClean_correctTimeZoneErrorsInGPSTime.m                     	0            	
+	16	fcn_TimeClean_fillGPSTimeFromROSTime.m                             	1            	
+	17	fcn_TimeClean_fillMissingsInGPSUnits.m                             	1            	
+	18	fcn_TimeClean_findNearPoints.m                                     	0            	
+	19	fcn_TimeClean_fitROSTime2GPSTime.m                                 	1            	
+	20	fcn_TimeClean_predictGPSTimeFromROSTime.m                          	1            	
+	21	fcn_TimeClean_sortSensorDataByGPSTime.m                            	1            	
+	22	fcn_TimeClean_trimRepeatsFromField.m                               	1            	
+{Error using <a href="matlab:matlab.lang.internal.introspective.errorDocCallback('script_test_all_functions', 'C:\Users\snb10\Desktop\GitHubRepos\IVSG\FieldDataCollection\DataCollectionProcedures\TimeClean\Functions\script_test_all_functions.m', 273)" style="font-weight:bold">script_test_all_functions</a> (<a href="matlab: opentoline('C:\Users\snb10\Desktop\GitHubRepos\IVSG\FieldDataCollection\DataCollectionProcedures\TimeClean\Functions\script_test_all_functions.m',273,0)">line 273</a>)
+A "MATLABFLAG_TIMECLEAN_FLAG_CHECK_INPUTS" required string was NOT found in one of the
+functions or scripts - see listing above. This should be fixed to maintain compatibilty.} 
+try open('fcn_TimeClean_checkConsistencyOfStartEnd'); catch edit('fcn_TimeClean_checkConsistencyOfStartEnd'); end
+try open('fcn_TimeClean_correctTimeZoneErrorsInGPSTime'); catch edit('fcn_TimeClean_correctTimeZoneErrorsInGPSTime'); end
+try open('fcn_TimeClean_findNearPoints'); catch edit('fcn_TimeClean_findNearPoints'); end
+try open('fcn_TimeClean_fillMissingsInGPSUnits'); catch edit('fcn_TimeClean_fillMissingsInGPSUnits'); end
+if system_dependent('IsDebugMode')==1, dbcont; end
+<strong>Searching and Replacing common naming errors in folder:
+	C:\Users\snb10\Desktop\GitHubRepos\IVSG\FieldDataCollection\DataCollectionProcedures\TimeClean\Functions
+</strong><strong>	Checking for string: _DATACLEAN_ and replacing with _TIMECLEAN_: </strong><strong>PASSED.
+</strong><strong>	Checking for string: _PLOTCV2X_ and replacing with _TIMECLEAN_: </strong><strong>FAILED.
+</strong>
+
+		m-filename                                                         	string found?	
+Folder: C:\Users\snb10\Desktop\GitHubRepos\IVSG\FieldDataCollection\DataCollectionProcedures\TimeClean\Functions:
+	1	fcn_DataClean_cleanTime_OLD.m                                      	0            	
+	2	fcn_TimeClean_checkConsistencyOfStartEnd.m                         	0            	
+	3	fcn_TimeClean_checkDataStrictlyIncreasing.m                        	0            	
+	4	fcn_TimeClean_checkDataTimeConsistency.m                           	0            	
+	5	fcn_TimeClean_checkFieldCountMatchesTimeCount.m                    	0            	
+	6	fcn_TimeClean_checkFieldDifferencesForJumps.m                      	0            	
+	7	fcn_TimeClean_checkFieldDifferencesForMissings.m                   	0            	
+	8	fcn_TimeClean_checkIfFieldHasRepeatedValues.m                      	0            	
+	9	fcn_TimeClean_checkIfFieldInSensors.m                              	0            	
+	10	fcn_TimeClean_checkTimeRoundsCorrectly.m                           	0            	
+	11	fcn_TimeClean_checkTimeSamplingConsistency.m                       	0            	
+	12	fcn_TimeClean_cleanNaming.m                                        	0            	
+	13	fcn_TimeClean_cleanTime.m                                          	0            	
+	14	fcn_TimeClean_convertROSTimeToSeconds.m                            	0            	
+	15	fcn_TimeClean_correctTimeZoneErrorsInGPSTime.m                     	0            	
+	16	fcn_TimeClean_fillGPSTimeFromROSTime.m                             	0            	
+	17	fcn_TimeClean_fillMissingsInGPSUnits.m                             	0            	
+	18	fcn_TimeClean_findNearPoints.m                                     	1            	
+	19	fcn_TimeClean_fitROSTime2GPSTime.m                                 	0            	
+	20	fcn_TimeClean_predictGPSTimeFromROSTime.m                          	0            	
+	21	fcn_TimeClean_sortSensorDataByGPSTime.m                            	0            	
+	22	fcn_TimeClean_trimRepeatsFromField.m                               	0            	
+	23	script_test_all_functions.asv                                      	0            	
+	24	script_test_all_functions.m                                        	0            	
+	25	script_test_fcn_DataClean_cleanTime.m                              	0            	
+	26	script_test_fcn_TimeClean_checkConsistencyOfStartEnd.m             	0            	
+	27	script_test_fcn_TimeClean_checkDataStrictlyIncreasing.m            	0            	
+	28	script_test_fcn_TimeClean_checkDataTimeConsistency.m               	0            	
+	29	script_test_fcn_TimeClean_checkFieldCountMatchesTimeCount.m        	0            	
+	30	script_test_fcn_TimeClean_checkFieldDifferencesForJumps.m          	0            	
+	31	script_test_fcn_TimeClean_checkFieldDifferencesForMissings.m       	0            	
+	32	script_test_fcn_TimeClean_checkIfFieldHasRepeatedValues.m          	0            	
+	33	script_test_fcn_TimeClean_checkIfFieldInSensors.m                  	0            	
+	34	script_test_fcn_TimeClean_checkTimeRoundsCorrectly.m               	0            	
+	35	script_test_fcn_TimeClean_checkTimeSamplingConsistency.m           	0            	
+	36	script_test_fcn_TimeClean_cleanNaming.m                            	0            	
+	37	script_test_fcn_TimeClean_cleanTime.m                              	0            	
+	38	script_test_fcn_TimeClean_convertROSTimeToSeconds.m                	0            	
+	39	script_test_fcn_TimeClean_correctTimeZoneErrorsInGPSTime.m         	0            	
+	40	script_test_fcn_TimeClean_fillGPSTimeFromROSTime.m                 	0            	
+	41	script_test_fcn_TimeClean_fillMissingsInGPSUnits.m                 	0            	
+	42	script_test_fcn_TimeClean_findNearPoints.m                         	0            	
+	43	script_test_fcn_TimeClean_fitROSTime2GPSTime.m                     	0            	
+	44	script_test_fcn_TimeClean_predictGPSTimeFromROSTime.m              	0            	
+	45	script_test_fcn_TimeClean_sortSensorDataByGPSTime.m                	0            	
+	46	script_test_fcn_TimeClean_trimRepeatsFromField.m                   	0            	
+[Warning: A "_PLOTCV2X_" was found in one of the functions - see listing above.] 
+<strong>
+	INITIATING REPLACEMENT of _PLOTCV2X_ with _TIMECLEAN_.
+</strong>Changed 0 instances, skipped 0 comments in fcn_DataClean_cleanTime_OLD.m
+Changed 0 instances, skipped 0 comments in fcn_TimeClean_checkConsistencyOfStartEnd.m
+Changed 0 instances, skipped 0 comments in fcn_TimeClean_checkDataStrictlyIncreasing.m
+Changed 0 instances, skipped 0 comments in fcn_TimeClean_checkDataTimeConsistency.m
+Changed 0 instances, skipped 0 comments in fcn_TimeClean_checkFieldCountMatchesTimeCount.m
+Changed 0 instances, skipped 0 comments in fcn_TimeClean_checkFieldDifferencesForJumps.m
+Changed 0 instances, skipped 0 comments in fcn_TimeClean_checkFieldDifferencesForMissings.m
+Changed 0 instances, skipped 0 comments in fcn_TimeClean_checkIfFieldHasRepeatedValues.m
+Changed 0 instances, skipped 0 comments in fcn_TimeClean_checkIfFieldInSensors.m
+Changed 0 instances, skipped 0 comments in fcn_TimeClean_checkTimeRoundsCorrectly.m
+Changed 0 instances, skipped 0 comments in fcn_TimeClean_checkTimeSamplingConsistency.m
+Changed 0 instances, skipped 0 comments in fcn_TimeClean_cleanNaming.m
+Changed 0 instances, skipped 0 comments in fcn_TimeClean_cleanTime.m
+Changed 0 instances, skipped 0 comments in fcn_TimeClean_convertROSTimeToSeconds.m
+Changed 0 instances, skipped 0 comments in fcn_TimeClean_correctTimeZoneErrorsInGPSTime.m
+Changed 0 instances, skipped 0 comments in fcn_TimeClean_fillGPSTimeFromROSTime.m
+Changed 0 instances, skipped 0 comments in fcn_TimeClean_fillMissingsInGPSUnits.m
+Changed 5 instances, skipped 0 comments in fcn_TimeClean_findNearPoints.m
+Changed 0 instances, skipped 0 comments in fcn_TimeClean_fitROSTime2GPSTime.m
+Changed 0 instances, skipped 0 comments in fcn_TimeClean_predictGPSTimeFromROSTime.m
+Changed 0 instances, skipped 0 comments in fcn_TimeClean_sortSensorDataByGPSTime.m
+Changed 0 instances, skipped 0 comments in fcn_TimeClean_trimRepeatsFromField.m
+Changed 0 instances, skipped 0 comments in script_test_fcn_DataClean_cleanTime.m
+Changed 0 instances, skipped 0 comments in script_test_fcn_TimeClean_checkConsistencyOfStartEnd.m
+Changed 0 instances, skipped 0 comments in script_test_fcn_TimeClean_checkDataStrictlyIncreasing.m
+Changed 0 instances, skipped 0 comments in script_test_fcn_TimeClean_checkDataTimeConsistency.m
+Changed 0 instances, skipped 0 comments in script_test_fcn_TimeClean_checkFieldCountMatchesTimeCount.m
+Changed 0 instances, skipped 0 comments in script_test_fcn_TimeClean_checkFieldDifferencesForJumps.m
+Changed 0 instances, skipped 0 comments in script_test_fcn_TimeClean_checkFieldDifferencesForMissings.m
+Changed 0 instances, skipped 0 comments in script_test_fcn_TimeClean_checkIfFieldHasRepeatedValues.m
+Changed 0 instances, skipped 0 comments in script_test_fcn_TimeClean_checkIfFieldInSensors.m
+Changed 0 instances, skipped 0 comments in script_test_fcn_TimeClean_checkTimeRoundsCorrectly.m
+Changed 0 instances, skipped 0 comments in script_test_fcn_TimeClean_checkTimeSamplingConsistency.m
+Changed 0 instances, skipped 0 comments in script_test_fcn_TimeClean_cleanNaming.m
+Changed 0 instances, skipped 0 comments in script_test_fcn_TimeClean_cleanTime.m
+Changed 0 instances, skipped 0 comments in script_test_fcn_TimeClean_convertROSTimeToSeconds.m
+Changed 0 instances, skipped 0 comments in script_test_fcn_TimeClean_correctTimeZoneErrorsInGPSTime.m
+Changed 0 instances, skipped 0 comments in script_test_fcn_TimeClean_fillGPSTimeFromROSTime.m
+Changed 0 instances, skipped 0 comments in script_test_fcn_TimeClean_fillMissingsInGPSUnits.m
+Changed 0 instances, skipped 0 comments in script_test_fcn_TimeClean_findNearPoints.m
+Changed 0 instances, skipped 0 comments in script_test_fcn_TimeClean_fitROSTime2GPSTime.m
+Changed 0 instances, skipped 0 comments in script_test_fcn_TimeClean_predictGPSTimeFromROSTime.m
+Changed 0 instances, skipped 0 comments in script_test_fcn_TimeClean_sortSensorDataByGPSTime.m
+Changed 0 instances, skipped 0 comments in script_test_fcn_TimeClean_trimRepeatsFromField.m
+<strong>	Checking for string: % - wrote and replacing with % - Wrote: </strong><strong>PASSED.
+</strong><strong>	Checking for string: % - added and replacing with % - Added: </strong><strong>PASSED.
+</strong><strong>	Checking for string: % - removed and replacing with % - Removed: </strong><strong>PASSED.
+</strong><strong>	Checking for string: % - updated and replacing with % - Updated: </strong><strong>PASSED.
+</strong><strong>	Checking for string: % - renamed and replacing with % - Renamed: </strong><strong>PASSED.
+</strong><strong>	Checking for string: % - changed and replacing with % - Changed: </strong><strong>PASSED.
+</strong><strong>	Checking for string: % - fixed and replacing with % - Fixed: </strong><strong>PASSED.
+</strong><strong>	Checking for string: % - first and replacing with % - First: </strong><strong>PASSED.
+</strong><strong>	Checking for string: % -- and replacing with % -: </strong><strong>PASSED.
+</strong><strong>	Checking for string: TO DO and replacing with TO-DO: </strong><strong>PASSED.
+</strong><strong>	Checking for string: Revision history and replacing with REVISION HISTORY: </strong><strong>PASSED.
+</strong><strong>	Checking for string: % Updates and replacing with % REVISION HISTORY: </strong><strong>PASSED.
+</strong><strong>	Checking for string: % UPDATES and replacing with % REVISION HISTORY: </strong><strong>PASSED.
+</strong><strong>	Checking for string: fig_num and replacing with figNum: </strong><strong>PASSED.
+</strong><strong>	Checking for string:  - sbrennan@psu.edu and replacing with  by Sean Brennan, sbrennan@psu.edu: </strong><strong>PASSED.
+</strong><strong>	Checking for string: : sbrennan@psu.edu and replacing with  by Sean Brennan, sbrennan@psu.edu: </strong><strong>PASSED.
+</strong><strong>	Checking for string:  - Sean Brennan, sbrennan@psu.edu and replacing with  by Sean Brennan, sbrennan@psu.edu: </strong><strong>PASSED.
+</strong><strong>	Checking for string:  - S. Brennan and replacing with  by Sean Brennan, sbrennan@psu.edu: </strong><strong>PASSED.
+</strong><strong>Searching and Replacing common naming errors in folder:
+	C:\Users\snb10\Desktop\GitHubRepos\IVSG\FieldDataCollection\DataCollectionProcedures\TimeClean\Functions
+</strong><strong>	Checking for string: _DATACLEAN_ and replacing with _TIMECLEAN_: </strong><strong>PASSED.
+</strong><strong>	Checking for string: _PLOTCV2X_ and replacing with _TIMECLEAN_: </strong><strong>PASSED.
+</strong><strong>	Checking for string: % - wrote and replacing with % - Wrote: </strong><strong>PASSED.
+</strong><strong>	Checking for string: % - added and replacing with % - Added: </strong><strong>PASSED.
+</strong><strong>	Checking for string: % - removed and replacing with % - Removed: </strong><strong>PASSED.
+</strong><strong>	Checking for string: % - updated and replacing with % - Updated: </strong><strong>PASSED.
+</strong><strong>	Checking for string: % - renamed and replacing with % - Renamed: </strong><strong>PASSED.
+</strong><strong>	Checking for string: % - changed and replacing with % - Changed: </strong><strong>PASSED.
+</strong><strong>	Checking for string: % - fixed and replacing with % - Fixed: </strong><strong>PASSED.
+</strong><strong>	Checking for string: % - first and replacing with % - First: </strong><strong>PASSED.
+</strong><strong>	Checking for string: % -- and replacing with % -: </strong><strong>PASSED.
+</strong><strong>	Checking for string: TO DO and replacing with TO-DO: </strong><strong>PASSED.
+</strong><strong>	Checking for string: Revision history and replacing with REVISION HISTORY: </strong><strong>PASSED.
+</strong><strong>	Checking for string: % Updates and replacing with % REVISION HISTORY: </strong><strong>PASSED.
+</strong><strong>	Checking for string: % UPDATES and replacing with % REVISION HISTORY: </strong><strong>PASSED.
+</strong><strong>	Checking for string: fig_num and replacing with figNum: </strong><strong>PASSED.
+</strong><strong>	Checking for string:  - sbrennan@psu.edu and replacing with  by Sean Brennan, sbrennan@psu.edu: </strong><strong>PASSED.
+</strong><strong>	Checking for string: : sbrennan@psu.edu and replacing with  by Sean Brennan, sbrennan@psu.edu: </strong><strong>PASSED.
+</strong><strong>	Checking for string:  - Sean Brennan, sbrennan@psu.edu and replacing with  by Sean Brennan, sbrennan@psu.edu: </strong><strong>PASSED.
+</strong><strong>	Checking for string:  - S. Brennan and replacing with  by Sean Brennan, sbrennan@psu.edu: </strong><strong>PASSED.
+</strong>script_test_all_functions
+<strong>Checking root folder:
+	C:\Users\snb10\Desktop\GitHubRepos\IVSG\FieldDataCollection\DataCollectionProcedures\TimeClean\Functions:
+</strong><strong></strong><strong>	Checking that there is 1 m-file in root folder: </strong><strong>PASSED.
+</strong><strong>	Checking that there is a demo file, script_demo_TimeClean.m: </strong><strong>PASSED.
+</strong><strong>	Checking that there is a README.md file: </strong><strong>PASSED.
+</strong><strong>	Checking that there is a Functions subfolder: </strong><strong>PASSED.
+</strong><strong>	Checking that there is a Data subfolder: </strong><strong>PASSED.
+</strong><strong>	Checking that there is a Documents subfolder: </strong><strong>PASSED.
+</strong><strong>	Checking that there is a Installer subfolder: </strong><strong>PASSED.
+</strong><strong>	Checking that there is a Images subfolder: </strong><strong>PASSED.
+</strong><strong>Checking main demo file:
+	script_demo_TimeClean.m:
+</strong><strong>	Checking that main demo contains required strings: </strong><strong>	Checking that it contains "REVISION HISTORY": </strong><strong>PASSED.
+</strong><strong>	Checking that it contains "TO-DO": </strong><strong>PASSED.
+</strong><strong>	Checking that it contains "MATLABFLAG_TIMECLEAN_FLAG_CHECK_INPUTS": </strong><strong>PASSED.
+</strong><strong>	Checking that it contains "MATLABFLAG_TIMECLEAN_FLAG_DO_DEBUG": </strong><strong>PASSED.
+</strong><strong>	Checking that it contains "fcn_DebugTools_autoInstallRepos": </strong><strong>PASSED.
+</strong><strong>Checking functions folder:
+	C:\Users\snb10\Desktop\GitHubRepos\IVSG\FieldDataCollection\DataCollectionProcedures\TimeClean\Functions:
+</strong><strong>	Checking that functions folder contains no forbidden strings: </strong><strong>PASSED.
+</strong><strong>	Checking that functions folder contains no warning strings: </strong><strong>PASSED.
+</strong><strong>	Checking that all files in functions folder contains required strings: </strong><strong>PASSED.
+</strong><strong>	Checking that functions within functions folder contains function-required strings: </strong><strong>PASSED.
+</strong>
+SUMMARY OF FOUND FILES: 
+<strong>The following scripts were found that will be tested:
+</strong><strong>	There are 21 total testable functions in this repo:
+</strong>	script_test_fcn_TimeClean_checkConsistencyOfStartEnd.m
+	script_test_fcn_TimeClean_checkDataStrictlyIncreasing.m
+	script_test_fcn_TimeClean_checkDataTimeConsistency.m
+	script_test_fcn_TimeClean_checkFieldCountMatchesTimeCount.m
+	script_test_fcn_TimeClean_checkFieldDifferencesForJumps.m
+	script_test_fcn_TimeClean_checkFieldDifferencesForMissings.m
+	script_test_fcn_TimeClean_checkIfFieldHasRepeatedValues.m
+	script_test_fcn_TimeClean_checkIfFieldInSensors.m
+	script_test_fcn_TimeClean_checkTimeRoundsCorrectly.m
+	script_test_fcn_TimeClean_checkTimeSamplingConsistency.m
+	script_test_fcn_TimeClean_cleanNaming.m
+	script_test_fcn_TimeClean_cleanTime.m
+	script_test_fcn_TimeClean_convertROSTimeToSeconds.m
+	script_test_fcn_TimeClean_correctTimeZoneErrorsInGPSTime.m
+	script_test_fcn_TimeClean_fillGPSTimeFromROSTime.m
+	script_test_fcn_TimeClean_fillMissingsInGPSUnits.m
+	script_test_fcn_TimeClean_findNearPoints.m
+	script_test_fcn_TimeClean_fitROSTime2GPSTime.m
+	script_test_fcn_TimeClean_predictGPSTimeFromROSTime.m
+	script_test_fcn_TimeClean_sortSensorDataByGPSTime.m
+	script_test_fcn_TimeClean_trimRepeatsFromField.m
+<strong>The following functions were found, but do not have a matching test scripts:
+</strong><strong>	fcn_DataClean_cleanTime_OLD.m
+</strong><strong>The following test scripts were found, but do not have a matching function:
+</strong><strong>	script_test_fcn_DataClean_cleanTime.m
+</strong><a href="matlab: opentoline('C:\Users\snb10\Desktop\GitHubRepos\IVSG\FieldDataCollection\DataCollectionProcedures\TimeClean\Functions\script_test_all_functions.m',376,1)">376 </a>NtestScripts = length(indicies_filesToTest);
+if system_dependent('IsDebugMode')==1, dbquit; end
+script_test_all_functions
+<strong>Checking root folder:
+	C:\Users\snb10\Desktop\GitHubRepos\IVSG\FieldDataCollection\DataCollectionProcedures\TimeClean\Functions:
+</strong><strong></strong><strong>	Checking that there is 1 m-file in root folder: </strong><strong>PASSED.
+</strong><strong>	Checking that there is a demo file, script_demo_TimeClean.m: </strong><strong>PASSED.
+</strong><strong>	Checking that there is a README.md file: </strong><strong>PASSED.
+</strong><strong>	Checking that there is a Functions subfolder: </strong><strong>PASSED.
+</strong><strong>	Checking that there is a Data subfolder: </strong><strong>PASSED.
+</strong><strong>	Checking that there is a Documents subfolder: </strong><strong>PASSED.
+</strong><strong>	Checking that there is a Installer subfolder: </strong><strong>PASSED.
+</strong><strong>	Checking that there is a Images subfolder: </strong><strong>PASSED.
+</strong><strong>Checking main demo file:
+	script_demo_TimeClean.m:
+</strong><strong>	Checking that main demo contains required strings: </strong><strong>	Checking that it contains "REVISION HISTORY": </strong><strong>PASSED.
+</strong><strong>	Checking that it contains "TO-DO": </strong><strong>PASSED.
+</strong><strong>	Checking that it contains "MATLABFLAG_TIMECLEAN_FLAG_CHECK_INPUTS": </strong><strong>PASSED.
+</strong><strong>	Checking that it contains "MATLABFLAG_TIMECLEAN_FLAG_DO_DEBUG": </strong><strong>PASSED.
+</strong><strong>	Checking that it contains "fcn_DebugTools_autoInstallRepos": </strong><strong>PASSED.
+</strong><strong>Checking functions folder:
+	C:\Users\snb10\Desktop\GitHubRepos\IVSG\FieldDataCollection\DataCollectionProcedures\TimeClean\Functions:
+</strong><strong>	Checking that functions folder contains no forbidden strings: </strong><strong>PASSED.
+</strong><strong>	Checking that functions folder contains no warning strings: </strong><strong>PASSED.
+</strong><strong>	Checking that all files in functions folder contains required strings: </strong><strong>PASSED.
+</strong><strong>	Checking that functions within functions folder contains function-required strings: </strong><strong>PASSED.
+</strong>
+SUMMARY OF FOUND FILES: 
+<strong>The following scripts were found that will be tested:
+</strong><strong>	There are 22 total testable functions in this repo:
+</strong>	script_test_fcn_DataClean_cleanTime_OLD.m
+	script_test_fcn_TimeClean_checkConsistencyOfStartEnd.m
+	script_test_fcn_TimeClean_checkDataStrictlyIncreasing.m
+	script_test_fcn_TimeClean_checkDataTimeConsistency.m
+	script_test_fcn_TimeClean_checkFieldCountMatchesTimeCount.m
+	script_test_fcn_TimeClean_checkFieldDifferencesForJumps.m
+	script_test_fcn_TimeClean_checkFieldDifferencesForMissings.m
+	script_test_fcn_TimeClean_checkIfFieldHasRepeatedValues.m
+	script_test_fcn_TimeClean_checkIfFieldInSensors.m
+	script_test_fcn_TimeClean_checkTimeRoundsCorrectly.m
+	script_test_fcn_TimeClean_checkTimeSamplingConsistency.m
+	script_test_fcn_TimeClean_cleanNaming.m
+	script_test_fcn_TimeClean_cleanTime.m
+	script_test_fcn_TimeClean_convertROSTimeToSeconds.m
+	script_test_fcn_TimeClean_correctTimeZoneErrorsInGPSTime.m
+	script_test_fcn_TimeClean_fillGPSTimeFromROSTime.m
+	script_test_fcn_TimeClean_fillMissingsInGPSUnits.m
+	script_test_fcn_TimeClean_findNearPoints.m
+	script_test_fcn_TimeClean_fitROSTime2GPSTime.m
+	script_test_fcn_TimeClean_predictGPSTimeFromROSTime.m
+	script_test_fcn_TimeClean_sortSensorDataByGPSTime.m
+	script_test_fcn_TimeClean_trimRepeatsFromField.m
+<a href="matlab: opentoline('C:\Users\snb10\Desktop\GitHubRepos\IVSG\FieldDataCollection\DataCollectionProcedures\TimeClean\Functions\script_test_all_functions.m',376,1)">376 </a>NtestScripts = length(indicies_filesToTest);
+if system_dependent('IsDebugMode')==1, dbstep; end
+if system_dependent('IsDebugMode')==1, dbstep; end
+
+STARTING TESTS:

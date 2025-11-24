@@ -1,18 +1,25 @@
 % script_test_fcn_TimeClean_predictGPSTimeFromROSTime.m
 % tests fcn_TimeClean_predictGPSTimeFromROSTime.m
 
-% Revision history
-% 2024_11_18 - sbrennan@psu.edu
-% -- wrote the code originally 
+% REVISION HISTORY
+% 
+% 2024_11_18 by Sean Brennan, sbrennan@psu.edu
+% - Wrote the code originally 
+
+% TO-DO:
+%
+% 2025_11_24 by Sean Brennan, sbrennan@psu.edu
+% - (insert items here)
+
 
 close all;
 
 
 
 %% CASE 1: basic example - verbose
-fig_num = 1;
-if ~isempty(findobj('Number',fig_num))
-    figure(fig_num);
+figNum = 1;
+if ~isempty(findobj('Number',figNum))
+    figure(figNum);
     clf;
 end
 
@@ -44,7 +51,7 @@ for ith_array = 1:length(cell_array_ROS_Time)
 end
 
 % Plot the GPS prediction errors
-figure(fig_num)
+figure(figNum)
 hold on;
 grid on;
 xlabel('Duration of Data Collection (seconds)');

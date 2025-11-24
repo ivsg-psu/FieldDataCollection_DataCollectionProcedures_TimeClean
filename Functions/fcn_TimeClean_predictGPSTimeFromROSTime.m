@@ -7,7 +7,7 @@ function GPSfromROS_Time = fcn_TimeClean_predictGPSTimeFromROSTime(mean_fit, fil
 % FORMAT:
 %
 %      GPSfromROS_Time = fcn_TimeClean_predictGPSTimeFromROSTime(...
-%          mean_fit, filtered_median_errors, ROS_Time, (fid), (fig_num))
+%          mean_fit, filtered_median_errors, ROS_Time, (fid), (figNum))
 %
 % INPUTS:
 %
@@ -24,7 +24,7 @@ function GPSfromROS_Time = fcn_TimeClean_predictGPSTimeFromROSTime(mean_fit, fil
 %      fid: a file ID to print results of analysis. If not entered, no
 %      output is given (FID = 0). Set fid to 1 for printing to console.
 %
-%      fig_num: a figure number to plot results. If set to -1, skips any
+%      figNum: a figure number to plot results. If set to -1, skips any
 %      input checking or debugging, no figures will be generated, and sets
 %      up code to maximize speed.
 %
@@ -44,14 +44,20 @@ function GPSfromROS_Time = fcn_TimeClean_predictGPSTimeFromROSTime(mean_fit, fil
 % This function was written on 2024_11_20 by S. Brennan
 % Questions or comments? sbrennan@psu.edu 
 
-% Revision history:
+% REVISION HISTORY:
 %     
-% 2024_11_20: sbrennan@psu.edu
-% -- wrote the code originally 
+% 2024_11_20 by Sean Brennan, sbrennan@psu.edu
+% - Wrote the code originally 
+
+% TO-DO:
+%
+% 2025_11_24 by Sean Brennan, sbrennan@psu.edu
+% - (insert items here)
+
 
 %% Debugging and Input checks
 
-% Check if flag_max_speed set. This occurs if the fig_num variable input
+% Check if flag_max_speed set. This occurs if the figNum variable input
 % argument (varargin) is given a number of -1, which is not a valid figure
 % number.
 flag_max_speed = 0;
@@ -63,11 +69,11 @@ else
     % Check to see if we are externally setting debug mode to be "on"
     flag_do_debug = 0; % % % % Flag to plot the results for debugging
     flag_check_inputs = 1; % Flag to perform input checking
-    MATLABFLAG_DATACLEAN_FLAG_CHECK_INPUTS = getenv("MATLABFLAG_DATACLEAN_FLAG_CHECK_INPUTS");
-    MATLABFLAG_DATACLEAN_FLAG_DO_DEBUG = getenv("MATLABFLAG_DATACLEAN_FLAG_DO_DEBUG");
-    if ~isempty(MATLABFLAG_DATACLEAN_FLAG_CHECK_INPUTS) && ~isempty(MATLABFLAG_DATACLEAN_FLAG_DO_DEBUG)
-        flag_do_debug = str2double(MATLABFLAG_DATACLEAN_FLAG_DO_DEBUG);
-        flag_check_inputs  = str2double(MATLABFLAG_DATACLEAN_FLAG_CHECK_INPUTS);
+    MATLABFLAG_TIMECLEAN_FLAG_CHECK_INPUTS = getenv("MATLABFLAG_TIMECLEAN_FLAG_CHECK_INPUTS");
+    MATLABFLAG_TIMECLEAN_FLAG_DO_DEBUG = getenv("MATLABFLAG_TIMECLEAN_FLAG_DO_DEBUG");
+    if ~isempty(MATLABFLAG_TIMECLEAN_FLAG_CHECK_INPUTS) && ~isempty(MATLABFLAG_TIMECLEAN_FLAG_DO_DEBUG)
+        flag_do_debug = str2double(MATLABFLAG_TIMECLEAN_FLAG_DO_DEBUG);
+        flag_check_inputs  = str2double(MATLABFLAG_TIMECLEAN_FLAG_CHECK_INPUTS);
     end
 end
 
@@ -76,9 +82,9 @@ end
 if flag_do_debug
     st = dbstack; %#ok<*UNRCH>
     fprintf(1,'STARTING function: %s, in file: %s\n',st(1).name,st(1).file);
-    debug_fig_num = 999978; %#ok<NASGU>
+    debug_figNum = 999978; %#ok<NASGU>
 else
-    debug_fig_num = []; %#ok<NASGU>
+    debug_figNum = []; %#ok<NASGU>
 end
 
 
@@ -122,12 +128,12 @@ if 4 <= nargin
     end
 end
 
-% Does user want to specify fig_num?
+% Does user want to specify figNum?
 flag_do_plots = 0;
 if (0==flag_max_speed) &&  (5<=nargin)
     temp = varargin{end};
     if ~isempty(temp)
-        fig_num = temp; %#ok<NASGU>
+        figNum = temp; %#ok<NASGU>
         flag_do_plots = 1;
     end
 end
@@ -161,7 +167,7 @@ GPSfromROS_Time = unitSlopeGPS_Time_estimated + adjustments;
 if flag_do_plots
 
     % % Calculate GPS_Time_predicted - GPS_Time_actual, plot this versus duration
-    % figure(fig_num);
+    % figure(figNum);
     % clf;
     % 
     % tiledlayout('flow')

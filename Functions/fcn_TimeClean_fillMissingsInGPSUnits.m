@@ -7,7 +7,7 @@ function fixed_dataStructure = fcn_TimeClean_fillMissingsInGPSUnits(dataStructur
 %
 % FORMAT:
 %
-%      fixed_dataStructure = fcn_TimeClean_fillMissingsInGPSUnits(dataStructure, (fid), (fig_num))
+%      fixed_dataStructure = fcn_TimeClean_fillMissingsInGPSUnits(dataStructure, (fid), (figNum))
 %
 % INPUTS:
 %
@@ -19,7 +19,7 @@ function fixed_dataStructure = fcn_TimeClean_fillMissingsInGPSUnits(dataStructur
 %      fid: a file ID to print results of analysis. If not entered, no
 %      output is given (FID = 0). Set fid to 1 for printing to console.
 %
-%      fig_num: a figure number to plot results. If set to -1, skips any
+%      figNum: a figure number to plot results. If set to -1, skips any
 %      input checking or debugging, no figures will be generated, and sets
 %      up code to maximize speed.
 %
@@ -39,27 +39,37 @@ function fixed_dataStructure = fcn_TimeClean_fillMissingsInGPSUnits(dataStructur
 % This function was written on 2024_08_15 by X. Cao
 % Questions or comments? xfc5113@psu.edu
 
-% Revision history:
-% 2024_10_08 - S. Brennan
-% -- added test cases
-% -- updated top comments
-% -- added debug flag area
-% -- fixed fid printing error
-% -- added fig_num input, fixed the plot flag
-% -- fixed warning and errors
-% -- removed interpolation of GPS data itself (gives errors)
+% REVISION HISTORY:
+% 
+% 2024_10_08 by Sean Brennan, sbrennan@psu.edu
+% - Added test cases
+% - Updated top comments
+% - Added debug flag area
+% - Fixed fid printing error
+% - Added figNum input, fixed the plot flag
+% - Fixed warning and errors
+% - Removed interpolation of GPS data itself (gives errors)
+% 
 % 2024_10_13 - X. Cao
-% -- add another condition to the if statement in line 278, currently
+% - add another condition to the if statement in line 278, currently
 %    eventFunctions field is an empty cell, no interpolation process is
 %    needed
-% 2024_12_07 - S. Brennan
-% -- fixed bug where interpolation fails if NaN is present
+% 
+% 2024_12_07 by Sean Brennan, sbrennan@psu.edu
+% - Fixed bug where interpolation fails if NaN is present
+
+% TO-DO:
+%
+% 2025_11_24 by Sean Brennan, sbrennan@psu.edu
+% - (insert items here)
+
 
 %% Debugging and Input checks
 
-% Check if flag_max_speed set. This occurs if the fig_num variable input
+% Check if flag_max_speed set. This occurs if the figNum variable input
 % argument (varargin) is given a number of -1, which is not a valid figure
 % number.
+MAX_NARGIN = 3; % The largest Number of argument inputs to the function
 flag_max_speed = 0;
 if (nargin==3 && isequal(varargin{end},-1))
     flag_do_debug = 0; % % % % Flag to plot the results for debugging
@@ -69,11 +79,11 @@ else
     % Check to see if we are externally setting debug mode to be "on"
     flag_do_debug = 0; % % % % Flag to plot the results for debugging
     flag_check_inputs = 1; % Flag to perform input checking
-    MATLABFLAG_DATACLEAN_FLAG_CHECK_INPUTS = getenv("MATLABFLAG_DATACLEAN_FLAG_CHECK_INPUTS");
-    MATLABFLAG_DATACLEAN_FLAG_DO_DEBUG = getenv("MATLABFLAG_DATACLEAN_FLAG_DO_DEBUG");
-    if ~isempty(MATLABFLAG_DATACLEAN_FLAG_CHECK_INPUTS) && ~isempty(MATLABFLAG_DATACLEAN_FLAG_DO_DEBUG)
-        flag_do_debug = str2double(MATLABFLAG_DATACLEAN_FLAG_DO_DEBUG);
-        flag_check_inputs  = str2double(MATLABFLAG_DATACLEAN_FLAG_CHECK_INPUTS);
+    MATLABFLAG_TIMECLEAN_FLAG_CHECK_INPUTS = getenv("MATLABFLAG_TIMECLEAN_FLAG_CHECK_INPUTS");
+    MATLABFLAG_TIMECLEAN_FLAG_DO_DEBUG = getenv("MATLABFLAG_TIMECLEAN_FLAG_DO_DEBUG");
+    if ~isempty(MATLABFLAG_TIMECLEAN_FLAG_CHECK_INPUTS) && ~isempty(MATLABFLAG_TIMECLEAN_FLAG_DO_DEBUG)
+        flag_do_debug = str2double(MATLABFLAG_TIMECLEAN_FLAG_DO_DEBUG);
+        flag_check_inputs  = str2double(MATLABFLAG_TIMECLEAN_FLAG_CHECK_INPUTS);
     end
 end
 
@@ -82,9 +92,9 @@ end
 if flag_do_debug
     st = dbstack; %#ok<*UNRCH>
     fprintf(1,'STARTING function: %s, in file: %s\n',st(1).name,st(1).file);
-    debug_fig_num = 999978; %#ok<NASGU>
+    debug_figNum = 999978; %#ok<NASGU>
 else
-    debug_fig_num = []; %#ok<NASGU>
+    debug_figNum = []; %#ok<NASGU>
 end
 
 
@@ -104,9 +114,7 @@ end
 if (0 == flag_max_speed)
     if flag_check_inputs
         % Are there the right number of inputs?
-        if nargin < 1 || nargin > 3            
-            error('Incorrect number of input arguments')
-        end
+        narginchk(1,MAX_NARGIN);
     end
 end
 
@@ -132,12 +140,12 @@ if (0==flag_max_speed)
 end
 
 
-% Does user want to specify fig_num?
+% Does user want to specify figNum?
 flag_do_plots = 0;
-if (0==flag_max_speed) &&  (3<=nargin)
+if (0==flag_max_speed) &&  (MAX_NARGIN==nargin)
     temp = varargin{end};
     if ~isempty(temp)
-        fig_num = temp;
+        figNum = temp;
         flag_do_plots = 1;
     end
 end
@@ -340,7 +348,7 @@ end % Ends for loop
 if flag_do_plots
 
     % check whether the figure already has data
-    temp_h = figure(fig_num);
+    temp_h = figure(figNum);
     flag_rescale_axis = 0;
     if isempty(get(temp_h,'Children'))
         flag_rescale_axis = 1;

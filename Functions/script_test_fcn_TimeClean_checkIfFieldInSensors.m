@@ -1,10 +1,17 @@
 % script_test_fcn_TimeClean_checkIfFieldInSensors.m
 % tests fcn_TimeClean_checkIfFieldInSensors.m
 
-% Revision history
-% 2023_07_01 - sbrennan@psu.edu
-% -- wrote the code originally using INTERNAL function from
+% REVISION HISTORY
+% 
+% 2023_07_01 by Sean Brennan, sbrennan@psu.edu
+% - Wrote the code originally using INTERNAL function from
 % checkTimeConsistency
+
+% TO-DO:
+%
+% 2025_11_24 by Sean Brennan, sbrennan@psu.edu
+% - (insert items here)
+
 
 %      [flags,offending_sensor] = fcn_TimeClean_checkIfFieldInSensors(...
 %          dataStructure,field_name,...

@@ -3,7 +3,7 @@ function [flags,offending_sensor, return_flag] = fcn_TimeClean_checkConsistencyO
 %
 % FORMAT:
 %
-%      [flags,offending_sensor,return_flag] = fcn_TimeClean_checkConsistencyOfStartEnd(dataStructure, field_name, (flags), (sensors_to_check), (flag_name_suffix), (agreement_threshold), (fid), (fig_num))
+%      [flags,offending_sensor,return_flag] = fcn_TimeClean_checkConsistencyOfStartEnd(dataStructure, field_name, (flags), (sensors_to_check), (flag_name_suffix), (agreement_threshold), (fid), (figNum))
 %
 % INPUTS:
 %
@@ -33,7 +33,7 @@ function [flags,offending_sensor, return_flag] = fcn_TimeClean_checkConsistencyO
 %      output is given (default is FID = 0, e.g. no printing). Set fid to 1
 %      for printing to console.
 %
-%      fig_num: a figure number to plot results. If set to -1, skips any
+%      figNum: a figure number to plot results. If set to -1, skips any
 %      input checking or debugging, no figures will be generated, and sets
 %      up code to maximize speed. Default is no figure.
 %
@@ -58,21 +58,29 @@ function [flags,offending_sensor, return_flag] = fcn_TimeClean_checkConsistencyO
 % This function was written on 2023_07_01 by S. Brennan
 % Questions or comments? sbrennan@psu.edu
 
-% Revision history:
+% REVISION HISTORY:
 %
-% 2023_07_01: sbrennan@psu.edu
-% -- wrote the code originally
-% 2024_09_29: sbrennan@psu.edu
-% -- updated top comments
-% -- added debug flag area
-% -- added fig_num input, fixed the plot flag
-% -- fixed warning and errors
+% 2023_07_01 by Sean Brennan, sbrennan@psu.edu
+% - Wrote the code originally
+% 
+% 2024_09_29 by Sean Brennan, sbrennan@psu.edu
+% - Updated top comments
+% - Added debug flag area
+% - Added figNum input, fixed the plot flag
+% - Fixed warning and errors
+
+% TO-DO:
+%
+% 2025_11_24 by Sean Brennan, sbrennan@psu.edu
+% - (insert items here)
+
 
 %% Debugging and Input checks
 
-% Check if flag_max_speed set. This occurs if the fig_num variable input
+% Check if flag_max_speed set. This occurs if the figNum variable input
 % argument (varargin) is given a number of -1, which is not a valid figure
 % number.
+MAX_NARGIN = 8; % The largest Number of argument inputs to the function
 flag_max_speed = 0;
 if (nargin==8 && isequal(varargin{end},-1))
     flag_do_debug = 0; % % % % Flag to plot the results for debugging
@@ -82,11 +90,11 @@ else
     % Check to see if we are externally setting debug mode to be "on"
     flag_do_debug = 0; % % % % Flag to plot the results for debugging
     flag_check_inputs = 1; % Flag to perform input checking
-    MATLABFLAG_DATACLEAN_FLAG_CHECK_INPUTS = getenv("MATLABFLAG_DATACLEAN_FLAG_CHECK_INPUTS");
-    MATLABFLAG_DATACLEAN_FLAG_DO_DEBUG = getenv("MATLABFLAG_DATACLEAN_FLAG_DO_DEBUG");
-    if ~isempty(MATLABFLAG_DATACLEAN_FLAG_CHECK_INPUTS) && ~isempty(MATLABFLAG_DATACLEAN_FLAG_DO_DEBUG)
-        flag_do_debug = str2double(MATLABFLAG_DATACLEAN_FLAG_DO_DEBUG);
-        flag_check_inputs  = str2double(MATLABFLAG_DATACLEAN_FLAG_CHECK_INPUTS);
+    MATLABFLAG_TIMECLEAN_FLAG_CHECK_INPUTS = getenv("MATLABFLAG_TIMECLEAN_FLAG_CHECK_INPUTS");
+    MATLABFLAG_TIMECLEAN_FLAG_DO_DEBUG = getenv("MATLABFLAG_TIMECLEAN_FLAG_DO_DEBUG");
+    if ~isempty(MATLABFLAG_TIMECLEAN_FLAG_CHECK_INPUTS) && ~isempty(MATLABFLAG_TIMECLEAN_FLAG_DO_DEBUG)
+        flag_do_debug = str2double(MATLABFLAG_TIMECLEAN_FLAG_DO_DEBUG);
+        flag_check_inputs  = str2double(MATLABFLAG_TIMECLEAN_FLAG_CHECK_INPUTS);
     end
 end
 
@@ -95,9 +103,9 @@ end
 if flag_do_debug
     st = dbstack; %#ok<*UNRCH>
     fprintf(1,'STARTING function: %s, in file: %s\n',st(1).name,st(1).file);
-    debug_fig_num = 999978; %#ok<NASGU>
+    debug_figNum = 999978; %#ok<NASGU>
 else
-    debug_fig_num = []; %#ok<NASGU>
+    debug_figNum = []; %#ok<NASGU>
 end
 
 %% check input arguments
@@ -115,7 +123,7 @@ end
 if (0==flag_max_speed)
     if flag_check_inputs
         % Are there the right number of inputs?
-        narginchk(2,8);
+        narginchk(2,MAX_NARGIN);
     end
 end
 
@@ -177,12 +185,12 @@ if (0==flag_max_speed)
 end
 
 
-% Does user want to specify fig_num?
+% Does user want to specify figNum?
 flag_do_plots = 0;
-if (0==flag_max_speed) &&  (8<=nargin)
+if (0==flag_max_speed) &&  (MAX_NARGIN == nargin)
     temp = varargin{end};
     if ~isempty(temp)
-        fig_num = temp;
+        figNum = temp;
         flag_do_plots = 1;
     end
 end
@@ -324,7 +332,7 @@ end
 %                            __/ |
 %                           |___/
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-if flag_do_plots && isempty(findobj('Number',fig_num))
+if flag_do_plots && isempty(findobj('Number',figNum))
 
     % Nothing to plot
 end

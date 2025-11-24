@@ -5,9 +5,20 @@
 % by modifying script _ test _ fcn _ plotCV2X _ findNearPoints
 
 
+% REVISION HISTORY:
+%
+% 2025_11_24 by Sean Brennan, sbrennan@psu.edu
+% - Added rev history
+% - Added TO+_DO list
+
+% TO-DO:
+%
+% 2025_11_24 by Sean Brennan, sbrennan@psu.edu
+% - (insert items here)
+
 %% test 1 - velocity calculation using TestTrack_PendulumRSU_InstallTest_OuterLane1_2024_08_09.csv test file
-fig_num = 1;
-figure(fig_num);
+figNum = 1;
+figure(figNum);
 clf;
 
 % Load the data
@@ -65,11 +76,11 @@ ENU_data =    1.0e+04 *[
 
 % Test the function
 searchRadiusAndAngles = 20;
-[nearbyIndicies, Nnearby]  = fcn_TimeClean_findNearPoints(ENU_data, searchRadiusAndAngles, (fig_num));
-title({sprintf('Example %.0d: showing fcn_TimeClean_findNearPoints',fig_num), 'Basic test case'}, 'Interpreter','none','FontSize',12);
+[nearbyIndicies, Nnearby]  = fcn_TimeClean_findNearPoints(ENU_data, searchRadiusAndAngles, (figNum));
+title({sprintf('Example %.0d: showing fcn_TimeClean_findNearPoints',figNum), 'Basic test case'}, 'Interpreter','none','FontSize',12);
 
 % Was a figure created?
-assert(all(ishandle(fig_num)));
+assert(all(ishandle(figNum)));
 
 % Does the data have right size?
 Nrows_expected = length(ENU_data(:,1));
@@ -79,9 +90,9 @@ assert(length(Nnearby(:,1))== Nrows_expected)
 
 
  %% test 2 - collect data with no plotting
-% fig_num = 2;
-% figure(fig_num);
-% close(fig_num);
+% figNum = 2;
+% figure(figNum);
+% close(figNum);
 % 
 % % Load the data
 % csvFile = 'TestTrack_PendulumRSU_InstallTest_OuterLane1_2024_08_09.csv'; % Path to your CSV file
@@ -90,10 +101,10 @@ assert(length(Nnearby(:,1))== Nrows_expected)
 % % Test the function
 % searchRadiusAndAngles = 50;
 % nearbyIndicies  = fcn_TimeClean_findNearPoints(tENU, searchRadiusAndAngles, ([]));
-% title({sprintf('Example %.0d: showing fcn_TimeClean_findNearPoints',fig_num), sprintf('File: %s',csvFile)}, 'Interpreter','none','FontSize',12);
+% title({sprintf('Example %.0d: showing fcn_TimeClean_findNearPoints',figNum), sprintf('File: %s',csvFile)}, 'Interpreter','none','FontSize',12);
 % 
 % % Was a figure created?
-% assert(all(~ishandle(fig_num)));
+% assert(all(~ishandle(figNum)));
 % 
 % % Does the data have right size?
 % Nrows_expected = length(tLLA(:,1));
@@ -102,8 +113,8 @@ assert(length(Nnearby(:,1))== Nrows_expected)
 % 
 % %% test 3 - testing association by distance and angle
 % 
-% fig_num = 1;
-% figure(fig_num);
+% figNum = 1;
+% figure(figNum);
 % clf;
 % 
 % % Load the data
@@ -113,11 +124,11 @@ assert(length(Nnearby(:,1))== Nrows_expected)
 % 
 % % Test the function
 % searchRadiusAndAngles = [500 10*pi/180];
-% nearbyIndicies  = fcn_TimeClean_findNearPoints(tENU, searchRadiusAndAngles, (fig_num));
-% title({sprintf('Example %.0d: showing fcn_TimeClean_findNearPoints',fig_num), sprintf('File: %s',csvFile)}, 'Interpreter','none','FontSize',12);
+% nearbyIndicies  = fcn_TimeClean_findNearPoints(tENU, searchRadiusAndAngles, (figNum));
+% title({sprintf('Example %.0d: showing fcn_TimeClean_findNearPoints',figNum), sprintf('File: %s',csvFile)}, 'Interpreter','none','FontSize',12);
 % 
 % % Was a figure created?
-% assert(all(ishandle(fig_num)));
+% assert(all(ishandle(figNum)));
 % 
 % % Does the data have right size?
 % Nrows_expected = length(tLLA(:,1));
@@ -133,7 +144,7 @@ assert(length(Nnearby(:,1))== Nrows_expected)
 % searchRadiusAndAngles = 50;
 % 
 % % Test the function
-% fig_num=[];
+% figNum=[];
 % REPS=5; 
 % minTimeSlow=Inf;
 % maxTimeSlow=-Inf;
@@ -142,7 +153,7 @@ assert(length(Nnearby(:,1))== Nrows_expected)
 % % Slow mode calculation - code copied from plotVehicleXYZ
 % for i=1:REPS
 %     tstart=tic;
-%     nearbyIndicies  = fcn_TimeClean_findNearPoints(tENU, searchRadiusAndAngles, (fig_num));
+%     nearbyIndicies  = fcn_TimeClean_findNearPoints(tENU, searchRadiusAndAngles, (figNum));
 %     telapsed=toc(tstart);
 %     minTimeSlow=min(telapsed,minTimeSlow);
 %     maxTimeSlow=max(telapsed,maxTimeSlow);
@@ -151,12 +162,12 @@ assert(length(Nnearby(:,1))== Nrows_expected)
 % % Slow mode END
 % 
 % % Fast Mode Calculation
-% fig_num = -1;
+% figNum = -1;
 % minTimeFast = Inf;
 % tic;
 % for i=1:REPS
 %     tstart = tic;
-%     nearbyIndicies  = fcn_TimeClean_findNearPoints(tENU, searchRadiusAndAngles, (fig_num));
+%     nearbyIndicies  = fcn_TimeClean_findNearPoints(tENU, searchRadiusAndAngles, (figNum));
 %     telapsed = toc(tstart);
 %     minTimeFast = min(telapsed,minTimeFast);
 % end

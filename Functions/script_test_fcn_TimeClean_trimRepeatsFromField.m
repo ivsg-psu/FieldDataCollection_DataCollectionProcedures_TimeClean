@@ -1,9 +1,16 @@
 % script_test_fcn_TimeClean_trimRepeatsFromField.m
 % tests fcn_TimeClean_trimRepeatsFromField.m
 
-% Revision history
-% 2023_06_26 - sbrennan@psu.edu
-% -- wrote the code originally
+% REVISION HISTORY
+% 
+% 2023_06_26 by Sean Brennan, sbrennan@psu.edu
+% - Wrote the code originally
+
+% TO-DO:
+%
+% 2025_11_24 by Sean Brennan, sbrennan@psu.edu
+% - (insert items here)
+
 
 %% Set up the workspace
 close all

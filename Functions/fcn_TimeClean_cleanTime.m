@@ -48,9 +48,9 @@ function [cleanDataStruct, subPathStrings]  = fcn_TimeClean_cleanTime(rawDataStr
 %      generated, and sets up code to maximize speed. The structure has the
 %      following format:
 %
-%            plotFlags.fig_num_checkTimeSamplingConsistency_GPSTime
-%            plotFlags.fig_num_checkTimeSamplingConsistency_ROSTime
-%            plotFlags.fig_num_fitROSTime2GPSTime
+%            plotFlags.figNum_checkTimeSamplingConsistency_GPSTime
+%            plotFlags.figNum_checkTimeSamplingConsistency_ROSTime
+%            plotFlags.figNum_fitROSTime2GPSTime
 %
 %
 % OUTPUTS:
@@ -74,28 +74,39 @@ function [cleanDataStruct, subPathStrings]  = fcn_TimeClean_cleanTime(rawDataStr
 % This function was written on 2024_09_09 by S. Brennan
 % Questions or comments? sbrennan@psu.edu
 
-% Revision history
+% REVISION HISTORY
+% 
 % 2024_09_09 by S. Brennan
-% -- wrote the code originally pulling it out of the main script
+% - Wrote the code originally pulling it out of the main script
+% 
 % 2024_09_23 by X. Cao
-% -- add fcn_TimeClean_trimDataToCommonStartEndTriggerTimes to the while
+% - add fcn_TimeClean_trimDataToCommonStartEndTriggerTimes to the while
 % loop
-% 2024_09_23 - S. Brennan
-% -- removed environment variable setting within function (not good
+% 
+% 2024_09_23 by Sean Brennan, sbrennan@psu.edu
+% - Removed environment variable setting within function (not good
 % practice)
+% 
 % 2024_09_27 - X. Cao
-% -- move fcn_TimeClean_checkAllSensorsHaveTriggerTime into fcn_TimeClean_checkDataTimeConsistency
-% -- add a step to temporary remove Identifiers from rawDataStruct before
+% - move fcn_TimeClean_checkAllSensorsHaveTriggerTime into fcn_TimeClean_checkDataTimeConsistency
+% - add a step to temporary remove Identifiers from rawDataStruct before
 % the while loop and fill it back later
-% 2024_11_05 - S. Brennan
-% -- removed name cleaning code and moved to a different function
-% -- separated cleanTime out from cleanData
-% -- removed refLLA input
-% -- added saveFlags and plotFlags
+% 
+% 2024_11_05 by Sean Brennan, sbrennan@psu.edu
+% - Removed name cleaning code and moved to a different function
+% - separated cleanTime out from cleanData
+% - Removed refLLA input
+% - Added saveFlags and plotFlags
+
+% TO-DO:
+%
+% 2025_11_24 by Sean Brennan, sbrennan@psu.edu
+% - (insert items here)
+
 
 %% Debugging and Input checks
 
-% Check if flag_max_speed set. This occurs if the fig_num variable input
+% Check if flag_max_speed set. This occurs if the figNum variable input
 % argument (varargin) is given a number of -1, which is not a valid figure
 % number.
 flag_max_speed = 0;
@@ -107,11 +118,11 @@ else
     % Check to see if we are externally setting debug mode to be "on"
     flag_do_debug = 0; % % % % Flag to plot the results for debugging
     flag_check_inputs = 1; % Flag to perform input checking
-    MATLABFLAG_DATACLEAN_FLAG_CHECK_INPUTS = getenv("MATLABFLAG_DATACLEAN_FLAG_CHECK_INPUTS");
-    MATLABFLAG_DATACLEAN_FLAG_DO_DEBUG = getenv("MATLABFLAG_DATACLEAN_FLAG_DO_DEBUG");
-    if ~isempty(MATLABFLAG_DATACLEAN_FLAG_CHECK_INPUTS) && ~isempty(MATLABFLAG_DATACLEAN_FLAG_DO_DEBUG)
-        flag_do_debug = str2double(MATLABFLAG_DATACLEAN_FLAG_DO_DEBUG);
-        flag_check_inputs  = str2double(MATLABFLAG_DATACLEAN_FLAG_CHECK_INPUTS);
+    MATLABFLAG_TIMECLEAN_FLAG_CHECK_INPUTS = getenv("MATLABFLAG_TIMECLEAN_FLAG_CHECK_INPUTS");
+    MATLABFLAG_TIMECLEAN_FLAG_DO_DEBUG = getenv("MATLABFLAG_TIMECLEAN_FLAG_DO_DEBUG");
+    if ~isempty(MATLABFLAG_TIMECLEAN_FLAG_CHECK_INPUTS) && ~isempty(MATLABFLAG_TIMECLEAN_FLAG_DO_DEBUG)
+        flag_do_debug = str2double(MATLABFLAG_TIMECLEAN_FLAG_DO_DEBUG);
+        flag_check_inputs  = str2double(MATLABFLAG_TIMECLEAN_FLAG_CHECK_INPUTS);
     end
 end
 
@@ -120,9 +131,9 @@ end
 if flag_do_debug
     st = dbstack; %#ok<*UNRCH>
     fprintf(1,'STARTING function: %s, in file: %s\n',st(1).name,st(1).file);
-    debug_fig_num = 999978; %#ok<NASGU>
+    debug_figNum = 999978; %#ok<NASGU>
 else
-    debug_fig_num = []; %#ok<NASGU>
+    debug_figNum = []; %#ok<NASGU>
 end
 
 
@@ -190,9 +201,9 @@ end
 
 % Does user want to specify plotFlags?
 % Set defaults
-plotFlags.fig_num_checkTimeSamplingConsistency_GPSTime = [];
-plotFlags.fig_num_checkTimeSamplingConsistency_ROSTime = [];
-plotFlags.fig_num_fitROSTime2GPSTime                   = [];
+plotFlags.figNum_checkTimeSamplingConsistency_GPSTime = [];
+plotFlags.figNum_checkTimeSamplingConsistency_ROSTime = [];
+plotFlags.figNum_fitROSTime2GPSTime                   = [];
 flag_do_plots = 0;
 if (0==flag_max_speed) &&  (5<=nargin)
     temp = varargin{end};
@@ -224,10 +235,10 @@ end
 
 %% Start the looping process to iteratively clean data
 % The method used below is as follows:
-% -- The data is initialized before the loop by loading (see above)
-% -- The loop is started, and for each version of the loop, the data is
+% - The data is initialized before the loop by loading (see above)
+% - The loop is started, and for each version of the loop, the data is
 %    checked to see if there are any errors measured in the data.
-% -- For each error type, a flag is set that is used to initiate a process
+% - For each error type, a flag is set that is used to initiate a process
 %    that seeks to remove that type of error.
 % 
 % For example: say the data has wrap-around error on yaw angle due to angle
@@ -734,7 +745,7 @@ while 1==flag_stay_in_main_loop
             save(fullExampleFilePath,'dataStructure');
         end
 
-        [~, ~, ~, mean_fit, filtered_median_errors] =  fcn_TimeClean_fitROSTime2GPSTime(nextDataStructure, (time_flags), (fid), (plotFlags.fig_num_fitROSTime2GPSTime));
+        [~, ~, ~, mean_fit, filtered_median_errors] =  fcn_TimeClean_fitROSTime2GPSTime(nextDataStructure, (time_flags), (fid), (plotFlags.figNum_fitROSTime2GPSTime));
         flag_keep_checking = 1;
     end
 
@@ -759,9 +770,9 @@ while 1==flag_stay_in_main_loop
 
         sensors_to_check = 'GPS';
         fid = 1;
-        fig_num = [];
+        figNum = [];
 
-        nextDataStructure = fcn_TimeClean_fillGPSTimeFromROSTime(mean_fit, filtered_median_errors, nextDataStructure, (sensors_to_check), (fid), (fig_num));
+        nextDataStructure = fcn_TimeClean_fillGPSTimeFromROSTime(mean_fit, filtered_median_errors, nextDataStructure, (sensors_to_check), (fid), (figNum));
         flag_keep_checking = 0; % Force the flags to be recalculated
     end
 
@@ -916,9 +927,9 @@ while 1==flag_stay_in_main_loop
 
         sensors_to_check = [];
         fid = 1;
-        fig_num = [];
+        figNum = [];
 
-        nextDataStructure = fcn_TimeClean_fillGPSTimeFromROSTime(mean_fit, filtered_median_errors, nextDataStructure, (sensors_to_check), (fid), (fig_num));
+        nextDataStructure = fcn_TimeClean_fillGPSTimeFromROSTime(mean_fit, filtered_median_errors, nextDataStructure, (sensors_to_check), (fid), (figNum));
         flag_keep_checking = 0; % Force the flags to be recalculated
     end
     
@@ -1044,19 +1055,19 @@ if (1==flag_do_plots)
 
 
     %% Save plotted images?
-    if ~isempty(plotFlags.fig_num_checkTimeSamplingConsistency_GPSTime)
+    if ~isempty(plotFlags.figNum_checkTimeSamplingConsistency_GPSTime)
         % Save the image to file?
         if 1==saveFlags.flag_saveImages
-            figure(plotFlags.fig_num_checkTimeSamplingConsistency_GPSTime);
+            figure(plotFlags.figNum_checkTimeSamplingConsistency_GPSTime);
             fcn_INTERNAL_saveImages(cat(2,'cleanTime_GPS_',Identifiers.WorkZoneScenario), saveFlags);
         end
 
     end
 
-    if  ~isempty(plotFlags.fig_num_checkTimeSamplingConsistency_ROSTime)
+    if  ~isempty(plotFlags.figNum_checkTimeSamplingConsistency_ROSTime)
         % Save the image to file?
         if 1==saveFlags.flag_saveImages
-            figure(plotFlags.fig_num_checkTimeSamplingConsistency_ROSTime);
+            figure(plotFlags.figNum_checkTimeSamplingConsistency_ROSTime);
             fcn_INTERNAL_saveImages(cat(2,'cleanTime_ROS_',Identifiers.WorkZoneScenario), saveFlags);
         end
 
@@ -1065,7 +1076,7 @@ if (1==flag_do_plots)
 
 
     % %% Save mat file?
-    % if ~isempty(plotFlags.fig_num_checkTimeSamplingConsistency_ROSTime)
+    % if ~isempty(plotFlags.figNum_checkTimeSamplingConsistency_ROSTime)
     %     % Save the mat file?
     %     if 1 == saveFlags.flag_saveMatFile
     %         fcn_INTERNAL_saveMATfile(rawDataCellArray{ith_rawData}, char(bagName_clean), saveFlags);
