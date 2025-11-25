@@ -464,9 +464,9 @@ if 1==0
             fcn_DebugTools_cprintf('*Green','PASSED.\n');
         end
 
-        if 1==0
+        if 1==1
             %%%% WARNING - USE THIS WITH CAUTION! %%%%%%%%%%%%
-            if 1==0
+            if 1==1
                 if sum(flagsStringWasFoundInFilesRaw)>0
                     fcn_DebugTools_cprintf('*Red','\n\tINITIATING REPLACEMENT of %s with %s.\n', queryString, replacementString);
                     functionsDirectory = fullfile(pwd,'Functions');

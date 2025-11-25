@@ -65,6 +65,12 @@ function [flags,offending_sensor,return_flag] = fcn_TimeClean_checkTimeRoundsCor
 % - Fixed fid printing error
 % - Added figNum input, fixed the plot flag
 % - Fixed warning and errors
+%
+% 2025_11_24 by Sean Brennan, sbrennan@psu.edu
+% - Changed in-use function name
+%   % * From: fcn_LoadRawDataTo+MATLAB_pullDataFromFieldAcrossAllSensors
+%   % * To: fcn_LoadRawDataToMATLAB_pullDataFromFieldAcrossAll
+
 
 % TO-DO:
 %
@@ -213,7 +219,7 @@ if flag_check_all_sensors
 else
     % Produce a list of all the sensors that meet the search criteria, and grab
     % their data also
-    [~,sensor_names] = fcn_LoadRawDataToMATLAB_pullDataFromFieldAcrossAllSensors(dataStructure, field_name,sensors_to_check);
+    [~,sensor_names] = fcn_LoadRawDataToMATLAB_pullDataFromFieldAcrossAll(dataStructure, field_name,sensors_to_check);
 end
 
 if 0<fid

@@ -62,15 +62,24 @@ function trimmed_dataStructure = fcn_TimeClean_trimDataToCommonStartEndGPSTimes(
 %
 % 2023_06_12: sbrennan@psu.edu
 % -- wrote the code originally
+% 
 % 2023_06_24 - sbrennan@psu.edu
 % -- added fcn_INTERNAL_checkIfFieldInAnySensor and test case in script
+% 
 % 2024_09_28 - S. Brennan
 % -- updated the debug flags area
 % -- fixed bug where offending sensor is set wrong
 % -- fixed fid bug where it is used in debugging
+% 
 % 2024_11_22 - sbrennan@psu.edu
 % -- major rewrite to use reference time sequence instead of start/end
 % trimming
+%
+% 2025_11_24 by Sean Brennan, sbrennan@psu.edu
+% - Changed in-use function name
+%   % * From: fcn_LoadRawDataTo+MATLAB_pullDataFromFieldAcrossAllSensors
+%   % * To: fcn_LoadRawDataToMATLAB_pullDataFromFieldAcrossAll
+
 
 
 % Check if flag_max_speed set. This occurs if the fig_num variable input
@@ -209,15 +218,15 @@ end
 % Note, this can be GPS time, or a GPS surrogate time
 
 % Produce a list of all the sensors that would have GPS data
-[GPS_Time_data_raw, GPS_Time_sensorNames] =  fcn_LoadRawDataToMATLAB_pullDataFromFieldAcrossAllSensors(dataStructure, 'GPS_Time','GPS');
-[GPS_centiSeconds_raw,~] =  fcn_LoadRawDataToMATLAB_pullDataFromFieldAcrossAllSensors(dataStructure, 'centiSeconds','GPS');
-[GPS_Time_start_raw, ~] =  fcn_LoadRawDataToMATLAB_pullDataFromFieldAcrossAllSensors(dataStructure, 'GPS_Time','GPS','first_row');
-[GPS_Time_end_raw, ~] =  fcn_LoadRawDataToMATLAB_pullDataFromFieldAcrossAllSensors(dataStructure, 'GPS_Time','GPS','last_row');
+[GPS_Time_data_raw, GPS_Time_sensorNames] =  fcn_LoadRawDataToMATLAB_pullDataFromFieldAcrossAll(dataStructure, 'GPS_Time','GPS');
+[GPS_centiSeconds_raw,~] =  fcn_LoadRawDataToMATLAB_pullDataFromFieldAcrossAll(dataStructure, 'centiSeconds','GPS');
+[GPS_Time_start_raw, ~] =  fcn_LoadRawDataToMATLAB_pullDataFromFieldAcrossAll(dataStructure, 'GPS_Time','GPS','first_row');
+[GPS_Time_end_raw, ~] =  fcn_LoadRawDataToMATLAB_pullDataFromFieldAcrossAll(dataStructure, 'GPS_Time','GPS','last_row');
 
 % Produce a list of all the sensors time data we need
-[SENSOR_Time_data_raw,  SENSOR_Time_sensorNames] = fcn_LoadRawDataToMATLAB_pullDataFromFieldAcrossAllSensors(dataStructure, field_name, 'GPS');
-% [sensorsToTrim_centiSeconds,~]                   = fcn_LoadRawDataToMATLAB_pullDataFromFieldAcrossAllSensors(dataStructure, 'centiSeconds',sensors_to_check);
-[SENSOR_Time_start_raw, ~] =  fcn_LoadRawDataToMATLAB_pullDataFromFieldAcrossAllSensors(dataStructure, field_name, 'GPS','first_row');
+[SENSOR_Time_data_raw,  SENSOR_Time_sensorNames] = fcn_LoadRawDataToMATLAB_pullDataFromFieldAcrossAll(dataStructure, field_name, 'GPS');
+% [sensorsToTrim_centiSeconds,~]                   = fcn_LoadRawDataToMATLAB_pullDataFromFieldAcrossAll(dataStructure, 'centiSeconds',sensors_to_check);
+[SENSOR_Time_start_raw, ~] =  fcn_LoadRawDataToMATLAB_pullDataFromFieldAcrossAll(dataStructure, field_name, 'GPS','first_row');
 assert(isequal(GPS_Time_sensorNames,SENSOR_Time_sensorNames)); % Make sure the sensor time sensors match the GPS time sensors
 
 N_referenceSensors = length(GPS_Time_sensorNames);

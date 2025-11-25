@@ -1,11 +1,11 @@
-function [cleanDataStruct, subPathStrings]  = fcn_DataClean_cleanTime(rawDataStruct, varargin)
-% fcn_DataClean_cleanTime
+function [cleanDataStruct, subPathStrings]  = fcn_TimeClean_cleanTime(rawDataStruct, varargin)
+% fcn_TimeClean_cleanTime
 % given a raw data structure, cleans time jumps, time out-of-ordering, and
 % time alignment between ROS and GPS time
 %
 % FORMAT:
 %
-%      cleanDataStruct = fcn_DataClean_cleanTime(rawDataStruct, (fid), (Flags), (saveFlags), (plotFlags))
+%      cleanDataStruct = fcn_TimeClean_cleanTime(rawDataStruct, (fid), (Flags), (saveFlags), (plotFlags))
 %
 % INPUTS:
 %
@@ -64,11 +64,11 @@ function [cleanDataStruct, subPathStrings]  = fcn_DataClean_cleanTime(rawDataStr
 % DEPENDENCIES:
 %
 %      fcn_DebugTools_checkInputsToFunctions
-%      fcn_DataClean_mergeSensorsByMethod
+%      fcn_TimeClean_mergeSensorsByMethod
 %
 % EXAMPLES:
 %
-%     See the script: script_test_fcn_DataClean_cleanTime
+%     See the script: script_test_fcn_TimeClean_cleanTime
 %     for a full test suite.
 %
 % This function was written on 2024_09_09 by S. Brennan
@@ -80,7 +80,7 @@ function [cleanDataStruct, subPathStrings]  = fcn_DataClean_cleanTime(rawDataStr
 % - Wrote the code originally pulling it out of the main script
 % 
 % 2024_09_23 by X. Cao
-% - add fcn_DataClean_trimDataToCommonStartEndTriggerTimes to the while
+% - add fcn_TimeClean_trimDataToCommonStartEndTriggerTimes to the while
 % loop
 % 
 % 2024_09_23 by Sean Brennan, sbrennan@psu.edu
@@ -88,7 +88,7 @@ function [cleanDataStruct, subPathStrings]  = fcn_DataClean_cleanTime(rawDataStr
 % practice)
 % 
 % 2024_09_27 - X. Cao
-% - move fcn_DataClean_checkAllSensorsHaveTriggerTime into fcn_DataClean_checkDataTimeConsistency
+% - move fcn_TimeClean_checkAllSensorsHaveTriggerTime into fcn_TimeClean_checkDataTimeConsistency
 % - add a step to temporary remove Identifiers from rawDataStruct before
 % the while loop and fill it back later
 % 
@@ -231,7 +231,7 @@ end
 
 %% Fill in test cases?
 % Fill in the initial data - we use this for testing
-% dataStructure = fcn_DataClean_fillTestDataStructure;
+% dataStructure = fcn_TimeClean_fillTestDataStructure;
 
 %% Start the looping process to iteratively clean data
 % The method used below is as follows:
@@ -278,7 +278,7 @@ while 1==flag_stay_in_main_loop
     flag_keep_checking = 1; % Flag to keep checking (1), or to indicate a data correction is done and checking should stop (0)
     
   
-    %% GPS_Time tests - all of these steps can be found in fcn_DataClean_checkDataTimeConsistency, the following sections need to be deleted later
+    %% GPS_Time tests - all of these steps can be found in fcn_TimeClean_checkDataTimeConsistency, the following sections need to be deleted later
     %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
     %    _____ _____   _____            _______ _                   _______        _
     %   / ____|  __ \ / ____|          |__   __(_)                 |__   __|      | |
@@ -322,7 +322,7 @@ while 1==flag_stay_in_main_loop
     end
 
     if (1==flag_keep_checking)
-        [time_flags, offending_sensor] = fcn_DataClean_checkDataTimeConsistency(nextDataStructure, fid, plotFlags);
+        [time_flags, offending_sensor] = fcn_TimeClean_checkDataTimeConsistency(nextDataStructure, fid, plotFlags);
     end
     
     fcn_INTERNAL_reportFlagStatus(time_flags,'TIMING FLAGS');
@@ -394,7 +394,7 @@ while 1==flag_stay_in_main_loop
         % Fix the data
         field_name = 'GPS_Time';
         sensors_to_check = 'GPS';
-        nextDataStructure = fcn_DataClean_trimRepeatsFromField(nextDataStructure,fid, field_name,sensors_to_check);
+        nextDataStructure = fcn_TimeClean_trimRepeatsFromField(nextDataStructure,fid, field_name,sensors_to_check);
         flag_keep_checking = 0;
     end
 
@@ -443,7 +443,7 @@ while 1==flag_stay_in_main_loop
     %    error.
     
     if (1==flag_keep_checking) && (0==time_flags.GPS_Time_has_consistent_start_end_within_5_seconds)
-        nextDataStructure = fcn_DataClean_correctTimeZoneErrorsInGPSTime(nextDataStructure,fid);
+        nextDataStructure = fcn_TimeClean_correctTimeZoneErrorsInGPSTime(nextDataStructure,fid);
         flag_keep_checking = 0;
     end
     
@@ -474,7 +474,7 @@ while 1==flag_stay_in_main_loop
         field_name = 'GPS_Time';
         sensors_to_check = 'GPS';
         fill_type = 1;
-        nextDataStructure = fcn_DataClean_trimDataToCommonStartEndGPSTimes(nextDataStructure, (field_name), (sensors_to_check), (fill_type), (fid));
+        nextDataStructure = fcn_TimeClean_trimDataToCommonStartEndGPSTimes(nextDataStructure, (field_name), (sensors_to_check), (fill_type), (fid));
         flag_keep_checking = 0;
     end
 
@@ -495,7 +495,7 @@ while 1==flag_stay_in_main_loop
         field_name = 'GPS_Time';
         sensors_to_check = 'GPS';
         fid = 1;
-        nextDataStructure = fcn_DataClean_sortSensorDataByGPSTime(nextDataStructure, field_name,sensors_to_check,fid);               
+        nextDataStructure = fcn_TimeClean_sortSensorDataByGPSTime(nextDataStructure, field_name,sensors_to_check,fid);               
         flag_keep_checking = 0;
     end
 
@@ -519,7 +519,7 @@ while 1==flag_stay_in_main_loop
             dataStructure = nextDataStructure;
             save(fullExampleFilePath,'dataStructure');
         end
-        nextDataStructure = fcn_DataClean_fillMissingsInGPSUnits(nextDataStructure, fid);
+        nextDataStructure = fcn_TimeClean_fillMissingsInGPSUnits(nextDataStructure, fid);
         flag_keep_checking = 0;
     end
     
@@ -536,7 +536,7 @@ while 1==flag_stay_in_main_loop
     % %    * Interpolate time field if only a small segment is missing        
     % 
     if (1==flag_keep_checking) && (0==time_flags.GPS_Time_has_no_missing_sample_differences_in_any_GPS_sensors)
-        nextDataStructure = fcn_DataClean_fillMissingsInGPSUnits(nextDataStructure, fid);
+        nextDataStructure = fcn_TimeClean_fillMissingsInGPSUnits(nextDataStructure, fid);
         flag_keep_checking = 0;    
     end
 
@@ -568,7 +568,7 @@ while 1==flag_stay_in_main_loop
     %    * Recalculate Trigger_Time fields as needed, using centiSeconds
 
     if (1==flag_keep_checking) && (0==time_flags.Trigger_Time_exists_in_all_GPS_sensors)
-        nextDataStructure = fcn_DataClean_recalculateTriggerTimes(nextDataStructure,'gps',fid);
+        nextDataStructure = fcn_TimeClean_recalculateTriggerTimes(nextDataStructure,'gps',fid);
         flag_keep_checking = 0;
     end
 
@@ -616,7 +616,7 @@ while 1==flag_stay_in_main_loop
     %    * Divide ROS_Time on this sensor by 10^9, confirm that this fixes the
     %    problem
     if (1==flag_keep_checking) && (0==time_flags.ROS_Time_scaled_correctly_as_seconds)
-        nextDataStructure = fcn_DataClean_convertROSTimeToSeconds(nextDataStructure,'',fid);              
+        nextDataStructure = fcn_TimeClean_convertROSTimeToSeconds(nextDataStructure,'',fid);              
         flag_keep_checking = 0;
     end
     
@@ -688,7 +688,7 @@ while 1==flag_stay_in_main_loop
         field_name = 'ROS_Time';
         sensors_to_check = 'GPS';
         fill_type = 1;
-        nextDataStructure = fcn_DataClean_trimDataToCommonStartEndGPSTimes(nextDataStructure, (field_name), (sensors_to_check), (fill_type), (fid));
+        nextDataStructure = fcn_TimeClean_trimDataToCommonStartEndGPSTimes(nextDataStructure, (field_name), (sensors_to_check), (fill_type), (fid));
         flag_keep_checking = 0;
     end
     
@@ -745,7 +745,7 @@ while 1==flag_stay_in_main_loop
             save(fullExampleFilePath,'dataStructure');
         end
 
-        [~, ~, ~, mean_fit, filtered_median_errors] =  fcn_DataClean_fitROSTime2GPSTime(nextDataStructure, (time_flags), (fid), (plotFlags.figNum_fitROSTime2GPSTime));
+        [~, ~, ~, mean_fit, filtered_median_errors] =  fcn_TimeClean_fitROSTime2GPSTime(nextDataStructure, (time_flags), (fid), (plotFlags.figNum_fitROSTime2GPSTime));
         flag_keep_checking = 1;
     end
 
@@ -772,7 +772,7 @@ while 1==flag_stay_in_main_loop
         fid = 1;
         figNum = [];
 
-        nextDataStructure = fcn_DataClean_fillGPSTimeFromROSTime(mean_fit, filtered_median_errors, nextDataStructure, (sensors_to_check), (fid), (figNum));
+        nextDataStructure = fcn_TimeClean_fillGPSTimeFromROSTime(mean_fit, filtered_median_errors, nextDataStructure, (sensors_to_check), (fid), (figNum));
         flag_keep_checking = 0; % Force the flags to be recalculated
     end
 
@@ -801,7 +801,7 @@ while 1==flag_stay_in_main_loop
         end
         
         error('This is not programmed yet');
-        % nextDataStructure = fcn_DataClean_recalculateTriggerTimes(nextDataStructure,'gps',fid);
+        % nextDataStructure = fcn_TimeClean_recalculateTriggerTimes(nextDataStructure,'gps',fid);
     end
 
 
@@ -885,7 +885,7 @@ while 1==flag_stay_in_main_loop
         warning('This code section probably works, but has not been tested.');
         field_name = 'ROS_Time';
         sensors_to_check = [];
-        nextDataStructure = fcn_DataClean_trimRepeatsFromField(nextDataStructure,fid, field_name,sensors_to_check);
+        nextDataStructure = fcn_TimeClean_trimRepeatsFromField(nextDataStructure,fid, field_name,sensors_to_check);
         flag_keep_checking = 0;
     end
     
@@ -929,7 +929,7 @@ while 1==flag_stay_in_main_loop
         fid = 1;
         figNum = [];
 
-        nextDataStructure = fcn_DataClean_fillGPSTimeFromROSTime(mean_fit, filtered_median_errors, nextDataStructure, (sensors_to_check), (fid), (figNum));
+        nextDataStructure = fcn_TimeClean_fillGPSTimeFromROSTime(mean_fit, filtered_median_errors, nextDataStructure, (sensors_to_check), (fid), (figNum));
         flag_keep_checking = 0; % Force the flags to be recalculated
     end
     
@@ -960,8 +960,8 @@ while 1==flag_stay_in_main_loop
         field_name = 'GPSfromROS_Time';
         sensors_to_check = [];
         fill_type = 1;
-        nextDataStructure = fcn_DataClean_trimDataToCommonStartEndGPSTimes(nextDataStructure, (field_name), (sensors_to_check), (fill_type), (fid));
-        [startTimes,sensorsToTrim_names] = fcn_DataClean_pullDataFromFieldAcrossAllSensors(nextDataStructure, 'GPSfromROS_Time', [],'first_row');
+        nextDataStructure = fcn_TimeClean_trimDataToCommonStartEndGPSTimes(nextDataStructure, (field_name), (sensors_to_check), (fill_type), (fid));
+        [startTimes,sensorsToTrim_names] = fcn_TimeClean_pullDataFromFieldAcrossAllSensors(nextDataStructure, 'GPSfromROS_Time', [],'first_row');
         
         flag_keep_checking = 0;
     end
@@ -980,7 +980,7 @@ while 1==flag_stay_in_main_loop
     %    ### FIXES:
     %    * Recalculate Trigger_Time fields as needed, using centiSecond
     if (1==flag_keep_checking) && (0==time_flags.Trigger_Time_exists_in_all_sensors)
-        nextDataStructure = fcn_DataClean_recalculateTriggerTimes(nextDataStructure,[],fid);
+        nextDataStructure = fcn_TimeClean_recalculateTriggerTimes(nextDataStructure,[],fid);
         flag_keep_checking = 0;
     end
 
@@ -995,7 +995,7 @@ while 1==flag_stay_in_main_loop
     %     % hold on
     %     % plot(nextDataStructure.LiDAR_Velodyne_Rear.Trigger_Time)
     %     % plot(nextDataStructure.TRIGGER_TrigBox_RearTop.Trigger_Time)
-    %     nextDataStructure = fcn_DataClean_trimDataToCommonStartEndTriggerTimes(nextDataStructure,fid);
+    %     nextDataStructure = fcn_TimeClean_trimDataToCommonStartEndTriggerTimes(nextDataStructure,fid);
     %     flag_keep_checking = 0;
     %     % figure(124)
     %     % plot(nextDataStructure.GPS_SparkFun_Front.Trigger_Time)

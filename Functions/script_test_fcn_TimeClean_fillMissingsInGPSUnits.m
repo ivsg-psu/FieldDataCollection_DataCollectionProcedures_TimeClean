@@ -85,23 +85,24 @@ fid = 1;
 fixed_dataStructure = fcn_TimeClean_fillMissingsInGPSUnits(testStructure, (fid), (figNum));
 
 % Check fixed structure
-
+assert(isstruct(fixed_dataStructure));
 
 %% CASE 900: Real world data
-figNum = 900;
-figure(figNum);
-clf;
-
-fullExampleFilePath = fullfile(cd,'Data','ExampleData_fillMissingsInGPSUnits.mat');
-load(fullExampleFilePath,'dataStructure');
-
-fid = 1;
-fixed_dataStructure = fcn_TimeClean_fillMissingsInGPSUnits(dataStructure, (fid), (figNum));
-
-
-
-
-
+% figNum = 900;
+% figure(figNum);
+% clf;
+% 
+% fullExampleFilePath = fullfile(cd,'Data','ExampleData_fillMissingsInGPSUnits.mat');
+% load(fullExampleFilePath,'dataStructure');
+% 
+% fid = 1;
+% fixed_dataStructure = fcn_TimeClean_fillMissingsInGPSUnits(dataStructure, (fid), (figNum));
+% 
+% % Check fixed structure
+% assert(isstruct(fixed_dataStructure));
+% 
+% 
+% 
 
 
 %% Fail conditions

@@ -58,7 +58,7 @@ assert(strcmp(offending_sensor,''));
 % Pass
 verificationTypeFlag = 1; 
 [flags,offending_sensor] = fcn_TimeClean_checkTimeSamplingConsistency(initial_test_structure,field_name, verificationTypeFlag, flags, sensors_to_check, (fid),(figNum));
-assert(isequal(flags.GPS_Time_sample_intervals_match_centiSeconds,1));
+assert(isequal(flags.GPS_Time_sampling_matches_centiSeconds,1));
 assert(strcmp(offending_sensor,''));
 
 % Pass
@@ -82,7 +82,8 @@ assert(strcmp(offending_sensor,'sensor1'));
 % FAIL
 verificationTypeFlag = 1; 
 [flags,offending_sensor] = fcn_TimeClean_checkTimeSamplingConsistency(modified_test_structure,field_name, verificationTypeFlag, flags, sensors_to_check, (fid),(figNum));
-assert(isequal(flags.GPS_Time_sample_intervals_match_centiSeconds,0));
+assert(isequal(flags.GPS_Time_sampling_matches_centiSeconds,0));
+
 assert(strcmp(offending_sensor,'sensor1'));
 
 % FAIL
@@ -108,7 +109,7 @@ assert(strcmp(offending_sensor,''));
 % FAIL
 verificationTypeFlag = 1; 
 [flags,offending_sensor] = fcn_TimeClean_checkTimeSamplingConsistency(modified_test_structure,field_name, verificationTypeFlag, flags, sensors_to_check, (fid),(figNum));
-assert(isequal(flags.GPS_Time_sample_intervals_match_centiSeconds,0));
+assert(isequal(flags.GPS_Time_sampling_matches_centiSeconds,0));
 assert(isequal(offending_sensor,'sensor2'));
 
 % Pass
@@ -133,7 +134,7 @@ assert(strcmp(offending_sensor,''));
 % Pass
 verificationTypeFlag = 1; 
 [flags,offending_sensor] = fcn_TimeClean_checkTimeSamplingConsistency(modified_test_structure,field_name, verificationTypeFlag, flags, sensors_to_check, (fid),(figNum));
-assert(isequal(flags.GPS_Time_sample_intervals_match_centiSeconds,1));
+assert(isequal(flags.GPS_Time_sampling_matches_centiSeconds,1));
 assert(strcmp(offending_sensor,''));
 
 % Pass
@@ -182,7 +183,7 @@ assert(strcmp(offending_sensor,''));
 % Pass
 verificationTypeFlag = 1; 
 [flags,offending_sensor] = fcn_TimeClean_checkTimeSamplingConsistency(initial_test_structure,field_name, verificationTypeFlag, flags, sensors_to_check, (fid),(figNum));
-assert(isequal(flags.GPS_Time_sample_intervals_match_centiSeconds,1));
+assert(isequal(flags.GPS_Time_sampling_matches_centiSeconds,1));
 assert(strcmp(offending_sensor,''));
 
 % Pass
@@ -206,7 +207,7 @@ assert(strcmp(offending_sensor,'sensor1'));
 % FAIL
 verificationTypeFlag = 1; 
 [flags,offending_sensor] = fcn_TimeClean_checkTimeSamplingConsistency(modified_test_structure,field_name, verificationTypeFlag, flags, sensors_to_check, (fid),(figNum));
-assert(isequal(flags.GPS_Time_sample_intervals_match_centiSeconds,0));
+assert(isequal(flags.GPS_Time_sampling_matches_centiSeconds,0));
 assert(strcmp(offending_sensor,'sensor1'));
 
 % FAIL
@@ -232,7 +233,7 @@ assert(strcmp(offending_sensor,''));
 % FAIL
 verificationTypeFlag = 1; 
 [flags,offending_sensor] = fcn_TimeClean_checkTimeSamplingConsistency(modified_test_structure,field_name, verificationTypeFlag, flags, sensors_to_check, (fid),(figNum));
-assert(isequal(flags.GPS_Time_sample_intervals_match_centiSeconds,0));
+assert(isequal(flags.GPS_Time_sampling_matches_centiSeconds,0));
 assert(isequal(offending_sensor,'sensor2'));
 
 % Pass
@@ -257,7 +258,7 @@ assert(strcmp(offending_sensor,''));
 % Pass
 verificationTypeFlag = 1; 
 [flags,offending_sensor] = fcn_TimeClean_checkTimeSamplingConsistency(modified_test_structure,field_name, verificationTypeFlag, flags, sensors_to_check, (fid),(figNum));
-assert(isequal(flags.GPS_Time_sample_intervals_match_centiSeconds,1));
+assert(isequal(flags.GPS_Time_sampling_matches_centiSeconds,1));
 assert(strcmp(offending_sensor,''));
 
 % Pass
@@ -307,7 +308,7 @@ assert(strcmp(offending_sensor,''));
 % Pass
 verificationTypeFlag = 1; 
 [flags,offending_sensor] = fcn_TimeClean_checkTimeSamplingConsistency(initial_test_structure,field_name, verificationTypeFlag, flags, sensors_to_check, (fid),(figNum));
-assert(isequal(flags.ROS_Time_sample_intervals_match_centiSeconds,1));
+assert(isequal(flags.ROS_Time_sampling_matches_centiSeconds,1));
 assert(strcmp(offending_sensor,''));
 
 % Pass
@@ -331,7 +332,7 @@ assert(strcmp(offending_sensor,'sensor1'));
 % FAIL
 verificationTypeFlag = 1; 
 [flags,offending_sensor] = fcn_TimeClean_checkTimeSamplingConsistency(modified_test_structure,field_name, verificationTypeFlag, flags, sensors_to_check, (fid),(figNum));
-assert(isequal(flags.ROS_Time_sample_intervals_match_centiSeconds,0));
+assert(isequal(flags.ROS_Time_sampling_matches_centiSeconds,0));
 assert(strcmp(offending_sensor,'sensor1'));
 
 % FAIL
@@ -357,7 +358,7 @@ assert(strcmp(offending_sensor,''));
 % FAIL
 verificationTypeFlag = 1; 
 [flags,offending_sensor] = fcn_TimeClean_checkTimeSamplingConsistency(modified_test_structure,field_name, verificationTypeFlag, flags, sensors_to_check, (fid),(figNum));
-assert(isequal(flags.ROS_Time_sample_intervals_match_centiSeconds,0));
+assert(isequal(flags.ROS_Time_sampling_matches_centiSeconds,0));
 assert(isequal(offending_sensor,'sensor2'));
 
 % Pass
@@ -382,7 +383,7 @@ assert(strcmp(offending_sensor,''));
 % Pass
 verificationTypeFlag = 1; 
 [flags,offending_sensor] = fcn_TimeClean_checkTimeSamplingConsistency(modified_test_structure,field_name, verificationTypeFlag, flags, sensors_to_check, (fid),(figNum));
-assert(isequal(flags.ROS_Time_sample_intervals_match_centiSeconds,1));
+assert(isequal(flags.ROS_Time_sampling_matches_centiSeconds,1));
 assert(strcmp(offending_sensor,''));
 
 % Pass
@@ -435,6 +436,19 @@ if ~isempty(findobj('Number',figNum))
     clf;
 end
 
+
+% Fill in some silly test data
+initial_test_structure = struct;
+initial_test_structure.sensor1.GPS_Time = (0:0.05:2)';
+initial_test_structure.sensor1.ROS_Time = (0:0.05:2)'; 
+initial_test_structure.sensor1.centiSeconds = 5;
+initial_test_structure.sensor2.GPS_Time = (0:0.01:2)';
+initial_test_structure.sensor2.ROS_Time = (0:0.01:2)'; 
+initial_test_structure.sensor2.centiSeconds = 1;
+initial_test_structure.car3.GPS_Time = (0:0.1:2)';
+initial_test_structure.car3.ROS_Time = (0:0.1:2)';
+initial_test_structure.car3.centiSeconds = 10; 
+
 fullExampleFilePath = fullfile(cd,'Data','ExampleData_checkDataTimeConsistency.mat');
 load(fullExampleFilePath,'dataStructure');
 
@@ -459,7 +473,7 @@ assert(strcmp(offending_sensor,''));
 % Pass
 verificationTypeFlag = 1; 
 [flags,offending_sensor] = fcn_TimeClean_checkTimeSamplingConsistency(initial_test_structure,field_name, verificationTypeFlag, flags, sensors_to_check, (fid),(figNum));
-assert(isequal(flags.ROS_Time_sample_intervals_match_centiSeconds_in_GPS_sensors,1));
+assert(isequal(flags.ROS_Time_sampling_matches_centiSeconds_in_GPS_sensors,1));
 assert(strcmp(offending_sensor,''));
 
 % Pass

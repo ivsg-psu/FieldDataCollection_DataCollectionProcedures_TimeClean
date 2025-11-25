@@ -43,14 +43,22 @@ function [ROS_Time_Trigger_Box, ROS_Time_diff,flag_trigger_box_data_loss] = fcn_
 % This function was written on 2024_11_03 by X. Cao
 % Questions or comments? xfc5113@psu.edu
 
-% Revision history
+% REVISION HISTORY:
+% 
 % 2024_11_03 - Xinyu Cao, xfc5113@psu.edu
-% -- wrote the code originally
+% - Wrote the code originally
+%
+% 2025_11_24 by Sean Brennan, sbrennan@psu.edu
+% - Changed in-use function name
+%   % * From: fcn_LoadRawDataTo+MATLAB_pullDataFromFieldAcrossAllSensors
+%   % * To: fcn_LoadRawDataToMATLAB_pullDataFromFieldAcrossAll
 
 
-% To do list:
+
+% TO-DO:
 % Edit the comments
 % Add comments to some new created functions
+
 %% Debugging and Input checks
 
 flag_do_debug = 0; % % % % Flag to plot the results for debugging
@@ -127,7 +135,7 @@ end
 %
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-[ROS_Time_CellArray,~] = fcn_LoadRawDataToMATLAB_pullDataFromFieldAcrossAllSensors(dataStructure,'ROS_Time','Trigger_Raw');
+[ROS_Time_CellArray,~] = fcn_LoadRawDataToMATLAB_pullDataFromFieldAcrossAll(dataStructure,'ROS_Time','Trigger_Raw');
 ROS_Time_Trigger_Box = ROS_Time_CellArray{1};
 ROS_Time_diff = diff(ROS_Time_Trigger_Box);
 flag_trigger_box_data_loss = any(ROS_Time_diff>1.5)|any(ROS_Time_diff<=0.5);

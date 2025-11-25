@@ -1,5 +1,5 @@
-% script_test_fcn_DataClean_cleanNaming.m
-% tests fcn_DataClean_cleanNaming.m
+% script_test_fcn_TimeClean_cleanNaming.m
+% tests fcn_TimeClean_cleanNaming.m
 
 % REVISION HISTORY:
 % 
@@ -10,6 +10,9 @@
 % - Renamed function:
 %   % * From: fcn_Data+Clean_cleanNaming
 %   % * To: fcn_TimeClean_cleanNaming 
+% - Changed in-use function name
+%   % * From: fcn_Data+Clean_cleanNaming
+%   % * To: fcn_TimeClean_cleanNaming
 
 % TO-DO:
 %
@@ -35,7 +38,7 @@ load(fullExampleFilePath,'dataStructure')
 % Run the command
 fid = 1;
 Flags = [];
-dataStructure_cleanedNames = fcn_DataClean_cleanNaming(dataStructure, (fid), (Flags), (figNum));
+dataStructure_cleanedNames = fcn_TimeClean_cleanNaming(dataStructure, (fid), (Flags), (figNum));
 
 % Check the data
 assert(isstruct(dataStructure_cleanedNames))

@@ -75,6 +75,12 @@ function [flags,offending_sensor,return_flag] = fcn_TimeClean_checkIfFieldInSens
 % 2024_09_10: Sean Brennan, sbrennan@psu.edu
 % - Added debug modes
 % - Added figNum input for speed
+%
+% 2025_11_24 by Sean Brennan, sbrennan@psu.edu
+% - Changed in-use function name
+%   % * From: fcn_LoadRawDataTo+MATLAB_pullDataFromFieldAcrossAllSensors
+%   % * To: fcn_LoadRawDataToMATLAB_pullDataFromFieldAcrossAll
+% - Fixed string printing bug where extra space inserted at end of var name
 
 % TO-DO:
 %
@@ -241,7 +247,7 @@ if flag_check_all_sensors
 else
     % Produce a list of all the sensors that meet the search criteria, and grab
     % their data also
-    [~,sensor_names] = fcn_LoadRawDataToMATLAB_pullDataFromFieldAcrossAllSensors(dataStructure, field_name,sensors_to_check);
+    [~,sensor_names] = fcn_LoadRawDataToMATLAB_pullDataFromFieldAcrossAll(dataStructure, field_name,sensors_to_check);
 end
 
 % Tell the user what is happening?
@@ -294,7 +300,11 @@ if strcmp(string_any_or_all,'all') && any(any_sensor_exists_results==0)
     offending_sensor = '';
     for ith_failure = 1:length(failing_indicies)
         current_index = failing_indicies(ith_failure);
-        offending_sensor = cat(2,offending_sensor,sensor_names{current_index},' ');
+        if length(failing_indicies)>ith_failure
+            offending_sensor = cat(2,offending_sensor,sensor_names{current_index},' ');
+        else
+            offending_sensor = cat(2,offending_sensor,sensor_names{current_index});          
+        end
     end
 end
 

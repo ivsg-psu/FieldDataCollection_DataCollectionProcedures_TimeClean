@@ -54,6 +54,11 @@ function [flags,offending_sensor,return_flag] = fcn_TimeClean_checkIfFieldHasRep
 %     
 % 2024_11_07 by Sean Brennan, sbrennan@psu.edu
 % - Wrote the code originally 
+%
+% 2025_11_24 by Sean Brennan, sbrennan@psu.edu
+% - Changed in-use function name
+%   % * From: fcn_LoadRawDataTo+MATLAB_pullDataFromFieldAcrossAllSensors
+%   % * To: fcn_LoadRawDataToMATLAB_pullDataFromFieldAcrossAll
 
 % TO-DO:
 %
@@ -196,7 +201,7 @@ if flag_check_all_sensors
 else
     % Produce a list of all the sensors that meet the search criteria, and grab
     % their data also
-    [~,sensor_names] = fcn_LoadRawDataToMATLAB_pullDataFromFieldAcrossAllSensors(dataStructure, field_name,sensors_to_check);
+    [~,sensor_names] = fcn_LoadRawDataToMATLAB_pullDataFromFieldAcrossAll(dataStructure, field_name,sensors_to_check);
 end
 
 
@@ -230,7 +235,7 @@ for i_data = 1:length(sensor_names)
     else
         indiciesToTest = find(~isnan(sensor_data.(field_name)));
 
-        if ~isequal(unique_values(indiciesToTest),sensor_data.(field_name)(indiciesToTest))
+        if ~isequal(unique_values, sensor_data.(field_name)(indiciesToTest))
             flag_no_repeats_detected = 0;
         else
             flag_no_repeats_detected = 1;

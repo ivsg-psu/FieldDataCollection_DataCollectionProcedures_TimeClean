@@ -5,6 +5,11 @@
 % 
 % 2023_07_01 by Sean Brennan, sbrennan@psu.edu
 % - Wrote the code originally
+%
+% 2025_11_24 by Sean Brennan, sbrennan@psu.edu
+% - Changed in-use function name
+%   % * From: fcn_LoadRawDataTo+MATLAB_pullDataFromFieldAcrossAllSensors
+%   % * To: fcn_LoadRawDataToMATLAB_pullDataFromFieldAcrossAll
 
 % TO-DO:
 %
@@ -49,7 +54,7 @@ fid = 1;
 fixed_dataStructure = fcn_TimeClean_sortSensorDataByGPSTime(BadDataStructure, field_name,sensors_to_check,fid);
 
 % Make sure it worked
-[data,sensorNames] = fcn_LoadRawDataToMATLAB_pullDataFromFieldAcrossAllSensors(fixed_dataStructure, 'GPS_Time','GPS');
+[data,sensorNames] = fcn_LoadRawDataToMATLAB_pullDataFromFieldAcrossAll(fixed_dataStructure, 'GPS_Time','GPS');
 
 for i_data = 1:length(sensorNames)
     unique_values = unique(data{i_data});

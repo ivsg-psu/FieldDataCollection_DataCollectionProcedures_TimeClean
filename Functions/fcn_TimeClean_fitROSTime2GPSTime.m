@@ -57,6 +57,11 @@ function [flags, fitting_parameters, fit_sensors, mean_fit, filtered_median_erro
 %     
 % 2024_11_18 by Sean Brennan, sbrennan@psu.edu
 % - Wrote the code originally 
+%
+% 2025_11_24 by Sean Brennan, sbrennan@psu.edu
+% - Changed in-use function name
+%   % * From: fcn_LoadRawDataTo+MATLAB_pullDataFromFieldAcrossAllSensors
+%   % * To: fcn_LoadRawDataToMATLAB_pullDataFromFieldAcrossAll
 
 % TO-DO:
 %
@@ -179,9 +184,9 @@ end
     
 
 % Examine the offset deviations between the different time sources
-[cell_array_centiSeconds,~]        = fcn_LoadRawDataToMATLAB_pullDataFromFieldAcrossAllSensors(dataStructure, 'centiSeconds','GPS');
-[cell_array_GPS_Time,~]            = fcn_LoadRawDataToMATLAB_pullDataFromFieldAcrossAllSensors(dataStructure, 'GPS_Time',    'GPS');
-[cell_array_ROS_Time,sensor_names] = fcn_LoadRawDataToMATLAB_pullDataFromFieldAcrossAllSensors(dataStructure, 'ROS_Time',    'GPS');
+[cell_array_centiSeconds,~]        = fcn_LoadRawDataToMATLAB_pullDataFromFieldAcrossAll(dataStructure, 'centiSeconds','GPS');
+[cell_array_GPS_Time,~]            = fcn_LoadRawDataToMATLAB_pullDataFromFieldAcrossAll(dataStructure, 'GPS_Time',    'GPS');
+[cell_array_ROS_Time,sensor_names] = fcn_LoadRawDataToMATLAB_pullDataFromFieldAcrossAll(dataStructure, 'ROS_Time',    'GPS');
 
 fit_sensors = sensor_names;
 

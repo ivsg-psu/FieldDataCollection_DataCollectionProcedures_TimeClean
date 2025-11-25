@@ -7,6 +7,12 @@
 % 2024_11_22 - sbrennan@psu.edu
 % -- major rewrite to use reference time sequence instead of start/end
 % trimming
+%
+% 2025_11_24 by Sean Brennan, sbrennan@psu.edu
+% - Changed in-use function name
+%   % * From: fcn_LoadRawDataTo+MATLAB_pullDataFromFieldAcrossAllSensors
+%   % * To: fcn_LoadRawDataToMATLAB_pullDataFromFieldAcrossAll
+
 
 %% Set up the workspace
 close all
@@ -783,8 +789,8 @@ fill_type = 1;
 trimmed_dataStructure = fcn_TimeClean_trimDataToCommonStartEndGPSTimes(BadDataStructure, (field_name), (sensors_to_check), (fill_type), (fid));
 
 % Make sure it worked
-% [first_times,~] = fcn_LoadRawDataToMATLAB_pullDataFromFieldAcrossAllSensors(trimmed_dataStructure, field_name, sensors_to_check,'first_row');
-% [last_times,~] = fcn_LoadRawDataToMATLAB_pullDataFromFieldAcrossAllSensors(trimmed_dataStructure, field_name, sensors_to_check,'last_row');
+% [first_times,~] = fcn_LoadRawDataToMATLAB_pullDataFromFieldAcrossAll(trimmed_dataStructure, field_name, sensors_to_check,'first_row');
+% [last_times,~] = fcn_LoadRawDataToMATLAB_pullDataFromFieldAcrossAll(trimmed_dataStructure, field_name, sensors_to_check,'last_row');
 
 sensor_names = fieldnames(trimmed_dataStructure); % Grab all the fields that are in dataStructure structure
 start_time = round(trimmed_dataStructure.(sensor_names{1}).GPS_Time(1));
@@ -817,11 +823,11 @@ sensors_to_check = 'GPS';
 trimmed_dataStructure = fcn_TimeClean_trimDataToCommonStartEndGPSTimes(dataStructure, (field_name), (sensors_to_check), (fill_type), (fid));
 
 % Make sure it worked
-[first_times,~] = fcn_LoadRawDataToMATLAB_pullDataFromFieldAcrossAllSensors(trimmed_dataStructure, field_name, sensors_to_check,'first_row');
+[first_times,~] = fcn_LoadRawDataToMATLAB_pullDataFromFieldAcrossAll(trimmed_dataStructure, field_name, sensors_to_check,'first_row');
 temp = [first_times{:}]' - first_times{1};
 assert(all(abs(temp)<0.1));
 
-[last_times,~] = fcn_LoadRawDataToMATLAB_pullDataFromFieldAcrossAllSensors(trimmed_dataStructure, field_name, sensors_to_check,'last_row');
+[last_times,~] = fcn_LoadRawDataToMATLAB_pullDataFromFieldAcrossAll(trimmed_dataStructure, field_name, sensors_to_check,'last_row');
 temp = [last_times{:}]' - last_times{1};
 assert(all(abs(temp)<0.1));
 

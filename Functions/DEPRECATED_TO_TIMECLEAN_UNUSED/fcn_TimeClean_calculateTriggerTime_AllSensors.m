@@ -39,14 +39,21 @@ function fixed_dataStructure = fcn_TimeClean_calculateTriggerTime_AllSensors(dat
 % This function was written on 2024_08_29 by X.Cao
 % Questions or comments? xfc5113@psu.edu
 
-% Revision history:
+% REVISION HISTORY:
 %     
 % 2024_08_29: xfc5113@psu.edu
-% -- wrote the code originally 
+% - Wrote the code originally 
+% 
 % 2024_09_22: xfc5113@psu.edu
-% -- fix error for Velodyne LiDAR
+% - Fix error for Velodyne LiDAR
+%
+% 2025_11_24 by Sean Brennan, sbrennan@psu.edu
+% - Changed in-use function name
+%   % * From: fcn_LoadRawDataTo+MATLAB_pullDataFromFieldAcrossAllSensors
+%   % * To: fcn_LoadRawDataToMATLAB_pullDataFromFieldAcrossAll
 
-% TO DO:
+
+% TO-DO:
 %
 % Trigger time for sick lidar need to be recalculated
 
@@ -115,17 +122,17 @@ EncoderBox_has_diag_field = 0;
 timeThreshold = 1E-6; % Times must agree to within a microsecond to be same
 %% Step 1: Find corresponding ROS_Time and Trigger_Time from GPS units
 %% Find centiSeconds 
-[cell_array_centiSeconds,~]       = fcn_LoadRawDataToMATLAB_pullDataFromFieldAcrossAllSensors(dataStructure, 'centiSeconds','GPS');
+[cell_array_centiSeconds,~]       = fcn_LoadRawDataToMATLAB_pullDataFromFieldAcrossAll(dataStructure, 'centiSeconds','GPS');
 array_centiSeconds = cell2mat(cell_array_centiSeconds);
 max_sample_centiSeconds = max(array_centiSeconds);
 %% Find Trigger Time
-[cell_array_Trigger_Time_start,sensor_names_Trigger_Time]       = fcn_LoadRawDataToMATLAB_pullDataFromFieldAcrossAllSensors(dataStructure, 'Trigger_Time','GPS','first_row');
-[cell_array_original_Trigger_Time,~]       = fcn_LoadRawDataToMATLAB_pullDataFromFieldAcrossAllSensors(dataStructure, 'Trigger_Time','GPS');
-[cell_array_Trigger_Time_end,~]     = fcn_LoadRawDataToMATLAB_pullDataFromFieldAcrossAllSensors(dataStructure, 'Trigger_Time','GPS','last_row');
+[cell_array_Trigger_Time_start,sensor_names_Trigger_Time]       = fcn_LoadRawDataToMATLAB_pullDataFromFieldAcrossAll(dataStructure, 'Trigger_Time','GPS','first_row');
+[cell_array_original_Trigger_Time,~]       = fcn_LoadRawDataToMATLAB_pullDataFromFieldAcrossAll(dataStructure, 'Trigger_Time','GPS');
+[cell_array_Trigger_Time_end,~]     = fcn_LoadRawDataToMATLAB_pullDataFromFieldAcrossAll(dataStructure, 'Trigger_Time','GPS','last_row');
 %% Find ROS Time
-[cell_array_ROS_Time_start,sensor_names_ROS_Time]         = fcn_LoadRawDataToMATLAB_pullDataFromFieldAcrossAllSensors(dataStructure, 'ROS_Time','GPS','first_row');
-[cell_array_original_ROS_Time,~]       = fcn_LoadRawDataToMATLAB_pullDataFromFieldAcrossAllSensors(dataStructure, 'ROS_Time','GPS');
-[cell_array_ROS_Time_end,~]         = fcn_LoadRawDataToMATLAB_pullDataFromFieldAcrossAllSensors(dataStructure, 'ROS_Time','GPS','last_row');
+[cell_array_ROS_Time_start,sensor_names_ROS_Time]         = fcn_LoadRawDataToMATLAB_pullDataFromFieldAcrossAll(dataStructure, 'ROS_Time','GPS','first_row');
+[cell_array_original_ROS_Time,~]       = fcn_LoadRawDataToMATLAB_pullDataFromFieldAcrossAll(dataStructure, 'ROS_Time','GPS');
+[cell_array_ROS_Time_end,~]         = fcn_LoadRawDataToMATLAB_pullDataFromFieldAcrossAll(dataStructure, 'ROS_Time','GPS','last_row');
 % Confirm that both results are identical
 if ~isequal(sensor_names_ROS_Time,sensor_names_Trigger_Time)
     error('Sensors were found that were missing either GPS_Time or ROS_Time. Unable to calculate Trigger_Times.');

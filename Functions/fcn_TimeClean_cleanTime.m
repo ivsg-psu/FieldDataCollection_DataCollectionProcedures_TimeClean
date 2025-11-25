@@ -97,6 +97,11 @@ function [cleanDataStruct, subPathStrings]  = fcn_TimeClean_cleanTime(rawDataStr
 % - separated cleanTime out from cleanData
 % - Removed refLLA input
 % - Added saveFlags and plotFlags
+%
+% 2025_11_24 by Sean Brennan, sbrennan@psu.edu
+% - Changed in-use function name
+%   % * From: fcn_LoadRawDataTo+MATLAB_pullDataFromFieldAcrossAllSensors
+%   % * To: fcn_LoadRawDataToMATLAB_pullDataFromFieldAcrossAll
 
 % TO-DO:
 %
@@ -246,7 +251,7 @@ end
 % is detected to fix that error.
 
 flag_stay_in_main_loop = 1;
-N_max_loops = 30;
+N_max_loops = 5;
 
 % Preallocate the data array
 debugging_data_structure_sequence{N_max_loops} = struct;
@@ -961,7 +966,7 @@ while 1==flag_stay_in_main_loop
         sensors_to_check = [];
         fill_type = 1;
         nextDataStructure = fcn_TimeClean_trimDataToCommonStartEndGPSTimes(nextDataStructure, (field_name), (sensors_to_check), (fill_type), (fid));
-        [startTimes,sensorsToTrim_names] = fcn_LoadRawDataToMATLAB_pullDataFromFieldAcrossAllSensors(nextDataStructure, 'GPSfromROS_Time', [],'first_row');
+        [startTimes,sensorsToTrim_names] = fcn_LoadRawDataToMATLAB_pullDataFromFieldAcrossAll(nextDataStructure, 'GPSfromROS_Time', [],'first_row');
         
         flag_keep_checking = 0;
     end

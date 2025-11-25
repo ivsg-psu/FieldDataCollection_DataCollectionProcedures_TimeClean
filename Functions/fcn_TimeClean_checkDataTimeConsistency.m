@@ -129,18 +129,23 @@ function [flags,offending_sensor] = fcn_TimeClean_checkDataTimeConsistency(dataS
 % - Fixed warning and errors
 % 
 % 2024_09_27: xfc5113@psu.edu
-% - move fcn_TimeClean_checkAllSensorsHaveTriggerTime in the function
-% - add sensors_without_Trigger_Time as the output of the function
+% - Move fcn_TimeClean_checkAllSensorsHaveTriggerTime in the function
+% - Add sensors_without_Trigger_Time as the output of the function
 % 
 % 2024_11_07 by Sean Brennan, sbrennan@psu.edu
 % - Added plotFlags instead of figNum, to allow many different plotting
-%    options
-% - swapped order on some of the flags, as there's no way that flags can
-% "pass" on one and then "fail" on the other.
-% ROS_Time_strictly_ascends_in_GPS_sensors cannot be tested as that same
-% condition would fail in testing
-% ROS_Time_sample_modes_match_centiSeconds_in_GPS_sensors. So have to
-% test "strictly ascends" first, before "same rate" testing.
+%   % options
+% - Swapped order on some of the flags, as there's no way that flags can
+%   % "pass" on one and then "fail" on the other.
+%   % ROS_Time_strictly_ascends_in_GPS_sensors cannot be tested as that same
+%   % condition would fail in testing
+%   % ROS_Time_sample_modes_match_centiSeconds_in_GPS_sensors. So have to
+%   % test "strictly ascends" first, before "same rate" testing.
+%
+% 2025_11_24 by Sean Brennan, sbrennan@psu.edu
+% - Changed in-use function name
+%   % * From: fcn_LoadRawDataTo+MATLAB_pullDataFromFieldAcrossAllSensors
+%   % * To: fcn_LoadRawDataToMATLAB_pullDataFromFieldAcrossAll
 
 % TO-DO:
 %
@@ -998,7 +1003,7 @@ function [flags,offending_sensor,return_flag] = fcn_INTERNAL_checkIfROSTimeMisSc
 offending_sensor = '';
 
 % Produce a list of all the sensors (each is a field in the structure)
-[~,sensor_names] = fcn_LoadRawDataToMATLAB_pullDataFromFieldAcrossAllSensors(dataStructure, 'GPS_Time','GPS');
+[~,sensor_names] = fcn_LoadRawDataToMATLAB_pullDataFromFieldAcrossAll(dataStructure, 'GPS_Time','GPS');
 
 if 0~=fid
     fprintf(fid,'Checking if ROS time is measured in seconds, not nanoseconds, across GPS sensors:\n');

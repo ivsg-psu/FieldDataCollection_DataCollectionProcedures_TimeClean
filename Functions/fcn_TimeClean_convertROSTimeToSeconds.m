@@ -48,6 +48,11 @@ function fixed_dataStructure = fcn_TimeClean_convertROSTimeToSeconds(dataStructu
 % - Updated the debug flags area
 % - Fixed bug where offending sensor is set wrong
 % - Fixed fid bug where it is used in debugging
+%
+% 2025_11_24 by Sean Brennan, sbrennan@psu.edu
+% - Changed in-use function name
+%   % * From: fcn_LoadRawDataTo+MATLAB_pullDataFromFieldAcrossAllSensors
+%   % * To: fcn_LoadRawDataToMATLAB_pullDataFromFieldAcrossAll
 
 % TO-DO:
 %
@@ -161,7 +166,7 @@ fixed_dataStructure = dataStructure;
 
 % Produce a list of all the sensors that meet the search criteria, and grab
 % their data also
-[~,sensorNames] = fcn_LoadRawDataToMATLAB_pullDataFromFieldAcrossAllSensors(dataStructure, 'GPS_Time',sensors_to_check);
+[~,sensorNames] = fcn_LoadRawDataToMATLAB_pullDataFromFieldAcrossAll(dataStructure, 'GPS_Time',sensors_to_check);
 
 % Keep track of which ones are good
 flags_data_good = ones(length(sensorNames),1);

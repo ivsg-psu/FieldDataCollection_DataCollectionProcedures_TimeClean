@@ -44,9 +44,16 @@ function trimmed_dataStructure = fcn_TimeClean_mapROSTimeToGPSTime(dataStructure
 % Revision history:
 %     
 % 2023_06_12: sbrennan@psu.edu
-% -- wrote the code originally 
+% - Wrote the code originally 
+% 
 % 2023_06_24 - sbrennan@psu.edu
-% -- added fcn_INTERNAL_checkIfFieldInAnySensor and test case in script
+% - Added fcn_INTERNAL_checkIfFieldInAnySensor and test case in script
+%
+% 2025_11_24 by Sean Brennan, sbrennan@psu.edu
+% - Changed in-use function name
+%   % * From: fcn_LoadRawDataTo+MATLAB_pullDataFromFieldAcrossAllSensors
+%   % * To: fcn_LoadRawDataToMATLAB_pullDataFromFieldAcrossAll
+
 
 % TO DO
 % -- As of 2023_06_25, Finish header comments for every flag
@@ -133,7 +140,7 @@ end_times_centiSeconds = [];
 GPS_names = {};
 
 % Produce a list of all the sensors (each is a field in the structure)
-[~,sensor_names] = fcn_LoadRawDataToMATLAB_pullDataFromFieldAcrossAllSensors(dataStructure, 'GPS_Time','GPS');
+[~,sensor_names] = fcn_LoadRawDataToMATLAB_pullDataFromFieldAcrossAll(dataStructure, 'GPS_Time','GPS');
 
 
 if 0~=fid

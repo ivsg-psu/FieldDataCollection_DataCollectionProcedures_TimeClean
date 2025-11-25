@@ -233,7 +233,17 @@
 % 2025_11_22 by Sean Brennan, sbrennan@psu.edu
 % - Started modifying rev lists to Markdown format
 % - Added auto-installer
-
+% 
+% 2025_11_24 by Sean Brennan, sbrennan@psu.edu
+% - Renamed function:
+%   % * From: fcn_Data+Clean_cleanNaming
+%   % * To: fcn_TimeClean_cleanNaming 
+% - Changed in-use function name
+%   % * From: fcn_Data+Clean_cleanNaming
+%   % * To: fcn_TimeClean_cleanNaming
+% - Deprecated function:
+%   % * From: fcn_Data+Clean_checkDataNameConsistency
+%   % % To: fcn_TimeClean_checkDataNameConsistency
 
 % Known issues:
 %  (as of 2019_10_04) - Odometry on the rear encoders is quite wonky. For

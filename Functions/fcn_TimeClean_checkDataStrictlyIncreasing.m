@@ -42,7 +42,7 @@ function [flags,offending_sensor,return_flag] = fcn_TimeClean_checkDataStrictlyI
 %
 % DEPENDENCIES:
 %
-%      fcn_LoadRawDataToMATLAB_pullDataFromFieldAcrossAllSensors
+%      fcn_LoadRawDataToMATLAB_pullDataFromFieldAcrossAll
 %
 % EXAMPLES:
 %
@@ -56,7 +56,12 @@ function [flags,offending_sensor,return_flag] = fcn_TimeClean_checkDataStrictlyI
 %
 % 2024_11_06 by Sean Brennan, sbrennan@psu.edu
 % - Wrote the code originally, copying it out of INTERNAL function in
-% checkDataTimeConsistency_GPS
+%   % checkDataTimeConsistency_GPS
+%
+% 2025_11_24 by Sean Brennan, sbrennan@psu.edu
+% - Changed in-use function name
+%   % * From: fcn_LoadRawDataTo+MATLAB_pullDataFromFieldAcrossAllSensors
+%   % * To: fcn_LoadRawDataToMATLAB_pullDataFromFieldAcrossAll
 
 % TO-DO:
 %
@@ -199,7 +204,7 @@ if flag_check_all_sensors
 else
     % Produce a list of all the sensors that meet the search criteria, and grab
     % their data also
-    [~,sensor_names] = fcn_LoadRawDataToMATLAB_pullDataFromFieldAcrossAllSensors(dataStructure, field_name,sensors_to_check);
+    [~,sensor_names] = fcn_LoadRawDataToMATLAB_pullDataFromFieldAcrossAll(dataStructure, field_name,sensors_to_check);
 end
 
 if 0~=fid

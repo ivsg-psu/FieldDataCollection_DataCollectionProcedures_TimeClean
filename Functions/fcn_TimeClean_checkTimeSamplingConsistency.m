@@ -93,6 +93,12 @@ function [flags,offending_sensor,return_flag] = fcn_TimeClean_checkTimeSamplingC
 %    would round
 % - Updated debugging outputs
 % - Added verificationTypeFlag
+%
+% 2025_11_24 by Sean Brennan, sbrennan@psu.edu
+% - Changed in-use function name
+%   % * From: fcn_LoadRawDataTo+MATLAB_pullDataFromFieldAcrossAllSensors
+%   % * To: fcn_LoadRawDataToMATLAB_pullDataFromFieldAcrossAll
+% - Fixed printing bugs where errors thrown
 
 % TO-DO:
 %
@@ -254,7 +260,7 @@ if flag_check_all_sensors
 else
     % Produce a list of all the sensors that meet the search criteria, and grab
     % their data also
-    [~,sensor_names] = fcn_LoadRawDataToMATLAB_pullDataFromFieldAcrossAllSensors(dataStructure, field_name,sensors_to_check);
+    [~,sensor_names] = fcn_LoadRawDataToMATLAB_pullDataFromFieldAcrossAll(dataStructure, field_name,sensors_to_check);
 end
 
 
@@ -365,18 +371,26 @@ for i_data = 1:Ndata
             fprintf(fid,'\t\t Expected number of samples:  %.0f.\n',expectedNsamples);
             fprintf(fid,'\t\t Actual number of samples:    %.0f.\n',length(timeData));
 
-            bad_index = indiciesOfBadIntervals(1);
-            indexRange = 10;
-            start_print = max(bad_index-indexRange,1);
-            end_print = min(bad_index+indexRange,length(timeDifferences(:,1)));
-            temp = [sensor_data.Trigger_Time timeData  timeDifferences effectiveSamplingIntervals];
-            fprintf(1,'\t\tExample of failure:\n')
-            fprintf(1,'\t\t\t (Trigger_time) \t (%s) \t (timeDifferences) \t (effectiveSamplingIntervals)\n',field_name)
-            for ith_index = start_print:end_print
-                if ith_index~=bad_index
-                    fprintf(1,'\t\t\t %.4f \t %.4f \t %.4f \t\t\t %.0f\n',temp(ith_index,1),temp(ith_index,2),temp(ith_index,3),temp(ith_index,4))
-                else
-                    fcn_DebugTools_cprintf('Red','\t\t\t %.4f \t %.4f \t %.4f \t\t\t %.0f\n',temp(ith_index,1), temp(ith_index,2),temp(ith_index,3),temp(ith_index,4))
+            if ~isempty(indiciesOfBadIntervals)
+                bad_index = indiciesOfBadIntervals(1);
+                indexRange = 10;
+                start_print = max(bad_index-indexRange,1);
+                end_print = min(bad_index+indexRange,length(timeDifferences(:,1)));
+                if isfield(sensor_data,'Trigger_Time')
+                    timeLabelString = 'Trigger_Time';
+                    temp = [sensor_data.Trigger_Time timeData  timeDifferences effectiveSamplingIntervals];
+                elseif isfield(sensor_data,'GPS_Time')
+                    timeLabelString = 'GPS_Time';
+                    temp = [sensor_data.GPS_Time timeData  timeDifferences effectiveSamplingIntervals];
+                end
+                fprintf(1,'\t\tExample of failure:\n')
+                fprintf(1,'\t\t\t (%s) \t (%s) \t (timeDifferences) \t (effectiveSamplingIntervals)\n',timeLabelString, field_name)
+                for ith_index = start_print:end_print
+                    if ith_index~=bad_index
+                        fprintf(1,'\t\t\t %.4f \t %.4f \t %.4f \t\t\t %.0f\n',temp(ith_index,1),temp(ith_index,2),temp(ith_index,3),temp(ith_index,4))
+                    else
+                        fcn_DebugTools_cprintf('Red','\t\t\t %.4f \t %.4f \t %.4f \t\t\t %.0f\n',temp(ith_index,1), temp(ith_index,2),temp(ith_index,3),temp(ith_index,4))
+                    end
                 end
             end
         else
@@ -436,7 +450,7 @@ end
 if flag_do_plots && 1==verificationTypeFlag && isempty(findobj('Number',figNum))
 
     figure(figNum);
-    set(figNum,'WindowState','maximized');
+    % set(figNum,'WindowState','maximized');
 
     
     % check whether the figure already has data

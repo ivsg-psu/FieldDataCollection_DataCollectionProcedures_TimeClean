@@ -57,6 +57,11 @@ function fixed_dataStructure = fcn_TimeClean_fillMissingsInGPSUnits(dataStructur
 % 
 % 2024_12_07 by Sean Brennan, sbrennan@psu.edu
 % - Fixed bug where interpolation fails if NaN is present
+%
+% 2025_11_24 by Sean Brennan, sbrennan@psu.edu
+% - Changed in-use function name
+%   % * From: fcn_LoadRawDataTo+MATLAB_pullDataFromFieldAcrossAllSensors
+%   % * To: fcn_LoadRawDataToMATLAB_pullDataFromFieldAcrossAll
 
 % TO-DO:
 %
@@ -171,8 +176,8 @@ end
 %% Step 1: Find the effective start and end GPS and ROS times over all sensors
 
 
-[cell_array_GPS_Time, sensor_names_GPS_Time] = fcn_LoadRawDataToMATLAB_pullDataFromFieldAcrossAllSensors(dataStructure, 'GPS_Time','GPS');
-[~, sensor_names_ROS_Time]  = fcn_LoadRawDataToMATLAB_pullDataFromFieldAcrossAllSensors(dataStructure, 'ROS_Time','GPS');
+[cell_array_GPS_Time, sensor_names_GPS_Time] = fcn_LoadRawDataToMATLAB_pullDataFromFieldAcrossAll(dataStructure, 'GPS_Time','GPS');
+[~, sensor_names_ROS_Time]  = fcn_LoadRawDataToMATLAB_pullDataFromFieldAcrossAll(dataStructure, 'ROS_Time','GPS');
 
 if ~isequal(sensor_names_GPS_Time,sensor_names_ROS_Time)
     warning('on','backtrace');
@@ -181,7 +186,7 @@ if ~isequal(sensor_names_GPS_Time,sensor_names_ROS_Time)
 end
 
 % Grab the centiSeconds, and make sure all are the same.
-[cell_array_centiSeconds, ~] = fcn_LoadRawDataToMATLAB_pullDataFromFieldAcrossAllSensors(dataStructure, 'centiSeconds','GPS');
+[cell_array_centiSeconds, ~] = fcn_LoadRawDataToMATLAB_pullDataFromFieldAcrossAll(dataStructure, 'centiSeconds','GPS');
 all_centiSeconds = cell2mat(cell_array_centiSeconds);
 centiSeconds = all_centiSeconds(1);
 
@@ -252,7 +257,16 @@ for idx_gps_unit = 1:N_GPS_Units
     % Save the before/after
     beforeData{idx_gps_unit} = originalGPS_timeData;
     afterData{idx_gps_unit}  = fixed_GPSTime;
-    differences = abs(originalGPS_timeData - fixed_GPSTime);
+
+    % Find bad indices
+    Nfixed = length(fixed_GPSTime);
+    Noriginal = length(originalGPS_timeData);
+    closestGPSTimes = nan(Noriginal,1);
+    for ith_time = 1:Noriginal
+        [~,closestFixedGPSTimeIndex] = min((ones(Nfixed,1)*originalGPS_timeData(ith_time,1) - fixed_GPSTime).^2);
+        closestGPSTimes(ith_time,1) = fixed_GPSTime(closestFixedGPSTimeIndex,1);
+    end
+    differences = abs(originalGPS_timeData - closestGPSTimes);
     timeThreshold = 1E-6; % Times must agree to within a microsecond to be same
     badIndicies = [find(differences>timeThreshold); find(isnan(differences))];
 

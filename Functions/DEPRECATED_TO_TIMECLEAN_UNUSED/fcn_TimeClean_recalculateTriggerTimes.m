@@ -43,15 +43,24 @@ function fixed_dataStructure = fcn_TimeClean_recalculateTriggerTimes(dataStructu
 % Revision history:
 %     
 % 2023_06_29: sbrennan@psu.edu
-% -- wrote the code originally 
+% - Wrote the code originally 
+% 
 % 2023_06_30: sbrennan@psu.edu
-% -- added the sensor_type field
+% - Added the sensor_type field
+% 
 % 2024_09_28 - S. Brennan
-% -- updated the debug flags area
-% -- fixed bug where offending sensor is set wrong
-% -- fixed fid bug where it is used in debugging
+% - Updated the debug flags area
+% - Fixed bug where offending sensor is set wrong
+% - Fixed fid bug where it is used in debugging
+% 
 % 2024_11_21 - S. Brennan
-% -- added warnings to pre-error areas to allow tracebacks
+% - Added warnings to pre-error areas to allow tracebacks
+%
+% 2025_11_24 by Sean Brennan, sbrennan@psu.edu
+% - Changed in-use function name
+%   % * From: fcn_LoadRawDataTo+MATLAB_pullDataFromFieldAcrossAllSensors
+%   % * To: fcn_LoadRawDataToMATLAB_pullDataFromFieldAcrossAll
+
 
 % Check if flag_max_speed set. This occurs if the fig_num variable input
 % argument (varargin) is given a number of -1, which is not a valid figure
@@ -157,7 +166,7 @@ flag_do_plots = 0;  % % Flag to plot the final results
 
 %% Step 1: Find the effective start and end times over all sensors
 %% Find centiSeconds
-[cell_array_centiSeconds,sensor_names_centiSeconds] = fcn_LoadRawDataToMATLAB_pullDataFromFieldAcrossAllSensors(dataStructure, 'centiSeconds',sensor_type,'first_row');
+[cell_array_centiSeconds,sensor_names_centiSeconds] = fcn_LoadRawDataToMATLAB_pullDataFromFieldAcrossAll(dataStructure, 'centiSeconds',sensor_type,'first_row');
 
 % Convert centiSeconds to a column matrix
 array_centiSeconds = cell2mat(cell_array_centiSeconds)';
@@ -173,7 +182,7 @@ end
 
 
 %% Find start time
-[cell_array_GPS_Time_start,sensor_names_GPS_Time]         = fcn_LoadRawDataToMATLAB_pullDataFromFieldAcrossAllSensors(dataStructure, 'GPS_Time',sensor_type,'first_row');
+[cell_array_GPS_Time_start,sensor_names_GPS_Time]         = fcn_LoadRawDataToMATLAB_pullDataFromFieldAcrossAll(dataStructure, 'GPS_Time',sensor_type,'first_row');
 
 % Confirm that both results are identical
 if ~isequal(sensor_names_GPS_Time,sensor_names_centiSeconds)
@@ -222,7 +231,7 @@ if fid
 end
 
 %% Find end time
-[cell_array_GPS_Time_end,sensor_names_GPS_Time]         = fcn_LoadRawDataToMATLAB_pullDataFromFieldAcrossAllSensors(dataStructure, 'GPS_Time',sensor_type,'last_row');
+[cell_array_GPS_Time_end,sensor_names_GPS_Time]         = fcn_LoadRawDataToMATLAB_pullDataFromFieldAcrossAll(dataStructure, 'GPS_Time',sensor_type,'last_row');
 
 % Confirm that both results are identical
 if ~isequal(sensor_names_GPS_Time,sensor_names_centiSeconds)
@@ -275,7 +284,7 @@ end
 %% Step 2: Fill all Trigger_Time data to common start/end times
 % and fix GPS_Time
 
-[cell_array_GPS_Time,sensor_names_GPS_Time]         = fcn_LoadRawDataToMATLAB_pullDataFromFieldAcrossAllSensors(dataStructure, 'GPS_Time',sensor_type);
+[cell_array_GPS_Time,sensor_names_GPS_Time]         = fcn_LoadRawDataToMATLAB_pullDataFromFieldAcrossAll(dataStructure, 'GPS_Time',sensor_type);
 
 % Initialize the result:
 fixed_dataStructure = dataStructure;

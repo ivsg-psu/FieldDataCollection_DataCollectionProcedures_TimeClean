@@ -40,9 +40,16 @@ function fixed_dataStructure = fcn_TimeClean_roundROSTimeForGPSUnits(dataStructu
 % Revision history:
 %     
 % 2024_08_09: xfc5113@psu.edu
-% -- wrote the code originally 
+% - Wrote the code originally 
+% 
 % 2024_10_07: xfc5113@psu.edu
-% -- fix bugs in Trigger_Time calculation
+% - Fix bugs in Trigger_Time calculation
+%
+% 2025_11_24 by Sean Brennan, sbrennan@psu.edu
+% - Changed in-use function name
+%   % * From: fcn_LoadRawDataTo+MATLAB_pullDataFromFieldAcrossAllSensors
+%   % * To: fcn_LoadRawDataToMATLAB_pullDataFromFieldAcrossAll
+
 
 
 
@@ -119,7 +126,7 @@ end
 
 %% Step 1: Find the effective start and end times over all sensors
 %% Find centiSeconds
-[cell_array_centiSeconds,sensor_names_centiSeconds] = fcn_LoadRawDataToMATLAB_pullDataFromFieldAcrossAllSensors(dataStructure, 'centiSeconds',sensor_type,'first_row');
+[cell_array_centiSeconds,sensor_names_centiSeconds] = fcn_LoadRawDataToMATLAB_pullDataFromFieldAcrossAll(dataStructure, 'centiSeconds',sensor_type,'first_row');
 
 % Convert centiSeconds to a column matrix
 array_centiSeconds = cell2mat(cell_array_centiSeconds)';
@@ -135,7 +142,7 @@ end
 
 
 %% Find start time
-[cell_array_ROS_Time_start,sensor_names_ROS_Time]         = fcn_LoadRawDataToMATLAB_pullDataFromFieldAcrossAllSensors(dataStructure, 'ROS_Time',sensor_type,'first_row');
+[cell_array_ROS_Time_start,sensor_names_ROS_Time]         = fcn_LoadRawDataToMATLAB_pullDataFromFieldAcrossAll(dataStructure, 'ROS_Time',sensor_type,'first_row');
 
 % Confirm that both results are identical
 if ~isequal(sensor_names_ROS_Time,sensor_names_centiSeconds)
@@ -180,7 +187,7 @@ if fid
 end
 
 %% Find end time
-[cell_array_ROS_Time_end,sensor_names_ROS_Time]         = fcn_LoadRawDataToMATLAB_pullDataFromFieldAcrossAllSensors(dataStructure, 'ROS_Time',sensor_type,'last_row');
+[cell_array_ROS_Time_end,sensor_names_ROS_Time]         = fcn_LoadRawDataToMATLAB_pullDataFromFieldAcrossAll(dataStructure, 'ROS_Time',sensor_type,'last_row');
 
 % Confirm that both results are identical
 if ~isequal(sensor_names_ROS_Time,sensor_names_centiSeconds)
@@ -227,7 +234,7 @@ end
 
 %% Step 2: Round ROS_Time to centiSeconds
 
-[cell_array_ROS_Time,sensor_names_ROS_Time]         = fcn_LoadRawDataToMATLAB_pullDataFromFieldAcrossAllSensors(dataStructure, 'ROS_Time',sensor_type);
+[cell_array_ROS_Time,sensor_names_ROS_Time]         = fcn_LoadRawDataToMATLAB_pullDataFromFieldAcrossAll(dataStructure, 'ROS_Time',sensor_type);
 
 % Initialize the result:
 fixed_dataStructure = dataStructure;
@@ -243,7 +250,7 @@ for ith_sensor = 1:length(sensor_names_ROS_Time)
     % Grab centiSeconds
     centiSeconds = cell_array_centiSeconds{ith_sensor};
     % Grab Trigger_Time  
-    [cell_array_Trigger_Time,sensor_names_Trigger_Time]  = fcn_LoadRawDataToMATLAB_pullDataFromFieldAcrossAllSensors(dataStructure, 'Trigger_Time',sensor_type);
+    [cell_array_Trigger_Time,sensor_names_Trigger_Time]  = fcn_LoadRawDataToMATLAB_pullDataFromFieldAcrossAll(dataStructure, 'Trigger_Time',sensor_type);
     %
     if ~isequal(sensor_names_Trigger_Time,sensor_names_ROS_Time)
         error("GPS sensors do not match, ROS_Time cannot be rounded to Trigger Time")

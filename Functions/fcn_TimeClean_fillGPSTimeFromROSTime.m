@@ -52,6 +52,11 @@ function newDataStructure = fcn_TimeClean_fillGPSTimeFromROSTime(mean_fit, filte
 % 2024_11_20 by Sean Brennan, sbrennan@psu.edu
 % - Wrote the code originally, copying it out of INTERNAL function in
 % checkDataTimeConsistency_GPS
+%
+% 2025_11_24 by Sean Brennan, sbrennan@psu.edu
+% - Changed in-use function name
+%   % * From: fcn_LoadRawDataTo+MATLAB_pullDataFromFieldAcrossAllSensors
+%   % * To: fcn_LoadRawDataToMATLAB_pullDataFromFieldAcrossAll
 
 % TO-DO:
 %
@@ -186,7 +191,7 @@ if flag_check_all_sensors
 else
     % Produce a list of all the sensors that meet the search criteria, and grab
     % their data also
-    [~,sensor_names] = fcn_LoadRawDataToMATLAB_pullDataFromFieldAcrossAllSensors(dataStructure, 'ROS_Time',sensors_to_check);
+    [~,sensor_names] = fcn_LoadRawDataToMATLAB_pullDataFromFieldAcrossAll(dataStructure, 'ROS_Time',sensors_to_check);
 end
 
 

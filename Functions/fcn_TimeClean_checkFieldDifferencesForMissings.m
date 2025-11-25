@@ -95,6 +95,12 @@ function [flags,offending_sensor,return_flag] = fcn_TimeClean_checkFieldDifferen
 % 2024_11_14 by Sean Brennan, sbrennan@psu.edu
 % - Changed flag naming to be consistent with other check functions, with
 %    the sensor name first
+%
+% 2025_11_24 by Sean Brennan, sbrennan@psu.edu
+% - Changed in-use function name
+%   % * From: fcn_LoadRawDataTo+MATLAB_pullDataFromFieldAcrossAllSensors
+%   % * To: fcn_LoadRawDataToMATLAB_pullDataFromFieldAcrossAll
+
 
 % TO-DO:
 %
@@ -276,7 +282,7 @@ if flag_check_all_sensors
 else
     % Produce a list of all the sensors that meet the search criteria, and grab
     % their data also
-    [~,sensor_names] = fcn_LoadRawDataToMATLAB_pullDataFromFieldAcrossAllSensors(dataStructure, field_name,sensors_to_check);
+    [~,sensor_names] = fcn_LoadRawDataToMATLAB_pullDataFromFieldAcrossAll(dataStructure, field_name,sensors_to_check);
 end
 
 % Tell the user what is happening?

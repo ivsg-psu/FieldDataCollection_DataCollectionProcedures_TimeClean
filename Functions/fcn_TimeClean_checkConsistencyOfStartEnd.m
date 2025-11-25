@@ -48,7 +48,7 @@ function [flags,offending_sensor, return_flag] = fcn_TimeClean_checkConsistencyO
 %
 % DEPENDENCIES:
 %
-%      fcn_LoadRawDataToMATLAB_pullDataFromFieldAcrossAllSensors
+%      fcn_LoadRawDataToMATLAB_pullDataFromFieldAcrossAll
 %
 % EXAMPLES:
 %
@@ -68,6 +68,11 @@ function [flags,offending_sensor, return_flag] = fcn_TimeClean_checkConsistencyO
 % - Added debug flag area
 % - Added figNum input, fixed the plot flag
 % - Fixed warning and errors
+%
+% 2025_11_24 by Sean Brennan, sbrennan@psu.edu
+% - Changed in-use function name
+%   % * From: fcn_LoadRawDataTo+MATLAB_pullDataFromFieldAcrossAllSensors
+%   % * To: fcn_LoadRawDataToMATLAB_pullDataFromFieldAcrossAll
 
 % TO-DO:
 %
@@ -212,7 +217,7 @@ offending_sensor = '';
 flag_name = sprintf('%s_has_consistent_start_end%s', field_name, flag_name_suffix);
 
 % Produce a list of all the sensors (each is a field in the structure)
-[dataArray, sensor_names] = fcn_LoadRawDataToMATLAB_pullDataFromFieldAcrossAllSensors(dataStructure, field_name, sensors_to_check);
+[dataArray, sensor_names] = fcn_LoadRawDataToMATLAB_pullDataFromFieldAcrossAll(dataStructure, field_name, sensors_to_check);
 
 if 0~=fid
     if ~isempty(sensors_to_check)

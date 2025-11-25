@@ -5,6 +5,11 @@
 % 
 % 2024_11_20 by Sean Brennan, sbrennan@psu.edu
 % - Wrote the code originally 
+%
+% 2025_11_24 by Sean Brennan, sbrennan@psu.edu
+% - Changed in-use function name
+%   % * From: fcn_LoadRawDataTo+MATLAB_pullDataFromFieldAcrossAllSensors
+%   % * To: fcn_LoadRawDataToMATLAB_pullDataFromFieldAcrossAll
 
 % TO-DO:
 %
@@ -38,8 +43,8 @@ figNum = [];
 
 newDataStructure = fcn_TimeClean_fillGPSTimeFromROSTime(mean_fit, filtered_median_errors, dataStructure, (sensors_to_check), (fid), (figNum));
 
-[~,old_sensor_names] = fcn_LoadRawDataToMATLAB_pullDataFromFieldAcrossAllSensors(dataStructure, 'ROS_Time',sensors_to_check);
-[~,fixed_sensor_names] = fcn_LoadRawDataToMATLAB_pullDataFromFieldAcrossAllSensors(newDataStructure, 'GPSfromROS_Time',sensors_to_check);
+[~,old_sensor_names] = fcn_LoadRawDataToMATLAB_pullDataFromFieldAcrossAll(dataStructure, 'ROS_Time',sensors_to_check);
+[~,fixed_sensor_names] = fcn_LoadRawDataToMATLAB_pullDataFromFieldAcrossAll(newDataStructure, 'GPSfromROS_Time',sensors_to_check);
 
 assert(isequal(old_sensor_names,fixed_sensor_names));
 
@@ -65,8 +70,8 @@ figNum = [];
 
 newDataStructure = fcn_TimeClean_fillGPSTimeFromROSTime(mean_fit, filtered_median_errors, dataStructure, (sensors_to_check), (fid), (figNum));
 
-[~,old_sensor_names] = fcn_LoadRawDataToMATLAB_pullDataFromFieldAcrossAllSensors(dataStructure, 'ROS_Time',sensors_to_check);
-[~,fixed_sensor_names] = fcn_LoadRawDataToMATLAB_pullDataFromFieldAcrossAllSensors(newDataStructure, 'GPSfromROS_Time',sensors_to_check);
+[~,old_sensor_names] = fcn_LoadRawDataToMATLAB_pullDataFromFieldAcrossAll(dataStructure, 'ROS_Time',sensors_to_check);
+[~,fixed_sensor_names] = fcn_LoadRawDataToMATLAB_pullDataFromFieldAcrossAll(newDataStructure, 'GPSfromROS_Time',sensors_to_check);
 
 assert(isequal(old_sensor_names,fixed_sensor_names));
 
@@ -92,7 +97,7 @@ figNum = [];
 
 newDataStructure = fcn_TimeClean_fillGPSTimeFromROSTime(mean_fit, filtered_median_errors, dataStructure, (sensors_to_check), (fid), (figNum));
 
-[~,old_sensor_names] = fcn_LoadRawDataToMATLAB_pullDataFromFieldAcrossAllSensors(dataStructure, 'ROS_Time',sensors_to_check);
-[~,fixed_sensor_names] = fcn_LoadRawDataToMATLAB_pullDataFromFieldAcrossAllSensors(newDataStructure, 'GPSfromROS_Time',sensors_to_check);
+[~,old_sensor_names] = fcn_LoadRawDataToMATLAB_pullDataFromFieldAcrossAll(dataStructure, 'ROS_Time',sensors_to_check);
+[~,fixed_sensor_names] = fcn_LoadRawDataToMATLAB_pullDataFromFieldAcrossAll(newDataStructure, 'GPSfromROS_Time',sensors_to_check);
 
 assert(isequal(old_sensor_names,fixed_sensor_names));

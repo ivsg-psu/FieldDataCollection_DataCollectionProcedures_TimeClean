@@ -67,6 +67,17 @@ function [cleanDataStruct, subPathStrings]  = fcn_TimeClean_cleanNaming(rawDataS
 % - Renamed function:
 %   % * From: fcn_Data+Clean_cleanNaming
 %   % * To: fcn_TimeClean_cleanNaming 
+%
+% 2025_11_24 by Sean Brennan, sbrennan@psu.edu
+% - Deprecated function:
+%   % * From: fcn_Data+Clean_checkDataNameConsistency
+%   % % To: fcn_TimeClean_checkDataNameConsistency
+% - Deprecated function:
+%   % * From: fcn_Data+Clean_renameSensorsToStandardNames
+%   % % To: fcn_TimeClean_renameSensorsToStandardNames
+% - Changed in-use function name
+%   % * From: fcn_Data+Clean_cleanNaming
+%   % * To: fcn_TimeClean_cleanNaming
 
 % TO-DO:
 %
@@ -290,7 +301,7 @@ while 1==flag_stay_in_main_loop
     
     %% Check if sensors merged and name convention is followed -- Done
     
-    [name_flags, ~] = fcn_DataClean_checkDataNameConsistency(nextDataStructure,fid);
+    [name_flags, ~] = fcn_TimeClean_checkDataNameConsistency(nextDataStructure,fid);
     
     fcn_INTERNAL_reportFlagStatus(name_flags,'NAMING FLAGS:');
     
@@ -341,7 +352,7 @@ while 1==flag_stay_in_main_loop
     
     % check if sensor_naming_standards_are_used. If not, fix this.
     if (1==flag_keep_checking) && (0==name_flags.sensor_naming_standards_are_used)
-        nextDataStructure = fcn_DataClean_renameSensorsToStandardNames(nextDataStructure,-1);
+        nextDataStructure = fcn_TimeClean_renameSensorsToStandardNames(nextDataStructure,-1);
         flag_keep_checking = 1;
         name_flags.sensor_naming_standards_are_used = 1;
     end

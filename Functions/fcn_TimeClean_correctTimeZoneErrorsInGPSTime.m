@@ -6,9 +6,9 @@ function corrected_dataStructure = fcn_TimeClean_correctTimeZoneErrorsInGPSTime(
 %
 % The method this is done is to:
 % 1. Pull out the GPS_Time field from all GPS-tagged sensors
-% 2. Find the start values for each. 
+% 2. Find the start values for each.
 % 3. Pull out the ROS_Time field from all GPS-tagged sensors
-% 4. Find the start values for each. 
+% 4. Find the start values for each.
 % 5. Check if these are the same. If they are, the time zone is wrong. For
 % time zones that are wrong, fix the GPS_Time field.
 %
@@ -39,12 +39,19 @@ function corrected_dataStructure = fcn_TimeClean_correctTimeZoneErrorsInGPSTime(
 %     for a full test suite.
 %
 % This function was written on 2023_06_29 by S. Brennan
-% Questions or comments? sbrennan@psu.edu 
+% Questions or comments? sbrennan@psu.edu
 
 % REVISION HISTORY:
-%     
+%
 % 2023_06_29 by Sean Brennan, sbrennan@psu.edu
-% - Wrote the code originally 
+% - Wrote the code originally
+%
+% 2025_11_24 by Sean Brennan, sbrennan@psu.edu
+% - Changed in-use function name
+%   % * From: fcn_LoadRawDataTo+MATLAB_pullDataFromFieldAcrossAllSensors
+%   % * To: fcn_LoadRawDataToMATLAB_pullDataFromFieldAcrossAll
+% - Fixed bugs with missing flag_do_plots
+% - Fixed bugs where flag_do_debug set to fid
 
 % TO-DO:
 %
@@ -110,6 +117,7 @@ end
 % Does the user want to specify the fid?
 
 % Check for user input
+flag_do_plots = 0;
 if 1 <= nargin
     temp = varargin{1};
     if ~isempty(temp)
@@ -139,13 +147,13 @@ end
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 % The method this is done is to:
-% 1. Pull out the GPS_Time and ROS_Time field from all GPS-tagged sensor, and find the start values for each. 
-% 2. Check if these are the same. If they are, the time zone is wrong. 
+% 1. Pull out the GPS_Time and ROS_Time field from all GPS-tagged sensor, and find the start values for each.
+% 2. Check if these are the same. If they are, the time zone is wrong.
 % 3. For time zones that are wrong, fix the GPS_Time field.
 
 
 %% Step 1: Pull out the GPS_Time and ROS_Time field from all GPS-tagged sensors
-% 1. Pull out the GPS_Time and ROS_Time field from all GPS-tagged sensor, and find the start values for each. 
+% 1. Pull out the GPS_Time and ROS_Time field from all GPS-tagged sensor, and find the start values for each.
 
 % Initialize arrays storing centiSeconds, start_times, and end_times across
 % all sensors
@@ -156,7 +164,7 @@ GPS_names = {};
 
 
 % Produce a list of all the sensors (each is a field in the structure)
-[~,sensor_names] = fcn_LoadRawDataToMATLAB_pullDataFromFieldAcrossAllSensors(dataStructure, 'GPS_Time','GPS');
+[~,sensor_names] = fcn_LoadRawDataToMATLAB_pullDataFromFieldAcrossAll(dataStructure, 'GPS_Time','GPS');
 
 if 0~=fid
     fprintf(fid,'Checking consistency of start and end times across GPS sensors:\n');
@@ -167,11 +175,11 @@ for i_data = 1:length(sensor_names)
     % Grab the sensor subfield name
     sensor_name = sensor_names{i_data};
     sensor_data = dataStructure.(sensor_name);
-    
+
     if 0~=fid
         fprintf(fid,'\t Checking sensor %d of %d: %s\n',i_data,length(sensor_names),sensor_name);
     end
-    
+
     GPS_times_centiSeconds = round(100*sensor_data.GPS_Time/sensor_data.centiSeconds)*sensor_data.centiSeconds;
     ROS_times_centiSeconds = round(100*sensor_data.ROS_Time/sensor_data.centiSeconds)*sensor_data.centiSeconds;
     sensor_centiSeconds = [sensor_centiSeconds; sensor_data.centiSeconds]; %#ok<AGROW>
@@ -195,11 +203,11 @@ if ~isempty(bad_sensor_indicies)
     best_corrections = 0*bad_sensor_indicies;
     fprintf(fid,'Bad GPS_Time data found in the following sensors: \n');
     for ith_index = 1:length(bad_sensor_indicies)
-        bad_index = bad_sensor_indicies(ith_index);        
+        bad_index = bad_sensor_indicies(ith_index);
         fprintf(fid,'%s\n',GPS_names{bad_index});
         fprintf(fid,'\t Start time is off by %.3f seconds\n',time_errors(bad_index)/100);
         time_correction = time_errors(bad_index)/100;
-        
+
         % Try all the possible time zone corrections, from -24 hours to 24
         % hours ahead
         possible_corrections = (-24:24)'*60*60;
@@ -207,7 +215,7 @@ if ~isempty(bad_sensor_indicies)
         [best_corrections(ith_index), min_time_zone_index] = min(abs(better_times));
         fprintf(fid,'\t It appears that the best correction is to shift time by: %d seconds. \n',possible_corrections(min_time_zone_index));
         fprintf(fid,'\t With corrections added, the time becomes: %.3f \n',best_corrections(ith_index));
-        
+
         if abs(best_corrections(ith_index))>5
             error('Even after correction, the time error is too large - exiting\n');
         else
@@ -230,12 +238,12 @@ fprintf(fid,'Corrections to GPS_Time offsets are complete.\n');
 %                           |___/
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 if flag_do_plots
-    
-    % Nothing to plot        
-    
+
+    % Nothing to plot
+
 end
 
-if  fid
+if flag_do_debug
     fprintf(fid,'ENDING function: %s, in file: %s\n\n',st(1).name,st(1).file);
 end
 
