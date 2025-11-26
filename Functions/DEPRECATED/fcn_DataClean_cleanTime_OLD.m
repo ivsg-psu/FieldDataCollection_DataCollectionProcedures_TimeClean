@@ -1,4 +1,11 @@
 function [cleanDataStruct, subPathStrings]  = fcn_TimeClean_cleanTime(rawDataStruct, varargin)
+
+
+warning('on','backtrace');
+warning(['fcn_DataClean_cleanTime is being deprecated. ' ...
+    'Use fcn_TimeClean_cleanTimeInStruct instead.']);
+
+
 % fcn_TimeClean_cleanTime
 % given a raw data structure, cleans time jumps, time out-of-ordering, and
 % time alignment between ROS and GPS time

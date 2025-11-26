@@ -244,6 +244,13 @@
 % - Deprecated function:
 %   % * From: fcn_Data+Clean_checkDataNameConsistency
 %   % % To: fcn_TimeClean_checkDataNameConsistency
+%
+% 2025_11_25 by Sean Brennan, sbrennan@psu.edu
+% - Renamed function to better distinguish that it is operating only on a
+%   % structure input, not as a full directory-level clean
+%   % From: fcn_TimeClean_cleanTime
+%   % To: fcn_TimeClean_cleanTimeInStruct
+
 
 % Known issues:
 %  (as of 2019_10_04) - Odometry on the rear encoders is quite wonky. For

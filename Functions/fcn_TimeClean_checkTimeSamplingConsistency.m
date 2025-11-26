@@ -63,6 +63,9 @@ function [flags,offending_sensor,return_flag] = fcn_TimeClean_checkTimeSamplingC
 %
 %      offending_sensor: this is the string corresponding to the sensor
 %      field in the data structure that caused a flag to become zero. 
+%
+%      return_flag: flag is set to 1 if return is forced, e.g. an error was
+%      found.
 % 
 % DEPENDENCIES:
 %
@@ -99,6 +102,9 @@ function [flags,offending_sensor,return_flag] = fcn_TimeClean_checkTimeSamplingC
 %   % * From: fcn_LoadRawDataTo+MATLAB_pullDataFromFieldAcrossAllSensors
 %   % * To: fcn_LoadRawDataToMATLAB_pullDataFromFieldAcrossAll
 % - Fixed printing bugs where errors thrown
+%
+% 2025_11_25 by Sean Brennan, sbrennan@psu.edu
+% - Updated docstrings in header to show return_flag output
 
 % TO-DO:
 %
@@ -276,14 +282,14 @@ end
 Ndata = length(sensor_names);
 
 allTimeDifferences = cell(Ndata,1);
-for i_data = 1:Ndata
+for ith_sensor = 1:Ndata
     
     % Grab the sensor subfield name
-    sensor_name = sensor_names{i_data};
+    sensor_name = sensor_names{ith_sensor};
     sensor_data = dataStructure.(sensor_name);
     
     if 0~=fid
-        fprintf(fid,'\t Checking sensor %d of %d: %s\n',i_data,length(sensor_names),sensor_name);
+        fprintf(fid,'\t Checking sensor %d of %d: %s\n',ith_sensor,length(sensor_names),sensor_name);
     end
     
     centiSeconds = sensor_data.centiSeconds(1);
@@ -293,7 +299,7 @@ for i_data = 1:Ndata
     timeData = sensor_data.(field_name);
     timeDifferences = diff(timeData);
     timeDifferences = [timeDifferences; timeDifferences(end)]; %#ok<AGROW>
-    allTimeDifferences{i_data,1} = timeDifferences;
+    allTimeDifferences{ith_sensor,1} = timeDifferences;
 
     % From the time differences, determine where they would round. This is
     % done by calculating the sampling intervals and dividing by the expected sampling
@@ -462,14 +468,14 @@ if flag_do_plots && 1==verificationTypeFlag && isempty(findobj('Number',figNum))
 
     tiledlayout('flow')
 
-    for i_data = 1:Ndata
+    for ith_sensor = 1:Ndata
         nexttile
 
         % make plots
-        data = allTimeDifferences{i_data,1};
+        data = allTimeDifferences{ith_sensor,1};
         histogram(data*100,100,'Normalization','percentage');
         
-        title(sprintf('%s',sensor_names{i_data}),'Interpreter','none');
+        title(sprintf('%s',sensor_names{ith_sensor}),'Interpreter','none');
         xlabel('Sampling Interval (centiSeconds)');
         ylabel('Percentage');
     end

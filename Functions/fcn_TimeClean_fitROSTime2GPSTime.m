@@ -5,7 +5,7 @@ function [flags, fitting_parameters, fit_sensors, mean_fit, filtered_median_erro
 % FORMAT:
 %
 %      [flags, fitting_parameters, fit_sensors, mean_fit, filtered_median_errors] = fcn_TimeClean_fitROSTime2GPSTime(...
-%          dataStructure, (fid), (figNum))
+%          dataStructure, (flags), (fid), (figNum))
 %
 % INPUTS:
 %
@@ -62,6 +62,11 @@ function [flags, fitting_parameters, fit_sensors, mean_fit, filtered_median_erro
 % - Changed in-use function name
 %   % * From: fcn_LoadRawDataTo+MATLAB_pullDataFromFieldAcrossAllSensors
 %   % * To: fcn_LoadRawDataToMATLAB_pullDataFromFieldAcrossAll
+%
+% 2025_11_25 by Sean Brennan, sbrennan@psu.edu
+% - Updated header to include flags input
+% - Fixed bugs caused by mean and median filtering of data that includes
+%   % NaN values. Used 'omitmissing' to prevent this.
 
 % TO-DO:
 %
@@ -256,12 +261,12 @@ for ith_array = 1:length(cell_array_GPS_Time)
     sensor_specific_fitting_errors{ith_array} = this_GPS_Time - this_GPS_Time_predicted;
 
     this_timeDifference = this_GPS_Time - this_ROS_Time;
-    mean_this_timeDifference = mean(this_timeDifference);
+    mean_this_timeDifference = mean(this_timeDifference,'omitmissing');
     sensor_specific_unit_slope_intercepts(ith_array,1) = mean_this_timeDifference;
 end
 
 % Find the average fitting error and smooth it
-mean_sensor_specific_errors = mean([sensor_specific_fitting_errors{:}],2);
+mean_sensor_specific_errors = mean([sensor_specific_fitting_errors{:}],2,'omitmissing');
 median_sensor_specific_errors =  medfilt1(mean_sensor_specific_errors,7,'truncate','omitnan');
 [b,a] = butter(2,0.1);
 try
@@ -273,10 +278,10 @@ end
 return_flag = 1;
 
 % Find the average intercept, assuming unit slope
-meanIntercept = mean(sensor_specific_unit_slope_intercepts);
+meanIntercept = mean(sensor_specific_unit_slope_intercepts,'omitmissing');
 
 % Find errors relative to mean fit
-mean_fit = mean([fitting_parameters{:}],2);
+mean_fit = mean([fitting_parameters{:}],2,'omitmissing');
 tolerance = 1E-3;
 slope = mean_fit(1);
 if abs(slope-1)>tolerance
@@ -288,7 +293,7 @@ end
 % Note that the linear regression slope term adds a VERY small amount of
 % offset error. We have to avoid this!
 if 1==0
-    disp([mean_fit(2); mean(sensor_specific_unit_slope_intercepts)])
+    disp([mean_fit(2); mean(sensor_specific_unit_slope_intercepts)],'omitmissing');
 end
 
 % Adjust the mean fit to force unit slope
@@ -307,8 +312,8 @@ for ith_array = 1:length(cell_array_GPS_Time)
 end
 
 % Find the average fitting error and smooth it
-mean_errors = mean([fitting_errors{:}],2);
-median_errors =  medfilt1(mean_errors,7,'truncate');
+mean_errors = mean([fitting_errors{:}],2,'omitmissing');
+median_errors =  medfilt1(mean_errors,7,'truncate','omitnan');
 [b,a] = butter(2,0.1);
 filtered_median_errors_x = cell_array_GPS_Time{1};
 filtered_median_errors_y = filtfilt(b,a,median_errors);
@@ -328,8 +333,8 @@ for ith_array = 1:length(cell_array_ROS_Time)
 end
 
 % Find the average fitting error from fitting
-mean_GPSfromROS_errors = mean([GPSfromROS_Time_errors{:}],2);
-median_GPSfromROS_errors =  medfilt1(mean_GPSfromROS_errors,7,'truncate');
+mean_GPSfromROS_errors = mean([GPSfromROS_Time_errors{:}],2,'omitmissing');
+median_GPSfromROS_errors =  medfilt1(mean_GPSfromROS_errors,7,'truncate','omitnan');
 [b,a] = butter(2,0.1);
 filtered_median_GPSfromROS_errors = filtfilt(b,a,median_GPSfromROS_errors);
 

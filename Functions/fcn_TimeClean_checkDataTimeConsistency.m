@@ -639,20 +639,24 @@ end
 %% Check if ROS_Time_has_consistent_start_end_across_GPS_sensors
 %    ### ISSUES with this:
 %    * This field is used to calibrate ROS to GPS time via interpolation, and must
-%    be STRICTLY increasing for the interpolation function to work
-%    * If data packets arrive out-of-order with this sensor, times may not
-%    be in an increasing sequence
-%    * If the ROS topic is glitching, its time may be temporarily incorrect
+%    start and end within the same "clock" sample. 
+%    * If the data does not start/stop within same sample, it may need to
+%    be corrected.
 %    ### DETECTION:
-%    * Examine if time data from every sensor is STRICTLY increasing
+%    * Examine if start/end times agree with each other, within half the
+%    sample interval
 %    ### FIXES:
-%    * Remove and interpolate time field if not strictly increasing
+%    * (in later steps) Remove and interpolate time field if not strictly increasing
 %    * Re-order data, if minor ordering error
 
 % Check ROS_Time_has_consistent_start_end_across_GPS_sensors
-[flags, offending_sensor, ~] = fcn_TimeClean_checkConsistencyOfStartEnd(dataStructure, 'ROS_Time', (flags), ('GPS'), ('_across_GPS_sensors'), (.025), (fid), ([]));
+[allCentiSeconds, ~] = fcn_LoadRawDataToMATLAB_pullDataFromFieldAcrossAll(dataStructure, 'centiSeconds', 'GPS');
+maxSamplingIntervalCentiSeconds = max(cell2mat(allCentiSeconds'));
+[flags, offending_sensor, ~] = fcn_TimeClean_checkConsistencyOfStartEnd(dataStructure, 'ROS_Time', (flags), ('GPS'), ('_across_GPS_sensors'), (maxSamplingIntervalCentiSeconds*0.01/2), (fid), ([]));
+
 if 0==flags.ROS_Time_has_consistent_start_end_across_GPS_sensors
-    return
+    warning('backtrace','on');
+    warning('Inconsistent start/end time found on ROS_Time within GPS sensors. Will attempt to fix in later steps.\n\tOffending sensor: %s',offending_sensor);
 end
 
 
@@ -685,7 +689,7 @@ end
 %    * Remove and interpolate time field if not strictly increasing
 
 [flags,offending_sensor,~]  = fcn_TimeClean_checkFieldCountMatchesTimeCount(dataStructure,'ROS_Time',flags,'Trigger_Time','GPS',fid);
-if 0==flags.ROS_Time_has_same_length_as_Trigger_Time_in_GPS_sensors
+if 0==flags.ROS_Time_has_same_length_as_Trigger_Time_in_GPS_sensors && 0==flags.ROS_Time_has_consistent_start_end_across_GPS_sensors
     return
 end
 

@@ -1,5 +1,13 @@
 function [cleanDataStruct, subPathStrings]  = fcn_TimeClean_cleanTime(rawDataStruct, varargin)
-% fcn_TimeClean_cleanTime
+
+
+warning('on','backtrace');
+warning(['fcn_TimeClean_cleanTime is being deprecated. ' ...
+    'Use fcn_TimeClean_cleanTimeInStruct instead.']);
+
+
+
+% fcn_TimeClean_cleanTimeInStruct
 % given a raw data structure, cleans time jumps, time out-of-ordering, and
 % time alignment between ROS and GPS time
 %
@@ -102,6 +110,14 @@ function [cleanDataStruct, subPathStrings]  = fcn_TimeClean_cleanTime(rawDataStr
 % - Changed in-use function name
 %   % * From: fcn_LoadRawDataTo+MATLAB_pullDataFromFieldAcrossAllSensors
 %   % * To: fcn_LoadRawDataToMATLAB_pullDataFromFieldAcrossAll
+%
+% As:
+%
+% 2025_11_25 by Sean Brennan, sbrennan@psu.edu
+% - Renamed function to better distinguish that it is operating only on a
+%   % structure input, not as a full directory-level clean
+%   % From: fcn_TimeClean_cleanTime
+%   % To: fcn_TimeClean_cleanTimeInStruct
 
 % TO-DO:
 %

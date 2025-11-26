@@ -21,7 +21,7 @@ function trimmed_dataStructure = fcn_TimeClean_trimRepeatsFromField(dataStructur
 %      console (FID = 1) is used.
 %
 %      field_name: a string idicating the field to be checked, for example
-%      'GPS_Time' (default)
+%      'GPS_Time' (default is '', which returns all sensors)
 %
 %      sensors_to_check: a string idicating the sensors to be checked, for
 %      example 'GPS' (default)
@@ -136,7 +136,7 @@ end
 
 
 % Check for user-defined field_name input
-field_name = 'GPS_Time'; % Set the default
+field_name = ''; % Set the default
 if 3 <= nargin
     temp = varargin{2};
     if ~isempty(temp)

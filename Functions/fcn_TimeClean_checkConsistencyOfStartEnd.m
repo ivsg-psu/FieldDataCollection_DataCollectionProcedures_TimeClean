@@ -46,6 +46,9 @@ function [flags,offending_sensor, return_flag] = fcn_TimeClean_checkConsistencyO
 %      offending_sensor: this is the string corresponding to the sensor
 %      field in the data structure that caused a flag to become zero.
 %
+%      return_flag: flag is set to 1 if return is forced, e.g. an error was
+%      found.
+%
 % DEPENDENCIES:
 %
 %      fcn_LoadRawDataToMATLAB_pullDataFromFieldAcrossAll
@@ -73,6 +76,9 @@ function [flags,offending_sensor, return_flag] = fcn_TimeClean_checkConsistencyO
 % - Changed in-use function name
 %   % * From: fcn_LoadRawDataTo+MATLAB_pullDataFromFieldAcrossAllSensors
 %   % * To: fcn_LoadRawDataToMATLAB_pullDataFromFieldAcrossAll
+%
+% 2025_11_25 by Sean Brennan, sbrennan@psu.edu
+% - Updated docstrings in header to show return_flag output
 
 % TO-DO:
 %
