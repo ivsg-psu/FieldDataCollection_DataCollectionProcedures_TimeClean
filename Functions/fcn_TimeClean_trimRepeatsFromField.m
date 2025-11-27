@@ -6,7 +6,6 @@ function trimmed_dataStructure = fcn_TimeClean_trimRepeatsFromField(dataStructur
 % Also allows the type of sensor, for example 'GPS', to be selected.
 %
 % FORMAT:
-%
 %      trimmed_dataStructure = fcn_INTERNAL_trimRepeatsFromField(...
 %         dataStructure, (fid), (field_name), (sensors_to_check))
 %
@@ -21,10 +20,10 @@ function trimmed_dataStructure = fcn_TimeClean_trimRepeatsFromField(dataStructur
 %      console (FID = 1) is used.
 %
 %      field_name: a string idicating the field to be checked, for example
-%      'GPS_Time' (default is '', which returns all sensors)
+%      'GPS_Time' 
 %
 %      sensors_to_check: a string idicating the sensors to be checked, for
-%      example 'GPS' (default)
+%      example 'GPS' (default is '', which returns all sensors)
 %
 % OUTPUTS:
 %
@@ -56,6 +55,12 @@ function trimmed_dataStructure = fcn_TimeClean_trimRepeatsFromField(dataStructur
 % - Changed in-use function name
 %   % * From: fcn_LoadRawDataTo+MATLAB_pullDataFromFieldAcrossAllSensors
 %   % * To: fcn_LoadRawDataToMATLAB_pullDataFromFieldAcrossAll
+%
+% 2025_11_26 by Sean Brennan, sbrennan@psu.edu
+% - Fixed bug where NaN repeated values getting caught as repeats, but not
+%   % being fixed. Corrected this by separating the NaN checking from the
+%   % unique values checking, and keeping only indices that are unique AND not
+%   % NaN valued.
 
 % TO-DO:
 %
@@ -145,7 +150,7 @@ if 3 <= nargin
 end
 
 % Check for user-defined field_name input
-sensors_to_check = 'GPS'; % Set the default
+sensors_to_check = ''; % Set the default
 if 3 <= nargin
     temp = varargin{3};
     if ~isempty(temp)
@@ -167,6 +172,8 @@ flag_do_plots = 0;  % % Flag to plot the final results
 %
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
+
+%%%%%%%%%%%%%%%%%%%%%%%%%
 % Report what we are doing
 if 0<fid
     fprintf(fid,'Checking for repeats in %s data ',field_name);
@@ -176,33 +183,65 @@ end
 % Initialize the outputs
 trimmed_dataStructure = dataStructure;
 
+
 % Produce a list of all the sensors that meet the search criteria, and grab
 % their data also
-[data,sensorNames] = fcn_LoadRawDataToMATLAB_pullDataFromFieldAcrossAll(dataStructure, field_name,sensors_to_check);
+[data,sensorNames] = fcn_LoadRawDataToMATLAB_pullDataFromFieldAcrossAll(dataStructure, field_name, sensors_to_check);
+
+
+
+
+% Used to create test data
+if 1==0
+    fullExampleFilePath = fullfile(cd,'Data','ExampleData_pullDataFromFieldAcrossAll.mat');
+    save(fullExampleFilePath,'dataStructure','field_name','sensors_to_check');
+end
+
 
 for ith_data = 1:length(sensorNames)
     % Grab the sensor subfield name and the data
-    sensor_name = sensorNames{ith_data};
-    sensor_data = dataStructure.(sensor_name);
-    field_data = data{ith_data};
+    this_sensor_name = sensorNames{ith_data};
+    this_sensor_all_data = dataStructure.(this_sensor_name);
+    this_sensor_targetedfield_data = data{ith_data};
+    numThisData = length(this_sensor_targetedfield_data);
 
     if 0~=fid
-        fprintf(fid,'\t Checking sensor %d of %d: %s\n',ith_data,length(sensorNames),sensor_name);
+        fprintf(fid,'\t Checking sensor %d of %d: %s\n',ith_data,length(sensorNames),this_sensor_name);
     end
 
-    % Find the unique values, indicies_data (indicies of what data to
-    % keep), and indicies_unique (indicies indicating which data was
-    % repeated)
-    [~,indicies_data,indicies_unique] = unique(field_data,'rows','stable');
+    numNan = 0;
+    indiciesNotNan = true(numThisData,1);
+    if any(isnan(this_sensor_targetedfield_data))
+        numNan = sum(isnan(this_sensor_all_data));
+        indiciesNotNan(isnan(this_sensor_all_data),1) = false;
+        this_sensor_targetedfield_data = fillmissing(this_sensor_targetedfield_data, 'linear'); 
+    end
+
+    [unique_values,indicies_data,indicies_unique] = unique(this_sensor_targetedfield_data,'rows','stable');
+    
+    % For debugging
+    if 1==0
+        disp([unique_values == sensor_data.(field_name) sensor_data.(field_name)])
+    end
+
 
     Nrepeats = length(indicies_unique)-length(indicies_data);
-    if 0==Nrepeats
+    if 0==Nrepeats && (0==numNan)
         if fid>0
             fprintf(fid,'\t\t No repeats found\n');
         end
     else
+ 
+        % Find indicies that are not repeats
+        indiciesNotRepeats = false(numThisData,1);
+        indiciesNotRepeats(indicies_data) = true;
+
+        % Combine the indicies that are unique AND not NaN
+        indiciesGood = indiciesNotRepeats & indiciesNotNan;
+        numGood = sum(indiciesGood);
+        
         if fid>0
-            fprintf(fid,'\t\t A total of %.0d repeats discovered.\n',Nrepeats);
+            fprintf(fid,'\t\t A total of %.0f repeats and %.0f NaN values discovered out of %.0f values. Expecting only %.0f values to remain after trimming.\n',Nrepeats, numNan, numThisData, numGood);
         end
         
         % Warn the user if there are a ton of repeats!
@@ -210,7 +249,7 @@ for ith_data = 1:length(sensorNames)
             if fid==1
                 warning('on','backtrace');
                 warning('Fault sensor detected.');
-                fcn_DebugTools_cprintf('-Red','\t\t WARNING: More than 10%% of data is repeated - this indicates a faulty sensor!\n');
+                fcn_DebugTools_cprintf('-Red','\t\t WARNING: More than 10%% of data is repeated - this usually indicates a faulty sensor!\n');
             else
                 warning('on','backtrace');
                 warning('More than 10%% of data is repeated in a sensor field - this indicates a faulty sensor!');
@@ -225,10 +264,10 @@ for ith_data = 1:length(sensorNames)
         
         % Define the reference length - all arrays in the sensor must match
         % this one
-        lengthReference = length(field_data);
+        lengthReference = length(this_sensor_targetedfield_data);
         
         % Loop through subfields
-        subfieldNames = fieldnames(sensor_data);
+        subfieldNames = fieldnames(this_sensor_all_data);
         for i_subField = 1:length(subfieldNames)
             % Grab the name of the ith subfield
             subFieldName = subfieldNames{i_subField};
@@ -236,24 +275,24 @@ for ith_data = 1:length(sensorNames)
                 fprintf(fid,'\t\t\t Checking field: %s.\n',subFieldName);
             end
             
-            if ~iscell(dataStructure.(sensor_name).(subFieldName)) % Is it a cell? If yes, skip it
-                if length(dataStructure.(sensor_name).(subFieldName)) ~= 1 % Is it a scalar? If yes, skip it
+            if ~iscell(dataStructure.(this_sensor_name).(subFieldName)) % Is it a cell? If yes, skip it
+                if length(dataStructure.(this_sensor_name).(subFieldName)) ~= 1 % Is it a scalar? If yes, skip it
                     % It's an array, make sure it has right length
-                    if lengthReference~= length(dataStructure.(sensor_name).(subFieldName))
+                    if lengthReference ~= length(dataStructure.(this_sensor_name).(subFieldName))
                         warning('on','backtrace');
                         warning('Bad sensor detected.');
-                        error('Sensor %s contains a datafield %s that has an amount of data not equal to the query field. This is usually because data is missing.',sensor_name,subFieldName);
+                        error('Sensor %s contains a datafield %s that has an amount of data not equal to the query field. This is usually because data is missing.',this_sensor_name,subFieldName);
                     end
                     
                     % Replace the values
-                    trimmed_dataStructure.(sensor_name).(subFieldName) = dataStructure.(sensor_name).(subFieldName)(indicies_data,:);
+                    trimmed_dataStructure.(this_sensor_name).(subFieldName) = dataStructure.(this_sensor_name).(subFieldName)(indiciesGood,:);
                 end
             end
             
         end % Ends for loop through the subfields
         
         % Fix the Npoints
-        trimmed_dataStructure.(sensor_name).Npoints = length(indicies_data);
+        trimmed_dataStructure.(this_sensor_name).Npoints = numGood;
     end % Ends if
 end % Ends for loop
 

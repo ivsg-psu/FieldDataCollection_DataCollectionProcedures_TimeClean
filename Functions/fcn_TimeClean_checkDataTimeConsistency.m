@@ -845,6 +845,8 @@ end
 %    * Examine if time values are unique
 %    ### FIXES:
 %    * Remove repeats
+
+% FORMAT: [flags,offending_sensor] = fcn_TimeClean_checkIfFieldHasRepeatedValues(dataStructure, field_name, (flags), (sensors_to_check), (fid), (figNum))
 [flags,offending_sensor] = fcn_TimeClean_checkIfFieldHasRepeatedValues(dataStructure,'ROS_Time',flags, [], (fid),(-1));
 if 0==flags.ROS_Time_has_no_repeats_in_all_sensors
     return

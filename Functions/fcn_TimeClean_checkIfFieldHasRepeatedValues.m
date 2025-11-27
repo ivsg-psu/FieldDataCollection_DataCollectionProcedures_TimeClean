@@ -220,10 +220,10 @@ for i_data = 1:length(sensor_names)
     sensor_data = dataStructure.(sensor_name);
     
     if 0~=fid
-        fprintf(fid,'\t Checking sensor %d of %d: %s\n',i_data,length(sensor_names),sensor_name);
+        fprintf(fid,'\t Checking sensor %d of %d named %s: ',i_data,length(sensor_names),sensor_name);
     end
     
-    unique_values = unique(sensor_data.(field_name),'stable');
+    [unique_values, IA, IC] = unique(sensor_data.(field_name),'rows','stable');
     
     % For debugging
     if 1==0
@@ -233,11 +233,20 @@ for i_data = 1:length(sensor_names)
     if all(isnan(sensor_data.(field_name)))
         flag_no_repeats_detected = 1;
     else
-        indiciesToTest = find(~isnan(sensor_data.(field_name)));
+        indiciesToTest = ~isnan(sensor_data.(field_name));
+        NumNaNs = sum(~indiciesToTest);
+        Numrepeats = length(IC) - length(IA);
 
-        if ~isequal(unique_values, sensor_data.(field_name)(indiciesToTest))
+        dataNoNaNs = sensor_data.(field_name)(indiciesToTest);
+        if ~isequal(unique_values, dataNoNaNs)
+            if 0~=fid
+                fprintf(fid,'\t FAILED. Found %.0f NaNs and %.0f repeats.\n', NumNaNs,Numrepeats);
+            end
             flag_no_repeats_detected = 0;
         else
+            if 0~=fid
+                fprintf(fid,'\t PASSED. \n');
+            end
             flag_no_repeats_detected = 1;
         end
     end
@@ -247,6 +256,10 @@ for i_data = 1:length(sensor_names)
     if 0==flags.(flag_name)
         offending_sensor = sensor_name; % Save the name of the sensor
         return_flag = 1; % Indicate that the return was forced
+        if 0~=fid
+            fprintf(fid,'\n\tExiting due to failure. Not all sensor checks complete.\n\tFlag %s set to: %.0f\n\n',flag_name, flag_no_repeats_detected);
+        end
+
         return; % Exit the function immediately to avoid more processing
     end
 end % Ends for loop
@@ -254,7 +267,7 @@ end % Ends for loop
 
 % Tell the user what is happening?
 if 0~=fid
-    fprintf(fid,'\n\t Flag %s set to: %.0d\n\n',flag_name, flag_no_repeats_detected);
+    fprintf(fid,'\n\tAll sensor checks complete.\n\tFlag %s set to: %.0f\n\n',flag_name, flag_no_repeats_detected);
 end
 
 

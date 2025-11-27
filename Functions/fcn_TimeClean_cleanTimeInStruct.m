@@ -877,7 +877,7 @@ while 1==flag_stay_in_main_loop
 
     % Make sure centieconds in all
 
-    %% Check if centiSeconds_exists_in_all_sensors
+    %% ERROR if centiSeconds_exists_in_all_sensors
     %    ### ISSUES with this:
     %    * This field defines the expected sample rate for each sensor
     %    ### DETECTION:
@@ -886,14 +886,14 @@ while 1==flag_stay_in_main_loop
     %    * Manually fix, or
     %    * Remove this sensor
 
-    if (1==flag_keep_checking) && (0==timeFlags.centiSeconds_exists_in_all_GPS_sensors)
+    if (1==flag_keep_checking) && (0==timeFlags.centiSeconds_exists_in_all_sensors)
         disp(nextDataStructure.(offending_sensor))
         warning('on','backtrace');
         warning('Fundamental error on GPS_time: a GPS sensor is missing centiSeconds!?');
         error('Catastrophic data error detected: the following GPS sensor is missing centiSeconds: %s.',offending_sensor);
     end
 
-    %% Check if ROS_Time_has_no_repeats_in_all_sensors
+    %% FIX if ROS_Time_has_no_repeats_in_all_sensors
     %    ### ISSUES with this:
     %    * If there are any repeated time values, the interpolation in
     %    later steps will break
@@ -908,6 +908,9 @@ while 1==flag_stay_in_main_loop
         warning('This code section probably works, but has not been tested.');
         field_name = 'ROS_Time';
         sensors_to_check = '';
+        % FORMAT:
+        %      trimmed_dataStructure = fcn_INTERNAL_trimRepeatsFromField(...
+        %         dataStructure, (fid), (field_name), (sensors_to_check))
         nextDataStructure = fcn_TimeClean_trimRepeatsFromField(nextDataStructure,fid, field_name, sensors_to_check);
         flag_keep_checking = 0;
     end
