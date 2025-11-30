@@ -67,7 +67,7 @@ dataStructure_cleanedTime = fcn_TimeClean_cleanTimeInStruct(dataStructure_cleane
 assert(isstruct(dataStructure_cleanedNames))
 
 
-%% Test 1: Load all bag files from one given directory and all subdirectories
+%% Test 2: Load all bag files from one given directory and all subdirectories
 % % figNum = 1;
 % % if ~isempty(findobj('Number',figNum))
 % %     figure(figNum);

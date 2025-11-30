@@ -198,7 +198,8 @@ flag_do_plots = 0;  % % Flag to plot the final results
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 %% Tell user what we are doing?
-if 0~=fid
+if fid>0
+
     if isempty(sensors_to_check)
         summary_name = 'all';
     else
@@ -271,10 +272,11 @@ GPS_Time_endVector   = [GPS_Time_end{:}]';
 % global start and end times.
 [allGPSSensor_GPS_startTime_Seconds, allGPSSensor_GPS_endTime_Seconds] = fcn_INTERNAL_extractStartStopTimes(GPS_Time_sensorNames, GPS_centiSeconds, GPS_Time_startVector, GPS_Time_endVector, fid);
 allGPSsensor_GPS_time_duration = allGPSSensor_GPS_endTime_Seconds-allGPSSensor_GPS_startTime_Seconds;
-fprintf(fid,'\t The GPS_Time that contains all reference sensors has the following range (with offset: %.0f seconds): \n',debuggingOffset);
-fprintf(fid,'\t\t Start Time (UTC seconds): %.3f\n',allGPSSensor_GPS_startTime_Seconds);
-fprintf(fid,'\t\t End Time   (UTC seconds): %.3f\n',allGPSSensor_GPS_endTime_Seconds);
-
+if fid>0
+    fprintf(fid,'\t The GPS_Time that contains all reference sensors has the following range (with offset: %.0f seconds): \n',debuggingOffset);
+    fprintf(fid,'\t\t Start Time (UTC seconds): %.3f\n',allGPSSensor_GPS_startTime_Seconds);
+    fprintf(fid,'\t\t End Time   (UTC seconds): %.3f\n',allGPSSensor_GPS_endTime_Seconds);
+end
 
 %% Step 3: determine the offset of the user-requested time field relative to GPS_Time
 % Any non-GPS time does not have the same origin as the GPS time, so if the
@@ -316,7 +318,7 @@ end
 %    1.0:  NaN
 
 
-if 0~=fid
+if fid>0
     fprintf(fid,'\t Calculating index mapping for %s across these sensors: \n',field_name);
 end
 
@@ -331,8 +333,10 @@ for ith_sensor = 1:N_referenceSensors
     sensor_centiSeconds     = GPS_centiSeconds{ith_sensor};
     sensor_time_in_GPS_time = SENSOR_Time_data{ith_sensor} - offsetSensorRelativeToGPS;
 
-    fprintf(fid,'\t Sensor: %s \n',sensor_name);
-    fprintf(fid,'\t\t Sorted?: %.0f\n',~any(diff(sensor_time_in_GPS_time)<=0));
+    if fid>0
+        fprintf(fid,'\t Sensor: %s \n',sensor_name);
+        fprintf(fid,'\t\t Sorted?: %.0f\n',~any(diff(sensor_time_in_GPS_time)<=0));
+    end
 
     indiciesLocalUsed_InReference{ith_sensor} = fcn_INTERNAL_findIndexMapping(allGPSSensor_GPS_startTime_Seconds, allGPSsensor_GPS_time_duration, sensor_centiSeconds, sensor_time_in_GPS_time, fid);
     replacement_reference{ith_sensor} = fcn_INTERNAL_mapSensorIndicies(allGPSSensor_GPS_startTime_Seconds, sensor_time_in_GPS_time, sensor_centiSeconds, indiciesLocalUsed_InReference{ith_sensor}, allGPSsensor_GPS_time_duration, fill_type, debuggingOffset, fid);
@@ -352,7 +356,7 @@ if strcmp(field_name,'GPS_Time')
         lengthReference                      = GPS_Time_referenceLength(ith_sensor,1);
 
         % Tell user what we are doing
-        if 0~=fid
+        if fid>0
             fprintf(fid,'\t Trimming sensor %d of %d to have correct start and end %s values: %s\n',ith_sensor,length(GPS_Time_sensorNames),field_name, sensor_name);
         end
 
@@ -411,7 +415,7 @@ for i_data = 1:N_GPSsensors
     sensor_name       = GPS_Time_sensorNames{i_data};
     sensor_centiSeconds = GPS_centiSeconds{i_data};
 
-    if 0~=fid
+    if fid>0
         fprintf(fid,'\t Checking sensor %d of %d: %s\n',i_data,length(GPS_Time_sensorNames),sensor_name);
     end
 
@@ -662,7 +666,7 @@ end
 %% fcn_INTERNAL_findIndexMapping
 function indiciesLocalUsedInReference = fcn_INTERNAL_findIndexMapping(allSensor_startTime_Seconds, allsensor_time_duration, sensor_centiSeconds, sensor_time, fid)
 
-flag_doDebug = 1;
+flag_doDebug = 0;
 DEBUG_Nprints = 20;
 
 % Determine the reference time sequence to check
@@ -860,7 +864,7 @@ if 0==fill_type
     % Keep the NaN
 elseif 1==fill_type
 
-    if 0~=fid
+    if fid>0
         fprintf(fid,'\t\t Removing NaN values.\n');
     end
 

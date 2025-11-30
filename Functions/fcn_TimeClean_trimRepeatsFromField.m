@@ -61,6 +61,12 @@ function trimmed_dataStructure = fcn_TimeClean_trimRepeatsFromField(dataStructur
 %   % being fixed. Corrected this by separating the NaN checking from the
 %   % unique values checking, and keeping only indices that are unique AND not
 %   % NaN valued.
+%
+% 2025_11_28 by Sean Brennan, sbrennan@psu.edu
+% - In fcn_TimeClean_trimRepeatsFromField
+%   % * Fixed bug where wrong variable used for NaN index counting
+%   % * Made variable usage clearer, avoiding variable reuse
+
 
 % TO-DO:
 %
@@ -212,12 +218,14 @@ for ith_data = 1:length(sensorNames)
     numNan = 0;
     indiciesNotNan = true(numThisData,1);
     if any(isnan(this_sensor_targetedfield_data))
-        numNan = sum(isnan(this_sensor_all_data));
-        indiciesNotNan(isnan(this_sensor_all_data),1) = false;
-        this_sensor_targetedfield_data = fillmissing(this_sensor_targetedfield_data, 'linear'); 
+        numNan = sum(isnan(this_sensor_targetedfield_data));
+        indiciesNotNan(isnan(this_sensor_targetedfield_data),1) = false;
+        this_sensor_targetedfield_data_FILLED = fillmissing(this_sensor_targetedfield_data, 'linear'); 
+    else
+        this_sensor_targetedfield_data_FILLED = this_sensor_targetedfield_data;
     end
 
-    [unique_values,indicies_data,indicies_unique] = unique(this_sensor_targetedfield_data,'rows','stable');
+    [unique_values,indicies_data,indicies_unique] = unique(this_sensor_targetedfield_data_FILLED,'rows','stable');
     
     % For debugging
     if 1==0
@@ -264,7 +272,7 @@ for ith_data = 1:length(sensorNames)
         
         % Define the reference length - all arrays in the sensor must match
         % this one
-        lengthReference = length(this_sensor_targetedfield_data);
+        lengthReference = length(this_sensor_targetedfield_data_FILLED);
         
         % Loop through subfields
         subfieldNames = fieldnames(this_sensor_all_data);

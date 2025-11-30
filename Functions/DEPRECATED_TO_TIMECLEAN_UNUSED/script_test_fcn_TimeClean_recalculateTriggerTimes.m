@@ -4,6 +4,16 @@
 % Revision history
 % 2023_06_25 - sbrennan@psu.edu
 % -- wrote the code originally
+%
+% 2025_11_29 by Sean Brennan, sbrennan@psu.edu
+% - Added a test case that was failing from cleanTimeInStruct (first demo)
+
+% TO-DO:
+%
+% 2025_11_24 by Sean Brennan, sbrennan@psu.edu
+% - (insert items here)
+
+
 
 %% Set up the workspace
 close all
@@ -70,6 +80,15 @@ fprintf(1,'\nCASE 3: Done!\n\n');
 [flags, ~] = fcn_TimeClean_checkDataTimeConsistency(fixed_dataStructure);
 assert(isequal(flags.Trigger_Time_exists_in_all_GPS_sensors,1));
 
+%% TEST case:
+% Using data collected from cleanTimeInStruct
+fullExampleFilePath = fullfile(cd,'Data','ExampleData_recalculateTriggerTimes.mat');
+load(fullExampleFilePath,'dataStructure');
+
+fid = 1;
+
+temp = fcn_TimeClean_recalculateTriggerTimes(dataStructure,[],fid);
+        
 
 
 %% Fail conditions

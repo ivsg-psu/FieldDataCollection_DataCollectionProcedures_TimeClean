@@ -250,6 +250,13 @@
 %   % structure input, not as a full directory-level clean
 %   % From: fcn_TimeClean_cleanTime
 %   % To: fcn_TimeClean_cleanTimeInStruct
+%
+% 2025_11_28 by Sean Brennan, sbrennan@psu.edu
+% - In fcn_TimeClean_trimRepeatsFromField
+%   % * Fixed bug where wrong variable used for NaN index counting
+%   % * Made variable usage clearer, avoiding variable reuse
+% - In script_test_fcn_TimeClean_trimRepeatsFromField
+%   % * Added test case 20001 to track down issues with NaN calculations
 
 
 % Known issues:

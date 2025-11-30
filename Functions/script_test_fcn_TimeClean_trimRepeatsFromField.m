@@ -17,6 +17,11 @@
 %   % unique values checking, and keeping only indices that are unique AND not
 %   % NaN valued.
 % - Added structure to demo script to move it more toward standard form
+%
+% 2025_11_28 by Sean Brennan, sbrennan@psu.edu
+% - In script_test_fcn_TimeClean_trimRepeatsFromField
+%   % * Added test case 20001 to track down issues with NaN calculations
+
 
 % TO-DO:
 % 2025_11_21 by Sean Brennan, sbrennan@psu.edu
@@ -98,7 +103,7 @@ assert(~any(figHandles==figNum));
 
 
 %% DEMO case: Test dataset with repeated values in the GPS_Hemisphere time using a generic call
-figNum = 10001;
+figNum = 10002;
 titleString = sprintf('DEMO case: Test dataset with repeated values in the GPS_Hemisphere time using a generic call');
 fprintf(1,'Figure %.0f: %s\n',figNum, titleString);
 figure(figNum); close(figNum);
@@ -167,11 +172,44 @@ figure(figNum); close(figNum);
 close all;
 fprintf(1,'Figure: 2XXXXXX: TEST mode cases\n');
 
-%% TEST case: Two polytopes with clear space right down middle, edge 5 to 8 on polytope
+%% TEST case: Error in case 1 of cleanTimeInStruct
 figNum = 20001;
-titleString = sprintf('TEST case: Two polytopes with clear space right down middle, edge 5 to 8 on polytope');
+titleString = sprintf('TEST case: Error in case 1 of cleanTimeInStruct');
 fprintf(1,'Figure %.0f: %s\n',figNum, titleString);
-figure(figNum); clf;
+figure(figNum); close(figNum);
+
+fid = 1;
+
+
+fullExampleFilePath = fullfile(cd,'Data','ExampleData_trimRepeatsFromField_Case20001.mat');
+load(fullExampleFilePath,'dataStructure','field_name','sensors_to_check');
+
+% Fix the data using default call
+% FORMAT:
+%      trimmed_dataStructure = fcn_INTERNAL_trimRepeatsFromField(...
+%         dataStructure, (fid), (field_name), (sensors_to_check))
+trimmed_dataStructure = fcn_TimeClean_trimRepeatsFromField(dataStructure, (fid), (field_name), (sensors_to_check));
+
+
+% sgtitle(titleString, 'Interpreter','none');
+
+% Check variable types
+assert(isstruct(dataStructure));
+
+% Check variable sizes
+assert(size(dataStructure,1)==1); 
+assert(size(dataStructure,2)==1); 
+
+% Check variable values
+[flags,offending_sensor] = fcn_TimeClean_checkIfFieldHasRepeatedValues(trimmed_dataStructure, field_name, [], sensors_to_check, (fid),(1));
+assert(isequal(flags.ROS_Time_has_no_repeats_in_all_sensors,1));
+
+% % Make sure plot opened up
+% assert(isequal(get(gcf,'Number'),figNum));
+
+% Make sure plot did NOT open up
+figHandles = get(groot, 'Children');
+assert(~any(figHandles==figNum));
 
 
 
