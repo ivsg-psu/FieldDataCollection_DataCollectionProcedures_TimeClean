@@ -205,55 +205,10 @@ end
 %%%% Find start time
 centitime_all_sensors_have_started_GPS_Time = fcn_INTERNAL_findCommonStartEndTime(dataStructure, sensorType, 'first', sensor_names_centiSeconds,max_sampling_period_centiSeconds, fid);
 
-% [cell_array_GPS_Time_start,sensor_names_GPS_Time]         = fcn_LoadRawDataToMATLAB_pullDataFromFieldAcrossAll(dataStructure, 'GPS_Time',sensorType,'first_row');
-% 
-% % Confirm that both results are identical
-% if ~isequal(sensor_names_GPS_Time,sensor_names_centiSeconds)
-%     warning('on','backtrace');
-%     warning('Sensors were found that were missing either GPS_Time or centiSeconds.');
-%     error('Sensors were found that were missing either GPS_Time or centiSeconds. Unable to calculate Trigger_Times.');
-% end
-% 
-% % Convert GPS_Time_start to a column matrix
-% array_GPS_Time_start = cell2mat(cell_array_GPS_Time_start)';
-% 
-% % Find when each sensor's start time lands on this centiSecond value, rounding up
-% all_start_times_centiSeconds = ceil(100*array_GPS_Time_start/max_sampling_period_centiSeconds)*max_sampling_period_centiSeconds;
-% 
-% % Warn if max/min are WAY off (like more than 1 second)
-% if (max(all_start_times_centiSeconds)-min(all_start_times_centiSeconds))>100
-%     warning('on','backtrace');
-%     warning('The start times on different sensors appear to be untrimmed to same value.');
-%     error('The start times on different sensors appear to be untrimmed to same value. The Trigger_Time calculations will give incorrect results if the data are not trimmed first.');
-% end
-% centitime_all_sensors_have_started_GPS_Time = max(all_start_times_centiSeconds);
-% 
-% % Show the results?
-% if fid
-%     longest_name_string = 0;
-%     for ith_name = 1:length(sensor_names_GPS_Time)
-%         if length(sensor_names_GPS_Time{ith_name})>longest_name_string
-%             longest_name_string = length(sensor_names_GPS_Time{ith_name});
-%         end
-%     end
-%     fprintf(fid,'\t \t Summarizing start times: \n');
-%     sensor_title_string = fcn_DebugTools_debugPrintStringToNCharacters('Sensors:',longest_name_string);
-%     posix_title_string = fcn_DebugTools_debugPrintStringToNCharacters('Posix Time (sec since 1970):',29);
-%     datetime_title_string = fcn_DebugTools_debugPrintStringToNCharacters('Date Time:',25);
-%     fprintf(fid,'\t \t %s \t %s \t %s \n',sensor_title_string,posix_title_string,datetime_title_string);
-%     for ith_data = 1:length(sensor_names_GPS_Time)
-%         sensor_data_string = fcn_DebugTools_debugPrintStringToNCharacters(sensor_names_GPS_Time{ith_data},longest_name_string);
-%         posix_data_string = fcn_DebugTools_debugPrintStringToNCharacters(sprintf('%.6f',array_GPS_Time_start(ith_data)),29);
-%         time_in_datetime = datetime(array_GPS_Time_start(ith_data),'convertfrom','posixtime','format','yyyy-MM-dd HH:mm:ss.SSS');
-% 
-%         time_string = sprintf('%s',time_in_datetime);
-%         datetime_data_string = fcn_DebugTools_debugPrintStringToNCharacters(time_string,25);
-%         fprintf(fid,'\t \t %s \t %s \t %s \n',sensor_data_string,posix_data_string,datetime_data_string);
-%     end
-%     fprintf(fid,'\n');
-% end
 
-%% Find end time
+%%% Find end time
+centitime_all_sensors_have_ended_GPS_Time = fcn_INTERNAL_findCommonStartEndTime(dataStructure, sensorType, 'last', sensor_names_centiSeconds, max_sampling_period_centiSeconds, fid);
+
 % [cell_array_GPS_Time_end,sensor_names_GPS_Time]         = fcn_LoadRawDataToMATLAB_pullDataFromFieldAcrossAll(dataStructure, 'GPS_Time',sensorType,'last_row');
 %  
 % % Confirm that both results are identical
@@ -451,7 +406,7 @@ if strcmpi(stringFirstOrLast,'first')
     all_times_centiSeconds = ceil(100*array_GPS_Time/max_sampling_period_centiSeconds)*max_sampling_period_centiSeconds;
     centitime_all_sensors_from_GPS_Time = max(all_times_centiSeconds);
 else
-    all_times_centiSeconds = floor(100*array_GPS_Time_end/max_sampling_period_centiSeconds)*max_sampling_period_centiSeconds;
+    all_times_centiSeconds = floor(100*array_GPS_Time/max_sampling_period_centiSeconds)*max_sampling_period_centiSeconds;
     centitime_all_sensors_from_GPS_Time = min(all_times_centiSeconds);
 
 end
@@ -467,19 +422,19 @@ end
 
 % Show the results?
 if fid
-    longest_name_string = 0;
+    longestStringLength = 0;
     for ith_name = 1:length(sensor_names_GPS_Time)
-        if length(sensor_names_GPS_Time{ith_name})>longest_name_string
-            longest_name_string = length(sensor_names_GPS_Time{ith_name});
+        if length(sensor_names_GPS_Time{ith_name})>longestStringLength
+            longestStringLength = length(sensor_names_GPS_Time{ith_name});
         end
     end
     fprintf(fid,'\t \t Summarizing %s times: \n', stringFirstOrLast);
-    sensor_title_string = fcn_DebugTools_debugPrintStringToNCharacters('Sensors:',longest_name_string);
+    sensor_title_string = fcn_DebugTools_debugPrintStringToNCharacters('Sensors:',longestStringLength);
     posix_title_string = fcn_DebugTools_debugPrintStringToNCharacters('Posix Time (sec since 1970):',29);
     datetime_title_string = fcn_DebugTools_debugPrintStringToNCharacters('Date Time:',25);
     fprintf(fid,'\t \t %s \t %s \t %s \n',sensor_title_string,posix_title_string,datetime_title_string);
     for ith_data = 1:length(sensor_names_GPS_Time)
-        sensor_data_string = fcn_DebugTools_debugPrintStringToNCharacters(sensor_names_GPS_Time{ith_data},longest_name_string);
+        sensor_data_string = fcn_DebugTools_debugPrintStringToNCharacters(sensor_names_GPS_Time{ith_data},longestStringLength);
         posix_data_string = fcn_DebugTools_debugPrintStringToNCharacters(sprintf('%.6f',array_GPS_Time(ith_data)),29);
         time_in_datetime = datetime(array_GPS_Time(ith_data),'convertfrom','posixtime','format','yyyy-MM-dd HH:mm:ss.SSS');
         
@@ -487,6 +442,9 @@ if fid
         datetime_data_string = fcn_DebugTools_debugPrintStringToNCharacters(time_string,25);
         fprintf(fid,'\t \t %s \t %s \t %s \n',sensor_data_string,posix_data_string,datetime_data_string);
     end
+    finalresults_title_string = fcn_DebugTools_debugPrintStringToNCharacters(sprintf('Calculated %s centiTime:',stringFirstOrLast),longestStringLength);
+    finalresults_number_string = fcn_DebugTools_debugPrintStringToNCharacters(sprintf('%.0f',centitime_all_sensors_from_GPS_Time),29);
+    fprintf(fid,'\t \t %s \t %s \n',finalresults_title_string,finalresults_number_string);
     fprintf(fid,'\n');
 end
 end % Ends fcn_INTERNAL_findCommonStartEndTime
