@@ -1463,22 +1463,25 @@ while 1==flag_stay_in_main_loop
         sensors_to_check = [];
         fill_type = 1;
         nextDataStructure = fcn_TimeClean_trimDataToCommonStartEndGPSTimes(nextDataStructure, (field_name), (sensors_to_check), (fill_type), (fid));
-        
-        [startTimes, sensorsToTrim_names] = fcn_LoadRawDataToMATLAB_pullDataFromFieldAcrossAll(nextDataStructure, 'GPSfromROS_Time', 'GPS','first_row');
-        startValues = cell2mat(startTimes');
-        readableValues = startValues - startValues(1);
 
-        [startGPSTimes, ~] = fcn_LoadRawDataToMATLAB_pullDataFromFieldAcrossAll(nextDataStructure, 'GPS_Time', 'GPS','first_row');
-        startValuesGPS = cell2mat(startGPSTimes');
-        readableValuesGPSstart = startValuesGPS - startValuesGPS(1);
+        % For debugging
+        if 1==0
+            [startTimes, ~] = fcn_LoadRawDataToMATLAB_pullDataFromFieldAcrossAll(nextDataStructure, 'GPSfromROS_Time', 'GPS','first_row');
+            startValues = cell2mat(startTimes');
+            readableValues = startValues - startValues(1);
 
-        [finishTimes, ~] = fcn_LoadRawDataToMATLAB_pullDataFromFieldAcrossAll(nextDataStructure, 'GPSfromROS_Time', 'GPS','last_row');
-        finishValues = cell2mat(finishTimes');
-        readableValuesFinish = finishValues - finishValues(1);
+            [startGPSTimes, ~] = fcn_LoadRawDataToMATLAB_pullDataFromFieldAcrossAll(nextDataStructure, 'GPS_Time', 'GPS','first_row');
+            startValuesGPS = cell2mat(startGPSTimes');
+            readableValuesGPSstart = startValuesGPS - startValuesGPS(1);
 
-        [finishGPSTimes, ~] = fcn_LoadRawDataToMATLAB_pullDataFromFieldAcrossAll(nextDataStructure, 'GPS_Time', 'GPS','last_row');
-        finishValuesGPS = cell2mat(finishGPSTimes');
-        readableValuesGPSfinish = finishValuesGPS - finishValuesGPS(1);
+            [finishTimes, ~] = fcn_LoadRawDataToMATLAB_pullDataFromFieldAcrossAll(nextDataStructure, 'GPSfromROS_Time', 'GPS','last_row');
+            finishValues = cell2mat(finishTimes');
+            readableValuesFinish = finishValues - finishValues(1);
+
+            [finishGPSTimes, ~] = fcn_LoadRawDataToMATLAB_pullDataFromFieldAcrossAll(nextDataStructure, 'GPS_Time', 'GPS','last_row');
+            finishValuesGPS = cell2mat(finishGPSTimes');
+            readableValuesGPSfinish = finishValuesGPS - finishValuesGPS(1);
+        end
 
         warning('This section not complete');
 
@@ -1543,35 +1546,53 @@ while 1==flag_stay_in_main_loop
     end
 
 
+    %% Check if ROS_Time_has_same_length_as_Trigger_Time_in_all_sensors
+    %    ### ISSUES with this:
+    %    * This Trigger_Time is used to assign data collection timings for all
+    %    non-GPS-triggered sensors
+    %    * All the sensor data should have same length as ROS_Time
+    %    * This flag checks if all sensor data is aligned to this time
+    %    ### DETECTION:
+    %    * Examine if ROS_Time length matches Trigger_Time length
+    %    ### FIXES:
+    %    * Find index interval, in GPSfromROS_Time, that is within
+    %    Trigger_Time interval. Assign these indices to sensor data.
+
+    fcn_DebugTools_cprintf('*blue','Checking flag: ROS_Time_has_same_length_as_Trigger_Time_in_all_sensors  \n');
+
+    [timeFlags,offending_sensor,~]  = fcn_TimeClean_checkFieldCountMatchesTimeCount(nextDataStructure,'ROS_Time',timeFlags,'Trigger_Time','',fid);
+
+
+    if (1==flag_keep_checking) && (0==timeFlags.ROS_Time_has_same_length_as_Trigger_Time_in_all_sensors)
+        % Tell user what is happening
+        fcn_DebugTools_cprintf('*cyan','POSSIBLE ERROR\n');
+        fprintf(1,'Found sensors where Trigger_Time does not match ROS_Time in sensor: %s \n\tAttempting a fix... ', offending_sensor);
+
+        % Fix the data
+        % Used to create test data
+        if 1==0
+            fullExampleFilePath = fullfile(cd,'Data','ExampleData_fcn_TimeClean_fixAlignSensorsToTime.mat');
+            dataStructure = nextDataStructure;
+            save(fullExampleFilePath,'dataStructure');
+        end
+
+        nextDataStructure = fcn_TimeClean_fixAlignSensorsToTime(nextDataStructure,[],fid);
+  
+        % Did the fix work?
+        [timeFlags,offending_sensor,~]  = fcn_TimeClean_checkFieldCountMatchesTimeCount(nextDataStructure,'ROS_Time',timeFlags,'Trigger_Time','',fid);
+
+        if (1==timeFlags.ROS_Time_has_same_length_as_Trigger_Time_in_all_sensors)
+            fcn_DebugTools_cprintf('*green','FIXED.\n');
+            flag_keep_checking = 1; %#ok<NASGU>
+        else
+            fcn_DebugTools_cprintf('*red','FAIL: still found sensor where Trigger_Time has different length than ROS_Time, in %s\n', offending_sensor);
+            error('COULD NOT BE FIXED. EXITING.\n');
+        end
+    else
+        fcn_DebugTools_cprintf('*green','\tPASSED\n');
+    end
     %%
 
-
-
-    % %% Start to work on other sensors, start with Velodyne LiDAR
-    % if (1==flag_keep_checking) && (flag_all_trigger_time_calculated==1)
-    %     % figure(123)
-    %     % plot(nextDataStructure.GPS_SparkFun_Front.Trigger_Time)
-    %     % hold on
-    %     % plot(nextDataStructure.LiDAR_Velodyne_Rear.Trigger_Time)
-    %     % plot(nextDataStructure.TRIGGER_TrigBox_RearTop.Trigger_Time)
-    %     nextDataStructure = fcn_TimeClean_trimDataToCommonStartEndTriggerTimes(nextDataStructure,fid);
-    %     flag_keep_checking = 0;
-    %     % figure(124)
-    %     % plot(nextDataStructure.GPS_SparkFun_Front.Trigger_Time)
-    %     % hold on
-    %     % plot(nextDataStructure.LiDAR_Velodyne_Rear.Trigger_Time)
-    %     %
-    % end
-
-
-
-
-    %% Done? Check Exiting conditions
-    % if length(dataset)==1
-    %     temp = dataset;
-    %     clear dataset
-    %     dataset{1} = temp;
-    % end
 
 
     currentDataStructure = nextDataStructure;

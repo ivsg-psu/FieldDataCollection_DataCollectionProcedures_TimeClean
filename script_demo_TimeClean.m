@@ -257,6 +257,12 @@
 %   % * Made variable usage clearer, avoiding variable reuse
 % - In script_test_fcn_TimeClean_trimRepeatsFromField
 %   % * Added test case 20001 to track down issues with NaN calculations
+%
+% 2025_12_02 by Sean Brennan, sbrennan@psu.edu
+% - In fcn_TimeClean_fixAlignSensorsToTime
+%   % * Got function working at a basic level
+%   % * Added this to cleanTimeInStruct
+% - Need to finish export function so that timeClean can be finished
 
 
 % Known issues:
@@ -351,6 +357,10 @@
 % this code into checkDataTimeConsistency
 % - fcn_TimeClean_recalculateTriggerTimes needs better test cases, and
 % needs to be formatted correctly
+%
+% 2025_12_02 by Sean Brennan, sbrennan@psu.edu
+% - Function fcn_TimeClean_fixAlignSensorsToTime still has irregular jumps
+% in time. Need to find a fast, simple way to fix these. 
 
 %% Prep the workspace
 close all

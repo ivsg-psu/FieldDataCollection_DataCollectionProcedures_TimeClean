@@ -1,4 +1,9 @@
 function fixed_dataStructure = fcn_TimeClean_calculateTriggerTime_AllSensors(dataStructure,sensors_without_Trigger_Time)
+
+warning('on','backtrace');
+warning(['fcn_TimeClean_calculateTriggerTime_AllSensors is being deprecated. ' ...
+    'Use fcn_TimeClean_recalculateTriggerTimes instead.']);
+
 % fcn_TimeClean_calculateTriggerTime_AllSensors
 % Recalculates the Trigger_Time field for all sensors. This is done by
 % using the centiSeconds field and the effective start and end GPS_Times,

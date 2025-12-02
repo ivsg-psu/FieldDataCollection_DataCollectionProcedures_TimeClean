@@ -1,5 +1,10 @@
 function fixed_dataStructure = fcn_TimeClean_fillTriggerTimes(dataStructure,varargin)
 
+warning('on','backtrace');
+warning(['fcn_TimeClean_fillTriggerTimes is being deprecated. ' ...
+    'Use fcn_TimeClean_recalculateTriggerTimes instead.']);
+
+
 % fcn_TimeClean_recalculateTriggerTimes
 % Recalculates the Trigger_Time field for all sensors. This is done by
 % using the centiSeconds field and the effective start and end GPS_Times,
