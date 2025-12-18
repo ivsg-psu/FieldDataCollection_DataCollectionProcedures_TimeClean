@@ -263,6 +263,21 @@
 %   % * Got function working at a basic level
 %   % * Added this to cleanTimeInStruct
 % - Need to finish export function so that timeClean can be finished
+%
+% 2025_12_17 by Sean Brennan, sbrennan@psu.edu
+% - Moved fcn_TimeClean_trimDataToCommonStartEndGPSTimes out of unused
+% - In fcn_TimeClean_checkTimeSamplingConsistency
+%   % * Updated debugging to use fcn_DebugTools_debugPrintTableToNCharacters
+% - In fcn_TimeClean_checkTimeSamplingConsistency
+%   % * Updated debugging to use fcn_DebugTools_debugPrintTableToNCharacters
+% - In cleanTimeInStruct
+%   % * Made some of the test cases more verbose
+%   % * Fixed fprintf statements to contain these within log file
+% - In cleanNaming
+%   % * Fixed fprint statements to correctly put into FID passed into function
+% - In script_test_fcn_TimeClean_checkTimeSamplingConsistency
+%   % * Updated test script formatting to allow sections
+%   % * Added real-world test case
 
 
 % Known issues:
@@ -547,598 +562,601 @@ rawDataCellArray = fcn_LoadRawDataToMATLAB_loadMatDataFromDirectories(...
 
 
 
-%% fcn_TimeClean_loadRawDataFromDirectories
-% imports raw data from bag files contained in a list of specified root
-% directories, including all subdirectories. Stores each result into a cell
-% array, one for each raw data directory. Produces plots of the data and
-% mat files of the data, and can save results to user-chosen directories.
-%
-% FORMAT:
-%
-%      rawDataCellArray = fcn_TimeClean_loadRawDataFromDirectories(rootdirs, Identifiers, (bagQueryString), (fid), (Flags), (saveFlags), (plotFlags))
 
 
-% fig_num = 2;
-% figure(fig_num);
-% clf;
-
-clear Identifiers
-Identifiers.Project = 'PennDOT ADS Workzones'; % This is the project sponsoring the data collection
-Identifiers.ProjectStage = 'OnRoad'; % Can be 'Simulation', 'TestTrack', or 'OnRoad'
-Identifiers.WorkZoneScenario = 'I376ParkwayPitt'; % Can be one of the ~20 scenarios, see key
-Identifiers.WorkZoneDescriptor = 'WorkInRightLaneOfUndividedHighway'; % Can be one of the 20 descriptors, see key
-Identifiers.Treatment = 'BaseMap'; % Can be one of 9 options, see key
-Identifiers.DataSource = 'MappingVan'; % Can be 'MappingVan', 'AV', 'CV2X', etc. see key
-Identifiers.AggregationType = 'PreRun'; % Can be 'PreCalibration', 'PreRun', 'Run', 'PostRun', or 'PostCalibration'
-Identifiers.SourceBagFileName =''; % This is filled in automatically for each file
-
-% Specify the bagQueryString
-bagQueryString = 'mapping_van_2024-07-1'; % The more specific, the better to avoid accidental loading of wrong information
-
-% Spedify the fid
-fid = 1; % 1 --> print to console
-
-% Specify the Flags
-Flags = []; 
-
-% List which directory/directories need to be loaded
-clear rootdirs
-rootdirs{1} = fullfile(cd,'LargeData','2024-07-10');
-rootdirs{2} = fullfile(cd,'LargeData','2024-07-11');
-
-% List what will be saved
-saveFlags.flag_saveMatFile = 1;
-saveFlags.flag_saveMatFile_directory = fullfile(cd,'Data','RawData',Identifiers.ProjectStage,Identifiers.WorkZoneScenario);
-saveFlags.flag_saveImages = 1;
-saveFlags.flag_saveImages_directory  = fullfile(cd,'Data','RawData',Identifiers.ProjectStage,Identifiers.WorkZoneScenario);
-saveFlags.flag_forceDirectoryCreation = 1;
-saveFlags.flag_forceImageOverwrite = 1;
-saveFlags.flag_forceMATfileOverwrite = 1;
-
-% List what will be plotted, and the figure numbers
-plotFlags.fig_num_plotAllRawTogether = 1111;
-plotFlags.fig_num_plotAllRawIndividually = 2222;
-
-% Call the function
-rawDataCellArray = fcn_TimeClean_loadRawDataFromDirectories(rootdirs, Identifiers, (bagQueryString), (fid), (Flags), (saveFlags), (plotFlags));
-
-% Check the results
-assert(iscell(rawDataCellArray));
-
-%% fcn_TimeClean_mergeRawDataStructures
-% given a cell array of rawData files where the bag files may be in
-% sequence, finds the files in sequence and creates merged data structures.
-%
-% FORMAT:
-%
-%      [mergedRawDataCellArray, uncommonFieldsCellArray] = fcn_TimeClean_mergeRawDataStructures(rawDataCellArray, (thresholdTimeNearby), (fid), (saveFlags), (plotFlags))
-
-%%%%
-% Load the data
-
-% Choose data folder and bag name, read before running the script
-% The parsed the data files are saved on OneDrive
-% in \IVSG\GitHubMirror\MappingVanDataCollection\ParsedData. To process the
-% bag file, please copy file folder to the LargeData folder.
-
-clear Identifiers
-Identifiers.Project = 'PennDOT ADS Workzones'; % This is the project sponsoring the data collection
-Identifiers.ProjectStage = 'OnRoad'; % Can be 'Simulation', 'TestTrack', or 'OnRoad'
-Identifiers.WorkZoneScenario = 'I376ParkwayPitt'; % Can be one of the ~20 scenarios, see key
-Identifiers.WorkZoneDescriptor = 'WorkInRightLaneOfUndividedHighway'; % Can be one of the 20 descriptors, see key
-Identifiers.Treatment = 'BaseMap'; % Can be one of 9 options, see key
-Identifiers.DataSource = 'MappingVan'; % Can be 'MappingVan', 'AV', 'CV2X', etc. see key
-Identifiers.AggregationType = 'PreRun'; % Can be 'PreCalibration', 'PreRun', 'Run', 'PostRun', or 'PostCalibration'
-Identifiers.SourceBagFileName =''; % This is filled in automatically for each file
-
-% Specify the bagQueryString
-bagQueryString = 'mapping_van_2024-07-1'; % The more specific, the better to avoid accidental loading of wrong information
-
-% Spedify the fid
-fid = 0; % 1 --> print to console
-
-% Specify the Flags
-Flags = []; 
-
-% List which directory/directories need to be loaded
-clear rootdirs
-rootdirs{1} = fullfile(cd,'LargeData','2024-07-10');
-% rootdirs{2} = fullfile(cd,'LargeData','2024-07-11');
-
-% List what will be saved
-saveFlags.flag_saveMatFile = 0;
-saveFlags.flag_saveMatFile_directory = fullfile(cd,'Data','RawData',Identifiers.ProjectStage,Identifiers.WorkZoneScenario);
-saveFlags.flag_saveImages = 0;
-saveFlags.flag_saveImages_directory  = fullfile(cd,'Data','RawData',Identifiers.ProjectStage,Identifiers.WorkZoneScenario);
-saveFlags.flag_forceDirectoryCreation = 0;
-saveFlags.flag_forceImageOverwrite = 0;
-saveFlags.flag_forceMATfileOverwrite = 0;
-
-% List what will be plotted, and the figure numbers
-plotFlags.fig_num_plotAllRawTogether = [];
-plotFlags.fig_num_plotAllRawIndividually = [];
-
-% Call the data loading function
-rawDataCellArray = fcn_TimeClean_loadRawDataFromDirectories(rootdirs, Identifiers, (bagQueryString), (fid), (Flags), (saveFlags), (plotFlags));
-
-
-%%%%%%%%%%%%%%
-% Prepare for merging
-% Specify the nearby time
-thresholdTimeNearby = 2;
-
-% Spedify the fid
-fid = 1; % 1 --> print to console
-
-% List what will be saved
-saveFlags.flag_saveMatFile = 1;
-saveFlags.flag_saveMatFile_directory = fullfile(cd,'Data','RawDataMerged',Identifiers.ProjectStage,Identifiers.WorkZoneScenario);
-saveFlags.flag_saveImages = 1;
-saveFlags.flag_saveImages_directory  = fullfile(cd,'Data','RawDataMerged',Identifiers.ProjectStage,Identifiers.WorkZoneScenario);
-saveFlags.flag_saveImages_name = cat(2,Identifiers.WorkZoneScenario,'_merged');
-saveFlags.flag_forceDirectoryCreation = 1;
-saveFlags.flag_forceImageOverwrite = 1;
-saveFlags.flag_forceMATfileOverwrite = 1;
-
-% List what will be plotted, and the figure numbers
-plotFlags.fig_num_plotAllMergedTogether = 1111;
-plotFlags.fig_num_plotAllMergedIndividually = 2222;
-    
-plotFlags.mergedplotFormat.LineStyle = '-';
-plotFlags.mergedplotFormat.LineWidth = 2;
-plotFlags.mergedplotFormat.Marker = 'none';
-plotFlags.mergedplotFormat.MarkerSize = 5;
-
-
-% Call the function
-[mergedRawDataCellArray, uncommonFieldsCellArray] = fcn_TimeClean_mergeRawDataStructures(rawDataCellArray, (thresholdTimeNearby), (fid), (saveFlags), (plotFlags));
-
-% Check the results
-assert(iscell(mergedRawDataCellArray));
-
-%% fcn_TimeClean_loadMatDataFromDirectories
-% imports MATLAB data from files contained in specified root
-% directories, including all subdirectories. Stores each result into a cell
-% array, one for each mat data file. Produces plots of the data via
-% optional plotting flags.
-%
-% FORMAT:
-%
-%     matDataCellArray = fcn_TimeClean_loadMatDataFromDirectories(rootdirs, (searchIdentifiers), (matQueryString), (fid), (plotFlags));
-%
-
-% Location for Pittsburgh, site 1
-setenv('MATLABFLAG_PLOTROAD_REFERENCE_LATITUDE','40.44181017');
-setenv('MATLABFLAG_PLOTROAD_REFERENCE_LONGITUDE','-79.76090840');
-setenv('MATLABFLAG_PLOTROAD_REFERENCE_ALTITUDE','327.428');
-
-% List which directory/directories need to be loaded
-clear rootdirs
-rootdirs{1} = fullfile(cd,'Data'); % ,'2024-07-10');
-% rootdirs{2} = fullfile(cd,'LargeData','2024-07-11');
-
-
-
-clear searchIdentifiers
-searchIdentifiers.Project = 'PennDOT ADS Workzones'; % This is the project sponsoring the data collection
-searchIdentifiers.ProjectStage = 'OnRoad'; % Can be 'Simulation', 'TestTrack', or 'OnRoad'
-searchIdentifiers.WorkZoneScenario = 'I376ParkwayPitt'; % Can be one of the ~20 scenarios, see key
-searchIdentifiers.WorkZoneDescriptor = 'WorkInRightLaneOfUndividedHighway'; % Can be one of the 20 descriptors, see key
-searchIdentifiers.Treatment = 'BaseMap'; % Can be one of 9 options, see key
-searchIdentifiers.DataSource = 'MappingVan'; % Can be 'MappingVan', 'AV', 'CV2X', etc. see key
-searchIdentifiers.AggregationType = 'PreRun'; % Can be 'PreCalibration', 'PreRun', 'Run', 'PostRun', or 'PostCalibration'
-
-% Specify the bagQueryString
-matQueryString = 'mapping_van_2024-07-1*_merged'; % The more specific, the better to avoid accidental loading of wrong information
-
-% Spedify the fid
-fid = 1; % 1 --> print to console
-
-
-
-% List what will be plotted, and the figure numbers
-plotFlags.fig_num_plotAllMatTogether = 1111;
-plotFlags.fig_num_plotAllMatIndividually = [];
-
-% Call the function
-rawDataCellArray = fcn_TimeClean_loadMatDataFromDirectories(rootdirs, searchIdentifiers, (matQueryString), (fid), (plotFlags));
-
-% Check the results
-assert(iscell(rawDataCellArray));
-
-%% Querying from storage directories
-
-% List which directory/directories need to be loaded
-DriveRoot = 'F:\Adrive';
-rawBagRoot                  = cat(2,DriveRoot,'\MappingVanData\RawBags');
-poseOnlyParsedBagRoot       = cat(2,DriveRoot,'\MappingVanData\ParsedBags_PoseOnly');
-fullParsedBagRoot           = cat(2,DriveRoot,'\MappingVanData\ParsedBags');
-parsedMATLAB_PoseOnly       = cat(2,DriveRoot,'\MappingVanData\ParsedMATLAB_PoseOnly\RawData');
-parsedMATLAB_PoseOnlyMerged = cat(2,DriveRoot,'\MappingVanData\ParsedMATLAB_PoseOnly\RawDataMerged');
-mergedTimeCleaned           = cat(2,DriveRoot,'\MappingVanData\ParsedMATLAB_PoseOnly\Merged_01_TimeCleaned');
-mergedDataCleaned           = cat(2,DriveRoot,'\MappingVanData\ParsedMATLAB_PoseOnly\Merged_02_DataCleaned');
-mergedKalmanFiltered        = cat(2,DriveRoot,'\MappingVanData\ParsedMATLAB_PoseOnly\Merged_03_KalmanFiltered');
-
-% extensionFolder            = '\TestTrack\'; 
-extensionFolder            = '\'; 
-
-rawBagSearchDirectory                = cat(2,rawBagRoot,extensionFolder);
-poseOnlyParsedBagDirectory           = cat(2,poseOnlyParsedBagRoot,extensionFolder);
-fullParsedBagRootDirectory           = cat(2,fullParsedBagRoot,extensionFolder);
-parsedMATLAB_PoseOnlyDirectory       = cat(2,parsedMATLAB_PoseOnly,extensionFolder);
-parsedMATLAB_PoseOnlyMergedDirectory = cat(2,parsedMATLAB_PoseOnlyMerged,extensionFolder);
-mergedTimeCleanedDirectory           = cat(2,mergedTimeCleaned,extensionFolder);
-mergedDataCleanedDirectory           = cat(2,mergedDataCleaned,extensionFolder);
-mergedKalmanFilteredDirectory        = cat(2,mergedKalmanFiltered,extensionFolder);
-
-
-% Make sure folders exist!
-fcn_INTERNAL_confirmDirectoryExists(rawBagSearchDirectory);
-fcn_INTERNAL_confirmDirectoryExists(poseOnlyParsedBagDirectory);
-fcn_INTERNAL_confirmDirectoryExists(fullParsedBagRootDirectory);
-fcn_INTERNAL_confirmDirectoryExists(parsedMATLAB_PoseOnlyDirectory);
-fcn_INTERNAL_confirmDirectoryExists(parsedMATLAB_PoseOnlyMergedDirectory);
-fcn_INTERNAL_confirmDirectoryExists(mergedTimeCleanedDirectory);
-fcn_INTERNAL_confirmDirectoryExists(mergedDataCleanedDirectory);
-fcn_INTERNAL_confirmDirectoryExists(mergedKalmanFilteredDirectory);
-
-
-%%%
-% Query the raw bags available for parsing within rawBagSearchDirectory
-fileQueryString = '*.bag'; % The more specific, the better to avoid accidental loading of wrong information
-flag_fileOrDirectory = 0; % 0 --> file, 1 --> directory
-directory_allRawBagFiles = fcn_DebugTools_listDirectoryContents({rawBagSearchDirectory}, (fileQueryString), (flag_fileOrDirectory), (-1));
-
-
-% % % if 1==0
-% % %     % Print the results?
-% % %     fprintf(1,'ALL RAW BAG FILES FOUND IN FOLDER AND SUBFOLDERS OF: %s',rawBagSearchDirectory);
-% % %     fcn_DebugTools_printDirectoryListing(directory_allRawBagFiles, ([]), ([]), (1));
-% % % end
-% % % 
-% % % %%%
-% % % % Summarize the file sizes
-% % % totalBytes = fcn_DebugTools_countBytesInDirectoryListing(directory_allRawBagFiles, (1:length(directory_allRawBagFiles)));
-% % % estimatedPoseOnlyParseTime = totalBytes/bytesPerSecondPoseOnly;
-% % % estimatedFullParseTime = totalBytes/bytesPerSecondFull;
-% % % 
-% % % timeInSeconds = estimatedPoseOnlyParseTime;
-% % % fprintf(1,'\nTotal estimated time to process these %.0f bags, pose only: %.2f seconds (e.g. %.2f minutes, or %.2f hours, or %.2f days) \n',length(directory_allRawBagFiles),timeInSeconds, timeInSeconds/60, timeInSeconds/3600, timeInSeconds/(3600*24));
-% % % timeInSeconds = estimatedFullParseTime;
-% % % fprintf(1,'Total estimated time to process these %.0f bags, full (no cameras): %.2f seconds (e.g. %.2f minutes, or %.2f hours, or %.2f days) \n',length(directory_allRawBagFiles),timeInSeconds, timeInSeconds/60, timeInSeconds/3600, timeInSeconds/(3600*24));
-% % % 
-
-% % % %%%
-% % % % Extract all the bag file names
-% % % bagFileNames = {directory_allRawBagFiles.name}';
-% % % 
-% % % % Pick only the ones we want
-% % % filesToKeep = ~contains(bagFileNames,'Ouster') .* ~contains(bagFileNames,'velodyne') .* ~contains(bagFileNames,'cameras');
-% % % goodFileindicies = find(filesToKeep);
-% % % bagFileNamesSelected = bagFileNames(goodFileindicies);
-% % % directory_selectedRawBagFiles = directory_allRawBagFiles(goodFileindicies);
-% % % 
-% % % %%%
-% % % % Summarize the file sizes?
-% % % 
-% % % fprintf(1,'\n\nSELECTED FILES: \n');
-% % % fcn_DebugTools_printDirectoryListing(directory_selectedRawBagFiles, ([]), ([]), (1));
-% % % 
-% % % totalBytes = fcn_DebugTools_countBytesInDirectoryListing(directory_selectedRawBagFiles, (1:length(directory_selectedRawBagFiles)));
-% % % estimatedPoseOnlyParseTime = totalBytes/bytesPerSecondPoseOnly;
-% % % estimatedFullParseTime = totalBytes/bytesPerSecondFull;
-% % % 
-% % % timeInSeconds = estimatedPoseOnlyParseTime;
-% % % fprintf(1,'Total estimated time to process these %.0f bags, pose only: %.2f seconds (e.g. %.2f minutes, or %.2f hours, or %.2f days) \n',length(directory_allRawBagFiles),timeInSeconds, timeInSeconds/60, timeInSeconds/3600, timeInSeconds/(3600*24));
-% % % timeInSeconds = estimatedFullParseTime;
-% % % fprintf(1,'Total estimated time to process these %.0f bags, full (no cameras): %.2f seconds (e.g. %.2f minutes, or %.2f hours, or %.2f days) \n',length(directory_allRawBagFiles),timeInSeconds, timeInSeconds/60, timeInSeconds/3600, timeInSeconds/(3600*24));
-% % % 
-% % % 
-% % % %%%%
-% % % % Find which files were either Pose parsed, Full parsed, 
-% % % flag_matchingType = 2; % file to folder
-% % % typeExtension = '.bag';
-% % % flags_fileWasPoseParsed = fcn_DebugTools_compareDirectoryListings(directory_selectedRawBagFiles, rawBagRoot, poseOnlyParsedBagRoot, (flag_matchingType), (typeExtension), (1));
-% % % flags_fileWasFullParsed = fcn_DebugTools_compareDirectoryListings(directory_selectedRawBagFiles, rawBagRoot, fullParsedBagRoot,     (flag_matchingType), (typeExtension), (1));
-% % % flag_matchingType = 1; % file to file
-% % % typeExtension = '.m';
-% % % flags_fileWasMATLABloaded = fcn_DebugTools_compareDirectoryListings(directory_selectedRawBagFiles, rawBagRoot, parsedMATLAB_PoseOnlyDirectory,     (flag_matchingType), (typeExtension), (1));
-% % % typeExtension = 'merged.m';
-% % % flags_fileWasMATLABmerged = fcn_DebugTools_compareDirectoryListings(directory_selectedRawBagFiles, rawBagRoot, parsedMATLAB_PoseOnlyMergedDirectory,     (flag_matchingType), (typeExtension), (1));
-% % % 
-
-%%%
-% Query the merged mat files available for cleaning
-fileQueryString = '*.mat'; % The more specific, the better to avoid accidental loading of wrong information
-flag_fileOrDirectory = 0; % 0 --> file, 1 --> directory
-directory_allMergedMatFiles = fcn_DebugTools_listDirectoryContents({parsedMATLAB_PoseOnlyMergedDirectory}, (fileQueryString), (flag_fileOrDirectory), (-1));
-
-
-if 1==1
-    % Print the results?
-    fprintf(1,'ALL MERGED MAT FILES FOUND IN FOLDER AND SUBFOLDERS OF: %s',parsedMATLAB_PoseOnlyMergedDirectory);
-    fcn_DebugTools_printDirectoryListing(directory_allMergedMatFiles, ([]), ([]), (1));
-end
-
-
-%%%
-% Extract all the merged mat file names
-mergedMatFileNames = {directory_allMergedMatFiles.name}';
-
-% Pick only the ones we want
-filesToKeep = ~contains(mergedMatFileNames,'Ouster') .* ~contains(mergedMatFileNames,'velodyne') .* ~contains(mergedMatFileNames,'cameras');
-goodFileindicies = find(filesToKeep);
-mergedMatFileNamesSelected = mergedMatFileNames(goodFileindicies);
-directory_selectedMergedMatFiles = directory_allMergedMatFiles(goodFileindicies);
-
-%%%
-% Summarize the file sizes?
-
-fprintf(1,'\n\nSELECTED FILES: \n');
-fcn_DebugTools_printDirectoryListing(directory_selectedMergedMatFiles, ([]), ([]), (1));
-
-% totalBytes = fcn_DebugTools_countBytesInDirectoryListing(directory_selectedRawBagFiles, (1:length(directory_selectedRawBagFiles)));
-% estimatedPoseOnlyParseTime = totalBytes/bytesPerSecondPoseOnly;
-% estimatedFullParseTime = totalBytes/bytesPerSecondFull;
 % 
-% timeInSeconds = estimatedPoseOnlyParseTime;
-% fprintf(1,'Total estimated time to process these %.0f bags, pose only: %.2f seconds (e.g. %.2f minutes, or %.2f hours, or %.2f days) \n',length(directory_allRawBagFiles),timeInSeconds, timeInSeconds/60, timeInSeconds/3600, timeInSeconds/(3600*24));
-% timeInSeconds = estimatedFullParseTime;
-% fprintf(1,'Total estimated time to process these %.0f bags, full (no cameras): %.2f seconds (e.g. %.2f minutes, or %.2f hours, or %.2f days) \n',length(directory_allRawBagFiles),timeInSeconds, timeInSeconds/60, timeInSeconds/3600, timeInSeconds/(3600*24));
-
-
-%%%%
-% Find which files were either time cleaned, data cleaned, or KF cleaned 
-flag_matchingType = 1; % same to same
-typeExtension = 'merged.mat';
-flags_mergedWasTimeCleaned    = fcn_DebugTools_compareDirectoryListings(directory_selectedMergedMatFiles, parsedMATLAB_PoseOnlyMerged, mergedTimeCleaned, (flag_matchingType), (typeExtension), (1));
-flags_mergedWasDataCleaned    = fcn_DebugTools_compareDirectoryListings(directory_selectedMergedMatFiles, parsedMATLAB_PoseOnlyMerged, mergedDataCleaned, (flag_matchingType), (typeExtension), (1));
-flags_mergedWasKalmanFiltered = fcn_DebugTools_compareDirectoryListings(directory_selectedMergedMatFiles, parsedMATLAB_PoseOnlyMerged, mergedKalmanFiltered, (flag_matchingType), (typeExtension), (1));
-
-
- 
-
-%%%%
-% Print the results
-NcolumnsToPrint = 4;
-cellArrayHeaders = cell(NcolumnsToPrint,1);
-cellArrayHeaders{1} = 'MERGED NAME                                   ';
-cellArrayHeaders{2} = 'TIME Cleaned?';
-cellArrayHeaders{3} = 'DATA Cleaned?';
-cellArrayHeaders{4} = 'Kalman Filt? ';
-cellArrayValues = [...
-    mergedMatFileNamesSelected, ...
-    fcn_DebugTools_convertBinaryToYesNoStrings(flags_mergedWasTimeCleaned), ...
-    fcn_DebugTools_convertBinaryToYesNoStrings(flags_mergedWasDataCleaned), ...
-    fcn_DebugTools_convertBinaryToYesNoStrings(flags_mergedWasKalmanFiltered)
-    ];
-
-fid = 1;
-fcn_DebugTools_printNumeredDirectoryList(directory_selectedMergedMatFiles, cellArrayHeaders, cellArrayValues, (parsedMATLAB_PoseOnlyMerged), (fid))
-
-
-
-%%
-% Determine type of processing
-
-% What type of processing to do?
-flag_keepGoing = 1;
-if 1==flag_keepGoing
-    flag_keepGoing = 0;
-    flag_goodReply = 0;
-    while 0==flag_goodReply
-        fprintf(1,'\nWhat type of processing should be done?\n')
-        fprintf(1,'\t1. Time cleaning\n');
-        fprintf(1,'\t2. Data cleaning.\n')
-        fprintf(1,'\t3. Kalman filtering.\n')
-        fprintf(1,'\tQ: Quit.\n')
-        processingType = input('Selection? [default = 1]:','s');
-        if isempty(processingType)
-            processingType = '1';
-            flag_goodReply = 1;
-        else
-            processingType = lower(processingType);
-            if isscalar(processingType) && (strcmp(processingType,'1')||strcmp(processingType,'2')||strcmp(processingType,'3')||strcmp(processingType,'q'))
-                flag_goodReply = 1;
-            end
-        end
-    end
-    fprintf(1,'Selection chosen: %s --> ',processingType);
-    if strcmp(processingType,'1')
-        fprintf(1,'Time cleaning\n');
-        flags_toCheck = flags_mergedWasTimeCleaned;
-        destinationRootFolder = mergedTimeCleaned;
-        flag_keepGoing = 1;
-    elseif strcmp(processingType,'2')
-        fprintf(1,'Data cleaning\n');
-        flags_toCheck = flags_mergedWasDataCleaned;
-        destinationRootFolder = mergedDataCleaned;        
-        flag_keepGoing = 1;
-    elseif strcmp(processingType,'3')
-        fprintf(1,'Kalman filtering\n');
-        flags_toCheck = flags_mergedWasKalmanFiltered;
-        destinationRootFolder = mergedKalmanFiltered;        
-        flag_keepGoing = 1;
-    else
-        fprintf(1,'Quitting\n');
-    end
-end
-
-
-%%% What numbers of files to parse?
-if 1==flag_keepGoing
-    [flag_keepGoing, startingIndex, endingIndex] = fcn_DebugTools_queryNumberRange(flags_toCheck, (' of the file(s) to parse'), (1), (directory_selectedMergedMatFiles), (1));
-end
-
-%%% Estimate the time it takes to process?
-if 1==0  % 1==flag_keepGoing
-
-    if strcmp(processingType,'1')
-        bytesPerSecond = bytesPerSecondTimeClean;
-    elseif strcmp(processingType,'2')
-        bytesPerSecond = bytesPerSecondDataClean;
-    elseif strcmp(processingType,'3')
-        bytesPerSecond = bytesPerSecondKalmanFilter;
-    end
-    indexRange = (startingIndex:endingIndex);
-
-    [flag_keepGoing, timeEstimateInSeconds] = fcn_DebugTools_confirmTimeToProcessDirectory(directory_selectedMergedMatFiles, bytesPerSecond, (indexRange),(1));
-end
-
-
-
-%%
-% Process the files
-
-if 1==flag_keepGoing
-
-    alltstart = tic;
-    Ndone = 0;
-    NtoProcess = length(startingIndex:endingIndex);
-    for ith_matFile = startingIndex:endingIndex
-        Ndone = Ndone + 1;
-        sourceFolderName     = directory_selectedMergedMatFiles(ith_matFile).folder;
-        thisFolder           = extractAfter(sourceFolderName,parsedMATLAB_PoseOnlyMerged);
-        thisBytes            = directory_selectedMergedMatFiles(ith_matFile).bytes;
-
-        destinationFolder    = cat(2,destinationRootFolder,thisFolder);
-
-        thisFileFullName = directory_selectedMergedMatFiles(ith_matFile).name;
-        thisFile = extractBefore(thisFileFullName,'.mat');
-
-        fprintf(1,'\n\nProcessing file: %d (file %d of %d)\n', ith_matFile, Ndone,NtoProcess);
-        fprintf(1,'Initiating processing for file: %s\n',thisFile);
-        fprintf(1,'Pulling from folder: %s\n',sourceFolderName);
-        fprintf(1,'Pushing to folder:   %s\n',destinationFolder);
-
-        tstart = tic;
-
-
-
-        %%%%%%%%%%%%%%%%%%%%%%%
-        % Location for Pittsburgh, site 1
-        setenv('MATLABFLAG_PLOTROAD_REFERENCE_LATITUDE','40.44181017');
-        setenv('MATLABFLAG_PLOTROAD_REFERENCE_LONGITUDE','-79.76090840');
-        setenv('MATLABFLAG_PLOTROAD_REFERENCE_ALTITUDE','327.428');
-
-
-        % Specify the bagQueryString
-        matQueryString = cat(2,thisFile,'*.mat'); % The more specific, the better to avoid accidental loading of wrong information
-
-        % List what will be plotted, and the figure numbers
-        plotFlags.fig_num_plotAllMatTogether = 1111;
-        plotFlags.fig_num_plotAllMatIndividually = [];
-
-        % Call the function
-        sourceDataCellArray = fcn_TimeClean_loadMatDataFromDirectories({sourceFolderName}, [], (matQueryString), (1), (plotFlags));
-
-        if strcmp(processingType,'1')
-            fprintf(1,'Time cleaning\n');
-            ref_baseStationLLA = [40.44181017, -79.76090840, 327.428]; % Pittsburgh (NOTE: not used)
-            fig_num  = 1;
-            cleanDataStruct = fcn_TimeClean_cleanData(sourceDataCellArray{1}.rawDataMerged, (ref_baseStationLLA), (fid), ([]), (fig_num));
-        elseif strcmp(processingType,'2')
-            fprintf(1,'Data cleaning\n');
-            flags_toCheck = flags_mergedWasDataCleaned;
-            destinationRootFolder = mergedDataCleaned;
-            flag_keepGoing = 1;
-        elseif strcmp(processingType,'3')
-            fprintf(1,'Kalman filtering\n');
-            flags_toCheck = flags_mergedWasKalmanFiltered;
-            destinationRootFolder = mergedKalmanFiltered;
-            flag_keepGoing = 1;
-        else
-            fprintf(1,'Quitting\n');
-        end
-
-        %%%%%%%
-
-        
-        telapsed = toc(tstart);
-
-        totalBytes = directory_selectedMergedMatFiles(ith_matFile).bytes;
-        predictedFileTime =  totalBytes/bytesPerSecond;
-        fprintf(1,'Processing speed, predicted: %.0f seconds versus actual: %.0f seconds\n',predictedFileTime, telapsed);
-        fprintf(1,'Actual bytes per second: %.0f \n',thisBytes/telapsed);
-    end
-    alltelapsed = toc(alltstart);
-
-    % Check prediction
-    fprintf(1,'\nTotal time to process: \n');
-    if timeInSeconds<100
-        fprintf(1,'\tEstimated: %.2f seconds \n', timeInSeconds)
-        fprintf(1,'\tActual:    %.2f seconds \n', alltelapsed);
-    elseif timeInSeconds>=100 && timeInSeconds<3600
-        fprintf(1,'\tEstimated: %.2f seconds (e.g. %.2f minutes)\n',timeInSeconds, timeInSeconds/60);
-        fprintf(1,'\tActual:    %.2f seconds (e.g. %.2f minutes)\n',alltelapsed, alltelapsed/60);
-    else
-        fprintf(1,'\tEstimated: %.2f seconds (e.g. %.2f minutes, or %.2f hours)\n',timeInSeconds, timeInSeconds/60, timeInSeconds/3600);
-        fprintf(1,'\tActual:    %.2f seconds (e.g. %.2f minutes, or %.2f hours)\n',alltelapsed, alltelapsed/60, alltelapsed/3600);
-    end
-
-end
-
-%% Conditional loading from the database
-
-% NOT implemented yet
-
-% % % % ======================= Load the raw data =========================
-% % % % This data will have outliers, be unevenly sampled, have multiple and
-% % % % inconsistent measurements of the same variable. In other words, it is the
-% % % % raw data. It can be loaded either from a database or a file - details are
-% % % % in the function below.
-% % % 
-% % % % For debugging, to force the if statement to be run
-% % % clear dataset
-% % % 
-% % % flag.DBquery = false; %true; %set to true to query raw data from database 
-% % % flag.DBinsert = false; %set to true to insert cleaned data to cleaned data database
-% % % flag.SaveQueriedData = true; % 
-% % % 
+% %% fcn_TimeClean_loadRawDataFromDirectories
+% % imports raw data from bag files contained in a list of specified root
+% % directories, including all subdirectories. Stores each result into a cell
+% % array, one for each raw data directory. Produces plots of the data and
+% % mat files of the data, and can save results to user-chosen directories.
+% %
+% % FORMAT:
+% %
+% %      rawDataCellArray = fcn_TimeClean_loadRawDataFromDirectories(rootdirs, Identifiers, (bagQueryString), (fid), (Flags), (saveFlags), (plotFlags))
+% 
+% 
+% % fig_num = 2;
+% % figure(fig_num);
+% % clf;
+% 
+% clear Identifiers
+% Identifiers.Project = 'PennDOT ADS Workzones'; % This is the project sponsoring the data collection
+% Identifiers.ProjectStage = 'OnRoad'; % Can be 'Simulation', 'TestTrack', or 'OnRoad'
+% Identifiers.WorkZoneScenario = 'I376ParkwayPitt'; % Can be one of the ~20 scenarios, see key
+% Identifiers.WorkZoneDescriptor = 'WorkInRightLaneOfUndividedHighway'; % Can be one of the 20 descriptors, see key
+% Identifiers.Treatment = 'BaseMap'; % Can be one of 9 options, see key
+% Identifiers.DataSource = 'MappingVan'; % Can be 'MappingVan', 'AV', 'CV2X', etc. see key
+% Identifiers.AggregationType = 'PreRun'; % Can be 'PreCalibration', 'PreRun', 'Run', 'PostRun', or 'PostCalibration'
+% Identifiers.SourceBagFileName =''; % This is filled in automatically for each file
+% 
+% % Specify the bagQueryString
+% bagQueryString = 'mapping_van_2024-07-1'; % The more specific, the better to avoid accidental loading of wrong information
+% 
+% % Spedify the fid
+% fid = 1; % 1 --> print to console
+% 
+% % Specify the Flags
+% Flags = []; 
+% 
+% % List which directory/directories need to be loaded
+% clear rootdirs
+% rootdirs{1} = fullfile(cd,'LargeData','2024-07-10');
+% rootdirs{2} = fullfile(cd,'LargeData','2024-07-11');
+% 
+% % List what will be saved
+% saveFlags.flag_saveMatFile = 1;
+% saveFlags.flag_saveMatFile_directory = fullfile(cd,'Data','RawData',Identifiers.ProjectStage,Identifiers.WorkZoneScenario);
+% saveFlags.flag_saveImages = 1;
+% saveFlags.flag_saveImages_directory  = fullfile(cd,'Data','RawData',Identifiers.ProjectStage,Identifiers.WorkZoneScenario);
+% saveFlags.flag_forceDirectoryCreation = 1;
+% saveFlags.flag_forceImageOverwrite = 1;
+% saveFlags.flag_forceMATfileOverwrite = 1;
+% 
+% % List what will be plotted, and the figure numbers
+% plotFlags.fig_num_plotAllRawTogether = 1111;
+% plotFlags.fig_num_plotAllRawIndividually = 2222;
+% 
+% % Call the function
+% rawDataCellArray = fcn_TimeClean_loadRawDataFromDirectories(rootdirs, Identifiers, (bagQueryString), (fid), (Flags), (saveFlags), (plotFlags));
+% 
+% % Check the results
+% assert(iscell(rawDataCellArray));
+% 
+% %% fcn_TimeClean_mergeRawDataStructures
+% % given a cell array of rawData files where the bag files may be in
+% % sequence, finds the files in sequence and creates merged data structures.
+% %
+% % FORMAT:
+% %
+% %      [mergedRawDataCellArray, uncommonFieldsCellArray] = fcn_TimeClean_mergeRawDataStructures(rawDataCellArray, (thresholdTimeNearby), (fid), (saveFlags), (plotFlags))
+% 
+% %%%%
+% % Load the data
+% 
+% % Choose data folder and bag name, read before running the script
+% % The parsed the data files are saved on OneDrive
+% % in \IVSG\GitHubMirror\MappingVanDataCollection\ParsedData. To process the
+% % bag file, please copy file folder to the LargeData folder.
+% 
+% clear Identifiers
+% Identifiers.Project = 'PennDOT ADS Workzones'; % This is the project sponsoring the data collection
+% Identifiers.ProjectStage = 'OnRoad'; % Can be 'Simulation', 'TestTrack', or 'OnRoad'
+% Identifiers.WorkZoneScenario = 'I376ParkwayPitt'; % Can be one of the ~20 scenarios, see key
+% Identifiers.WorkZoneDescriptor = 'WorkInRightLaneOfUndividedHighway'; % Can be one of the 20 descriptors, see key
+% Identifiers.Treatment = 'BaseMap'; % Can be one of 9 options, see key
+% Identifiers.DataSource = 'MappingVan'; % Can be 'MappingVan', 'AV', 'CV2X', etc. see key
+% Identifiers.AggregationType = 'PreRun'; % Can be 'PreCalibration', 'PreRun', 'Run', 'PostRun', or 'PostCalibration'
+% Identifiers.SourceBagFileName =''; % This is filled in automatically for each file
+% 
+% % Specify the bagQueryString
+% bagQueryString = 'mapping_van_2024-07-1'; % The more specific, the better to avoid accidental loading of wrong information
+% 
+% % Spedify the fid
+% fid = 0; % 1 --> print to console
+% 
+% % Specify the Flags
+% Flags = []; 
+% 
+% % List which directory/directories need to be loaded
+% clear rootdirs
+% rootdirs{1} = fullfile(cd,'LargeData','2024-07-10');
+% % rootdirs{2} = fullfile(cd,'LargeData','2024-07-11');
+% 
+% % List what will be saved
+% saveFlags.flag_saveMatFile = 0;
+% saveFlags.flag_saveMatFile_directory = fullfile(cd,'Data','RawData',Identifiers.ProjectStage,Identifiers.WorkZoneScenario);
+% saveFlags.flag_saveImages = 0;
+% saveFlags.flag_saveImages_directory  = fullfile(cd,'Data','RawData',Identifiers.ProjectStage,Identifiers.WorkZoneScenario);
+% saveFlags.flag_forceDirectoryCreation = 0;
+% saveFlags.flag_forceImageOverwrite = 0;
+% saveFlags.flag_forceMATfileOverwrite = 0;
+% 
+% % List what will be plotted, and the figure numbers
+% plotFlags.fig_num_plotAllRawTogether = [];
+% plotFlags.fig_num_plotAllRawIndividually = [];
+% 
+% % Call the data loading function
+% rawDataCellArray = fcn_TimeClean_loadRawDataFromDirectories(rootdirs, Identifiers, (bagQueryString), (fid), (Flags), (saveFlags), (plotFlags));
+% 
+% 
+% %%%%%%%%%%%%%%
+% % Prepare for merging
+% % Specify the nearby time
+% thresholdTimeNearby = 2;
+% 
+% % Spedify the fid
+% fid = 1; % 1 --> print to console
+% 
+% % List what will be saved
+% saveFlags.flag_saveMatFile = 1;
+% saveFlags.flag_saveMatFile_directory = fullfile(cd,'Data','RawDataMerged',Identifiers.ProjectStage,Identifiers.WorkZoneScenario);
+% saveFlags.flag_saveImages = 1;
+% saveFlags.flag_saveImages_directory  = fullfile(cd,'Data','RawDataMerged',Identifiers.ProjectStage,Identifiers.WorkZoneScenario);
+% saveFlags.flag_saveImages_name = cat(2,Identifiers.WorkZoneScenario,'_merged');
+% saveFlags.flag_forceDirectoryCreation = 1;
+% saveFlags.flag_forceImageOverwrite = 1;
+% saveFlags.flag_forceMATfileOverwrite = 1;
+% 
+% % List what will be plotted, and the figure numbers
+% plotFlags.fig_num_plotAllMergedTogether = 1111;
+% plotFlags.fig_num_plotAllMergedIndividually = 2222;
+% 
+% plotFlags.mergedplotFormat.LineStyle = '-';
+% plotFlags.mergedplotFormat.LineWidth = 2;
+% plotFlags.mergedplotFormat.Marker = 'none';
+% plotFlags.mergedplotFormat.MarkerSize = 5;
+% 
+% 
+% % Call the function
+% [mergedRawDataCellArray, uncommonFieldsCellArray] = fcn_TimeClean_mergeRawDataStructures(rawDataCellArray, (thresholdTimeNearby), (fid), (saveFlags), (plotFlags));
+% 
+% % Check the results
+% assert(iscell(mergedRawDataCellArray));
+% 
+% %% fcn_TimeClean_loadMatDataFromDirectories
+% % imports MATLAB data from files contained in specified root
+% % directories, including all subdirectories. Stores each result into a cell
+% % array, one for each mat data file. Produces plots of the data via
+% % optional plotting flags.
+% %
+% % FORMAT:
+% %
+% %     matDataCellArray = fcn_TimeClean_loadMatDataFromDirectories(rootdirs, (searchIdentifiers), (matQueryString), (fid), (plotFlags));
+% %
+% 
+% % Location for Pittsburgh, site 1
+% setenv('MATLABFLAG_PLOTROAD_REFERENCE_LATITUDE','40.44181017');
+% setenv('MATLABFLAG_PLOTROAD_REFERENCE_LONGITUDE','-79.76090840');
+% setenv('MATLABFLAG_PLOTROAD_REFERENCE_ALTITUDE','327.428');
+% 
+% % List which directory/directories need to be loaded
+% clear rootdirs
+% rootdirs{1} = fullfile(cd,'Data'); % ,'2024-07-10');
+% % rootdirs{2} = fullfile(cd,'LargeData','2024-07-11');
+% 
+% 
+% 
+% clear searchIdentifiers
+% searchIdentifiers.Project = 'PennDOT ADS Workzones'; % This is the project sponsoring the data collection
+% searchIdentifiers.ProjectStage = 'OnRoad'; % Can be 'Simulation', 'TestTrack', or 'OnRoad'
+% searchIdentifiers.WorkZoneScenario = 'I376ParkwayPitt'; % Can be one of the ~20 scenarios, see key
+% searchIdentifiers.WorkZoneDescriptor = 'WorkInRightLaneOfUndividedHighway'; % Can be one of the 20 descriptors, see key
+% searchIdentifiers.Treatment = 'BaseMap'; % Can be one of 9 options, see key
+% searchIdentifiers.DataSource = 'MappingVan'; % Can be 'MappingVan', 'AV', 'CV2X', etc. see key
+% searchIdentifiers.AggregationType = 'PreRun'; % Can be 'PreCalibration', 'PreRun', 'Run', 'PostRun', or 'PostCalibration'
+% 
+% % Specify the bagQueryString
+% matQueryString = 'mapping_van_2024-07-1*_merged'; % The more specific, the better to avoid accidental loading of wrong information
+% 
+% % Spedify the fid
+% fid = 1; % 1 --> print to console
+% 
+% 
+% 
+% % List what will be plotted, and the figure numbers
+% plotFlags.fig_num_plotAllMatTogether = 1111;
+% plotFlags.fig_num_plotAllMatIndividually = [];
+% 
+% % Call the function
+% rawDataCellArray = fcn_TimeClean_loadMatDataFromDirectories(rootdirs, searchIdentifiers, (matQueryString), (fid), (plotFlags));
+% 
+% % Check the results
+% assert(iscell(rawDataCellArray));
+% 
+% %% Querying from storage directories
+% 
+% % List which directory/directories need to be loaded
+% DriveRoot = 'F:\Adrive';
+% rawBagRoot                  = cat(2,DriveRoot,'\MappingVanData\RawBags');
+% poseOnlyParsedBagRoot       = cat(2,DriveRoot,'\MappingVanData\ParsedBags_PoseOnly');
+% fullParsedBagRoot           = cat(2,DriveRoot,'\MappingVanData\ParsedBags');
+% parsedMATLAB_PoseOnly       = cat(2,DriveRoot,'\MappingVanData\ParsedMATLAB_PoseOnly\RawData');
+% parsedMATLAB_PoseOnlyMerged = cat(2,DriveRoot,'\MappingVanData\ParsedMATLAB_PoseOnly\RawDataMerged');
+% mergedTimeCleaned           = cat(2,DriveRoot,'\MappingVanData\ParsedMATLAB_PoseOnly\Merged_01_TimeCleaned');
+% mergedDataCleaned           = cat(2,DriveRoot,'\MappingVanData\ParsedMATLAB_PoseOnly\Merged_02_DataCleaned');
+% mergedKalmanFiltered        = cat(2,DriveRoot,'\MappingVanData\ParsedMATLAB_PoseOnly\Merged_03_KalmanFiltered');
+% 
+% % extensionFolder            = '\TestTrack\'; 
+% extensionFolder            = '\'; 
+% 
+% rawBagSearchDirectory                = cat(2,rawBagRoot,extensionFolder);
+% poseOnlyParsedBagDirectory           = cat(2,poseOnlyParsedBagRoot,extensionFolder);
+% fullParsedBagRootDirectory           = cat(2,fullParsedBagRoot,extensionFolder);
+% parsedMATLAB_PoseOnlyDirectory       = cat(2,parsedMATLAB_PoseOnly,extensionFolder);
+% parsedMATLAB_PoseOnlyMergedDirectory = cat(2,parsedMATLAB_PoseOnlyMerged,extensionFolder);
+% mergedTimeCleanedDirectory           = cat(2,mergedTimeCleaned,extensionFolder);
+% mergedDataCleanedDirectory           = cat(2,mergedDataCleaned,extensionFolder);
+% mergedKalmanFilteredDirectory        = cat(2,mergedKalmanFiltered,extensionFolder);
+% 
+% 
+% % Make sure folders exist!
+% fcn_INTERNAL_confirmDirectoryExists(rawBagSearchDirectory);
+% fcn_INTERNAL_confirmDirectoryExists(poseOnlyParsedBagDirectory);
+% fcn_INTERNAL_confirmDirectoryExists(fullParsedBagRootDirectory);
+% fcn_INTERNAL_confirmDirectoryExists(parsedMATLAB_PoseOnlyDirectory);
+% fcn_INTERNAL_confirmDirectoryExists(parsedMATLAB_PoseOnlyMergedDirectory);
+% fcn_INTERNAL_confirmDirectoryExists(mergedTimeCleanedDirectory);
+% fcn_INTERNAL_confirmDirectoryExists(mergedDataCleanedDirectory);
+% fcn_INTERNAL_confirmDirectoryExists(mergedKalmanFilteredDirectory);
+% 
+% 
+% %%%
+% % Query the raw bags available for parsing within rawBagSearchDirectory
+% fileQueryString = '*.bag'; % The more specific, the better to avoid accidental loading of wrong information
+% flag_fileOrDirectory = 0; % 0 --> file, 1 --> directory
+% directory_allRawBagFiles = fcn_DebugTools_listDirectoryContents({rawBagSearchDirectory}, (fileQueryString), (flag_fileOrDirectory), (-1));
+% 
+% 
+% % % % if 1==0
+% % % %     % Print the results?
+% % % %     fprintf(1,'ALL RAW BAG FILES FOUND IN FOLDER AND SUBFOLDERS OF: %s',rawBagSearchDirectory);
+% % % %     fcn_DebugTools_printDirectoryListing(directory_allRawBagFiles, ([]), ([]), (1));
+% % % % end
+% % % % 
+% % % % %%%
+% % % % % Summarize the file sizes
+% % % % totalBytes = fcn_DebugTools_countBytesInDirectoryListing(directory_allRawBagFiles, (1:length(directory_allRawBagFiles)));
+% % % % estimatedPoseOnlyParseTime = totalBytes/bytesPerSecondPoseOnly;
+% % % % estimatedFullParseTime = totalBytes/bytesPerSecondFull;
+% % % % 
+% % % % timeInSeconds = estimatedPoseOnlyParseTime;
+% % % % fprintf(1,'\nTotal estimated time to process these %.0f bags, pose only: %.2f seconds (e.g. %.2f minutes, or %.2f hours, or %.2f days) \n',length(directory_allRawBagFiles),timeInSeconds, timeInSeconds/60, timeInSeconds/3600, timeInSeconds/(3600*24));
+% % % % timeInSeconds = estimatedFullParseTime;
+% % % % fprintf(1,'Total estimated time to process these %.0f bags, full (no cameras): %.2f seconds (e.g. %.2f minutes, or %.2f hours, or %.2f days) \n',length(directory_allRawBagFiles),timeInSeconds, timeInSeconds/60, timeInSeconds/3600, timeInSeconds/(3600*24));
+% % % % 
+% 
+% % % % %%%
+% % % % % Extract all the bag file names
+% % % % bagFileNames = {directory_allRawBagFiles.name}';
+% % % % 
+% % % % % Pick only the ones we want
+% % % % filesToKeep = ~contains(bagFileNames,'Ouster') .* ~contains(bagFileNames,'velodyne') .* ~contains(bagFileNames,'cameras');
+% % % % goodFileindicies = find(filesToKeep);
+% % % % bagFileNamesSelected = bagFileNames(goodFileindicies);
+% % % % directory_selectedRawBagFiles = directory_allRawBagFiles(goodFileindicies);
+% % % % 
+% % % % %%%
+% % % % % Summarize the file sizes?
+% % % % 
+% % % % fprintf(1,'\n\nSELECTED FILES: \n');
+% % % % fcn_DebugTools_printDirectoryListing(directory_selectedRawBagFiles, ([]), ([]), (1));
+% % % % 
+% % % % totalBytes = fcn_DebugTools_countBytesInDirectoryListing(directory_selectedRawBagFiles, (1:length(directory_selectedRawBagFiles)));
+% % % % estimatedPoseOnlyParseTime = totalBytes/bytesPerSecondPoseOnly;
+% % % % estimatedFullParseTime = totalBytes/bytesPerSecondFull;
+% % % % 
+% % % % timeInSeconds = estimatedPoseOnlyParseTime;
+% % % % fprintf(1,'Total estimated time to process these %.0f bags, pose only: %.2f seconds (e.g. %.2f minutes, or %.2f hours, or %.2f days) \n',length(directory_allRawBagFiles),timeInSeconds, timeInSeconds/60, timeInSeconds/3600, timeInSeconds/(3600*24));
+% % % % timeInSeconds = estimatedFullParseTime;
+% % % % fprintf(1,'Total estimated time to process these %.0f bags, full (no cameras): %.2f seconds (e.g. %.2f minutes, or %.2f hours, or %.2f days) \n',length(directory_allRawBagFiles),timeInSeconds, timeInSeconds/60, timeInSeconds/3600, timeInSeconds/(3600*24));
+% % % % 
+% % % % 
+% % % % %%%%
+% % % % % Find which files were either Pose parsed, Full parsed, 
+% % % % flag_matchingType = 2; % file to folder
+% % % % typeExtension = '.bag';
+% % % % flags_fileWasPoseParsed = fcn_DebugTools_compareDirectoryListings(directory_selectedRawBagFiles, rawBagRoot, poseOnlyParsedBagRoot, (flag_matchingType), (typeExtension), (1));
+% % % % flags_fileWasFullParsed = fcn_DebugTools_compareDirectoryListings(directory_selectedRawBagFiles, rawBagRoot, fullParsedBagRoot,     (flag_matchingType), (typeExtension), (1));
+% % % % flag_matchingType = 1; % file to file
+% % % % typeExtension = '.m';
+% % % % flags_fileWasMATLABloaded = fcn_DebugTools_compareDirectoryListings(directory_selectedRawBagFiles, rawBagRoot, parsedMATLAB_PoseOnlyDirectory,     (flag_matchingType), (typeExtension), (1));
+% % % % typeExtension = 'merged.m';
+% % % % flags_fileWasMATLABmerged = fcn_DebugTools_compareDirectoryListings(directory_selectedRawBagFiles, rawBagRoot, parsedMATLAB_PoseOnlyMergedDirectory,     (flag_matchingType), (typeExtension), (1));
+% % % % 
+% 
+% %%%
+% % Query the merged mat files available for cleaning
+% fileQueryString = '*.mat'; % The more specific, the better to avoid accidental loading of wrong information
+% flag_fileOrDirectory = 0; % 0 --> file, 1 --> directory
+% directory_allMergedMatFiles = fcn_DebugTools_listDirectoryContents({parsedMATLAB_PoseOnlyMergedDirectory}, (fileQueryString), (flag_fileOrDirectory), (-1));
+% 
+% 
+% if 1==1
+%     % Print the results?
+%     fprintf(1,'ALL MERGED MAT FILES FOUND IN FOLDER AND SUBFOLDERS OF: %s',parsedMATLAB_PoseOnlyMergedDirectory);
+%     fcn_DebugTools_printDirectoryListing(directory_allMergedMatFiles, ([]), ([]), (1));
+% end
+% 
+% 
+% %%%
+% % Extract all the merged mat file names
+% mergedMatFileNames = {directory_allMergedMatFiles.name}';
+% 
+% % Pick only the ones we want
+% filesToKeep = ~contains(mergedMatFileNames,'Ouster') .* ~contains(mergedMatFileNames,'velodyne') .* ~contains(mergedMatFileNames,'cameras');
+% goodFileindicies = find(filesToKeep);
+% mergedMatFileNamesSelected = mergedMatFileNames(goodFileindicies);
+% directory_selectedMergedMatFiles = directory_allMergedMatFiles(goodFileindicies);
+% 
+% %%%
+% % Summarize the file sizes?
+% 
+% fprintf(1,'\n\nSELECTED FILES: \n');
+% fcn_DebugTools_printDirectoryListing(directory_selectedMergedMatFiles, ([]), ([]), (1));
+% 
+% % totalBytes = fcn_DebugTools_countBytesInDirectoryListing(directory_selectedRawBagFiles, (1:length(directory_selectedRawBagFiles)));
+% % estimatedPoseOnlyParseTime = totalBytes/bytesPerSecondPoseOnly;
+% % estimatedFullParseTime = totalBytes/bytesPerSecondFull;
+% % 
+% % timeInSeconds = estimatedPoseOnlyParseTime;
+% % fprintf(1,'Total estimated time to process these %.0f bags, pose only: %.2f seconds (e.g. %.2f minutes, or %.2f hours, or %.2f days) \n',length(directory_allRawBagFiles),timeInSeconds, timeInSeconds/60, timeInSeconds/3600, timeInSeconds/(3600*24));
+% % timeInSeconds = estimatedFullParseTime;
+% % fprintf(1,'Total estimated time to process these %.0f bags, full (no cameras): %.2f seconds (e.g. %.2f minutes, or %.2f hours, or %.2f days) \n',length(directory_allRawBagFiles),timeInSeconds, timeInSeconds/60, timeInSeconds/3600, timeInSeconds/(3600*24));
+% 
+% 
+% %%%%
+% % Find which files were either time cleaned, data cleaned, or KF cleaned 
+% flag_matchingType = 1; % same to same
+% typeExtension = 'merged.mat';
+% flags_mergedWasTimeCleaned    = fcn_DebugTools_compareDirectoryListings(directory_selectedMergedMatFiles, parsedMATLAB_PoseOnlyMerged, mergedTimeCleaned, (flag_matchingType), (typeExtension), (1));
+% flags_mergedWasDataCleaned    = fcn_DebugTools_compareDirectoryListings(directory_selectedMergedMatFiles, parsedMATLAB_PoseOnlyMerged, mergedDataCleaned, (flag_matchingType), (typeExtension), (1));
+% flags_mergedWasKalmanFiltered = fcn_DebugTools_compareDirectoryListings(directory_selectedMergedMatFiles, parsedMATLAB_PoseOnlyMerged, mergedKalmanFiltered, (flag_matchingType), (typeExtension), (1));
+% 
+% 
+% 
+% 
+% %%%%
+% % Print the results
+% NcolumnsToPrint = 4;
+% cellArrayHeaders = cell(NcolumnsToPrint,1);
+% cellArrayHeaders{1} = 'MERGED NAME                                   ';
+% cellArrayHeaders{2} = 'TIME Cleaned?';
+% cellArrayHeaders{3} = 'DATA Cleaned?';
+% cellArrayHeaders{4} = 'Kalman Filt? ';
+% cellArrayValues = [...
+%     mergedMatFileNamesSelected, ...
+%     fcn_DebugTools_convertBinaryToYesNoStrings(flags_mergedWasTimeCleaned), ...
+%     fcn_DebugTools_convertBinaryToYesNoStrings(flags_mergedWasDataCleaned), ...
+%     fcn_DebugTools_convertBinaryToYesNoStrings(flags_mergedWasKalmanFiltered)
+%     ];
+% 
+% fid = 1;
+% fcn_DebugTools_printNumeredDirectoryList(directory_selectedMergedMatFiles, cellArrayHeaders, cellArrayValues, (parsedMATLAB_PoseOnlyMerged), (fid))
+% 
+% 
+% 
+% %%
+% % Determine type of processing
+% 
+% % What type of processing to do?
+% flag_keepGoing = 1;
+% if 1==flag_keepGoing
+%     flag_keepGoing = 0;
+%     flag_goodReply = 0;
+%     while 0==flag_goodReply
+%         fprintf(1,'\nWhat type of processing should be done?\n')
+%         fprintf(1,'\t1. Time cleaning\n');
+%         fprintf(1,'\t2. Data cleaning.\n')
+%         fprintf(1,'\t3. Kalman filtering.\n')
+%         fprintf(1,'\tQ: Quit.\n')
+%         processingType = input('Selection? [default = 1]:','s');
+%         if isempty(processingType)
+%             processingType = '1';
+%             flag_goodReply = 1;
+%         else
+%             processingType = lower(processingType);
+%             if isscalar(processingType) && (strcmp(processingType,'1')||strcmp(processingType,'2')||strcmp(processingType,'3')||strcmp(processingType,'q'))
+%                 flag_goodReply = 1;
+%             end
+%         end
+%     end
+%     fprintf(1,'Selection chosen: %s --> ',processingType);
+%     if strcmp(processingType,'1')
+%         fprintf(1,'Time cleaning\n');
+%         flags_toCheck = flags_mergedWasTimeCleaned;
+%         destinationRootFolder = mergedTimeCleaned;
+%         flag_keepGoing = 1;
+%     elseif strcmp(processingType,'2')
+%         fprintf(1,'Data cleaning\n');
+%         flags_toCheck = flags_mergedWasDataCleaned;
+%         destinationRootFolder = mergedDataCleaned;        
+%         flag_keepGoing = 1;
+%     elseif strcmp(processingType,'3')
+%         fprintf(1,'Kalman filtering\n');
+%         flags_toCheck = flags_mergedWasKalmanFiltered;
+%         destinationRootFolder = mergedKalmanFiltered;        
+%         flag_keepGoing = 1;
+%     else
+%         fprintf(1,'Quitting\n');
+%     end
+% end
+% 
+% 
+% %%% What numbers of files to parse?
+% if 1==flag_keepGoing
+%     [flag_keepGoing, startingIndex, endingIndex] = fcn_DebugTools_queryNumberRange(flags_toCheck, (' of the file(s) to parse'), (1), (directory_selectedMergedMatFiles), (1));
+% end
+% 
+% %%% Estimate the time it takes to process?
+% if 1==0  % 1==flag_keepGoing
+% 
+%     if strcmp(processingType,'1')
+%         bytesPerSecond = bytesPerSecondTimeClean;
+%     elseif strcmp(processingType,'2')
+%         bytesPerSecond = bytesPerSecondDataClean;
+%     elseif strcmp(processingType,'3')
+%         bytesPerSecond = bytesPerSecondKalmanFilter;
+%     end
+%     indexRange = (startingIndex:endingIndex);
+% 
+%     [flag_keepGoing, timeEstimateInSeconds] = fcn_DebugTools_confirmTimeToProcessDirectory(directory_selectedMergedMatFiles, bytesPerSecond, (indexRange),(1));
+% end
+% 
+% 
+% 
+% %%
+% % Process the files
+% 
+% if 1==flag_keepGoing
+% 
+%     alltstart = tic;
+%     Ndone = 0;
+%     NtoProcess = length(startingIndex:endingIndex);
+%     for ith_matFile = startingIndex:endingIndex
+%         Ndone = Ndone + 1;
+%         sourceFolderName     = directory_selectedMergedMatFiles(ith_matFile).folder;
+%         thisFolder           = extractAfter(sourceFolderName,parsedMATLAB_PoseOnlyMerged);
+%         thisBytes            = directory_selectedMergedMatFiles(ith_matFile).bytes;
+% 
+%         destinationFolder    = cat(2,destinationRootFolder,thisFolder);
+% 
+%         thisFileFullName = directory_selectedMergedMatFiles(ith_matFile).name;
+%         thisFile = extractBefore(thisFileFullName,'.mat');
+% 
+%         fprintf(1,'\n\nProcessing file: %d (file %d of %d)\n', ith_matFile, Ndone,NtoProcess);
+%         fprintf(1,'Initiating processing for file: %s\n',thisFile);
+%         fprintf(1,'Pulling from folder: %s\n',sourceFolderName);
+%         fprintf(1,'Pushing to folder:   %s\n',destinationFolder);
+% 
+%         tstart = tic;
+% 
+% 
+% 
+%         %%%%%%%%%%%%%%%%%%%%%%%
+%         % Location for Pittsburgh, site 1
+%         setenv('MATLABFLAG_PLOTROAD_REFERENCE_LATITUDE','40.44181017');
+%         setenv('MATLABFLAG_PLOTROAD_REFERENCE_LONGITUDE','-79.76090840');
+%         setenv('MATLABFLAG_PLOTROAD_REFERENCE_ALTITUDE','327.428');
+% 
+% 
+%         % Specify the bagQueryString
+%         matQueryString = cat(2,thisFile,'*.mat'); % The more specific, the better to avoid accidental loading of wrong information
+% 
+%         % List what will be plotted, and the figure numbers
+%         plotFlags.fig_num_plotAllMatTogether = 1111;
+%         plotFlags.fig_num_plotAllMatIndividually = [];
+% 
+%         % Call the function
+%         sourceDataCellArray = fcn_TimeClean_loadMatDataFromDirectories({sourceFolderName}, [], (matQueryString), (1), (plotFlags));
+% 
+%         if strcmp(processingType,'1')
+%             fprintf(1,'Time cleaning\n');
+%             ref_baseStationLLA = [40.44181017, -79.76090840, 327.428]; % Pittsburgh (NOTE: not used)
+%             fig_num  = 1;
+%             cleanDataStruct = fcn_TimeClean_cleanData(sourceDataCellArray{1}.rawDataMerged, (ref_baseStationLLA), (fid), ([]), (fig_num));
+%         elseif strcmp(processingType,'2')
+%             fprintf(1,'Data cleaning\n');
+%             flags_toCheck = flags_mergedWasDataCleaned;
+%             destinationRootFolder = mergedDataCleaned;
+%             flag_keepGoing = 1;
+%         elseif strcmp(processingType,'3')
+%             fprintf(1,'Kalman filtering\n');
+%             flags_toCheck = flags_mergedWasKalmanFiltered;
+%             destinationRootFolder = mergedKalmanFiltered;
+%             flag_keepGoing = 1;
+%         else
+%             fprintf(1,'Quitting\n');
+%         end
+% 
+%         %%%%%%%
+% 
+% 
+%         telapsed = toc(tstart);
+% 
+%         totalBytes = directory_selectedMergedMatFiles(ith_matFile).bytes;
+%         predictedFileTime =  totalBytes/bytesPerSecond;
+%         fprintf(1,'Processing speed, predicted: %.0f seconds versus actual: %.0f seconds\n',predictedFileTime, telapsed);
+%         fprintf(1,'Actual bytes per second: %.0f \n',thisBytes/telapsed);
+%     end
+%     alltelapsed = toc(alltstart);
+% 
+%     % Check prediction
+%     fprintf(1,'\nTotal time to process: \n');
+%     if timeInSeconds<100
+%         fprintf(1,'\tEstimated: %.2f seconds \n', timeInSeconds)
+%         fprintf(1,'\tActual:    %.2f seconds \n', alltelapsed);
+%     elseif timeInSeconds>=100 && timeInSeconds<3600
+%         fprintf(1,'\tEstimated: %.2f seconds (e.g. %.2f minutes)\n',timeInSeconds, timeInSeconds/60);
+%         fprintf(1,'\tActual:    %.2f seconds (e.g. %.2f minutes)\n',alltelapsed, alltelapsed/60);
+%     else
+%         fprintf(1,'\tEstimated: %.2f seconds (e.g. %.2f minutes, or %.2f hours)\n',timeInSeconds, timeInSeconds/60, timeInSeconds/3600);
+%         fprintf(1,'\tActual:    %.2f seconds (e.g. %.2f minutes, or %.2f hours)\n',alltelapsed, alltelapsed/60, alltelapsed/3600);
+%     end
+% 
+% end
+% 
+% %% Conditional loading from the database
+% 
+% % NOT implemented yet
+% 
+% % % % % ======================= Load the raw data =========================
+% % % % % This data will have outliers, be unevenly sampled, have multiple and
+% % % % % inconsistent measurements of the same variable. In other words, it is the
+% % % % % raw data. It can be loaded either from a database or a file - details are
+% % % % % in the function below.
+% % % % 
+% % % % % For debugging, to force the if statement to be run
 % % % % clear dataset
-% % % if ~exist('dataset','var')
-% % %     if flag.DBquery == true
-% % %         % Load the raw data from the database
-% % %         queryCondition = 'trip'; % Default: 'trip'. raw data can be queried by 'trip', 'date', or 'driver'
-% % %         [rawData,trip_name,trip_id_cleaned,base_station,Hemisphere_gps_week] = fcn_TimeClean_queryRawDataFromDB(flag.DBquery,'mapping_van_raw',queryCondition); %#ok<ASGLU> % more query condition can be set in the function
-% % %     else
-% % %         % Load the raw data from file, and if a fig_num is given, save the
-% % %         % image to a PNG file with same name as the bag file
-% % %         [rawData, subPathStrings] = fcn_TimeClean_loadMappingVanDataFromFile(largeDataBagPath, bagName, fid,[],rawdata_fig_num);
-% % % 
-% % %         % Save the mat file to the Data folder
-% % % 
-% % % 
-% % %         %%%%%
-% % %         % Save the image file to the Data folder
-% % % 
-% % %         % Make sure bagName is good
-% % %         if contains(bagName,'.')
-% % %             bagName_clean = extractBefore(bagName,'.');
-% % %         else
-% % %             bagName_clean = bagName;
-% % %         end
-% % % 
-% % %         % Save the image to file
-% % %         Image = getframe(gcf);
-% % %         image_fname = cat(2,char(bagName_clean),'.png');
-% % %         imagePath = fullfile(pwd, 'ImageSummaries',image_fname);
-% % %         if 2~=exist(imagePath,'file')
-% % %             imwrite(Image.cdata, imagePath);
-% % %         end
-% % % 
-% % % 
-% % %         % Prepare the dataset for the "cleaning" process by loading rawData
-% % %         % into the starting dataset variable
-% % %         dataset{1} = rawData;
-% % %     end
-% % % else
-% % %     if length(dataset)>1
-% % %         % Keep just the first dataset
-% % %         temp{1} = dataset{1};
-% % %         dataset = temp;
-% % %     end
-% % % end
+% % % % 
+% % % % flag.DBquery = false; %true; %set to true to query raw data from database 
+% % % % flag.DBinsert = false; %set to true to insert cleaned data to cleaned data database
+% % % % flag.SaveQueriedData = true; % 
+% % % % 
+% % % % % clear dataset
+% % % % if ~exist('dataset','var')
+% % % %     if flag.DBquery == true
+% % % %         % Load the raw data from the database
+% % % %         queryCondition = 'trip'; % Default: 'trip'. raw data can be queried by 'trip', 'date', or 'driver'
+% % % %         [rawData,trip_name,trip_id_cleaned,base_station,Hemisphere_gps_week] = fcn_TimeClean_queryRawDataFromDB(flag.DBquery,'mapping_van_raw',queryCondition); %#ok<ASGLU> % more query condition can be set in the function
+% % % %     else
+% % % %         % Load the raw data from file, and if a fig_num is given, save the
+% % % %         % image to a PNG file with same name as the bag file
+% % % %         [rawData, subPathStrings] = fcn_TimeClean_loadMappingVanDataFromFile(largeDataBagPath, bagName, fid,[],rawdata_fig_num);
+% % % % 
+% % % %         % Save the mat file to the Data folder
+% % % % 
+% % % % 
+% % % %         %%%%%
+% % % %         % Save the image file to the Data folder
+% % % % 
+% % % %         % Make sure bagName is good
+% % % %         if contains(bagName,'.')
+% % % %             bagName_clean = extractBefore(bagName,'.');
+% % % %         else
+% % % %             bagName_clean = bagName;
+% % % %         end
+% % % % 
+% % % %         % Save the image to file
+% % % %         Image = getframe(gcf);
+% % % %         image_fname = cat(2,char(bagName_clean),'.png');
+% % % %         imagePath = fullfile(pwd, 'ImageSummaries',image_fname);
+% % % %         if 2~=exist(imagePath,'file')
+% % % %             imwrite(Image.cdata, imagePath);
+% % % %         end
+% % % % 
+% % % % 
+% % % %         % Prepare the dataset for the "cleaning" process by loading rawData
+% % % %         % into the starting dataset variable
+% % % %         dataset{1} = rawData;
+% % % %     end
+% % % % else
+% % % %     if length(dataset)>1
+% % % %         % Keep just the first dataset
+% % % %         temp{1} = dataset{1};
+% % % %         dataset = temp;
+% % % %     end
+% % % % end
 
 %% Main Cleaning Function
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%

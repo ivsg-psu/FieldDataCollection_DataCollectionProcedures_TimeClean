@@ -78,6 +78,9 @@ function [cleanDataStruct, subPathStrings]  = fcn_TimeClean_cleanNaming(rawDataS
 % - Changed in-use function name
 %   % * From: fcn_Data+Clean_cleanNaming
 %   % * To: fcn_TimeClean_cleanNaming
+%
+% 2025_12_17 by Sean Brennan, sbrennan@psu.edu
+% - Fixed fprint statements to correctly put into FID passed into function
 
 % TO-DO:
 %
@@ -238,7 +241,7 @@ while 1==flag_stay_in_main_loop
     main_data_clean_loop_iteration_number = main_data_clean_loop_iteration_number+1;
     debugging_data_structure_sequence{main_data_clean_loop_iteration_number} = currentDataStructure;
 
-    fprintf(1,'\n\nName Cleaning Iteration #%.0d\n',main_data_clean_loop_iteration_number);
+    fprintf(fid,'\n\nName Cleaning Iteration #%.0d\n',main_data_clean_loop_iteration_number);
 
     %% Remove Identifiers, temporarily
     if isfield(currentDataStructure, 'Identifiers')
@@ -303,7 +306,7 @@ while 1==flag_stay_in_main_loop
     
     [name_flags, ~] = fcn_TimeClean_checkDataNameConsistency(nextDataStructure,fid);
     
-    fcn_INTERNAL_reportFlagStatus(name_flags,'NAMING FLAGS:');
+    fcn_INTERNAL_reportFlagStatus(name_flags,'NAMING FLAGS:', fid);
     
     %% If NOT merged, fix these errors
 
@@ -357,7 +360,7 @@ while 1==flag_stay_in_main_loop
         name_flags.sensor_naming_standards_are_used = 1;
     end
 
-    fcn_INTERNAL_reportFlagStatus(name_flags,'NAMING FLAGS AFTER FIXING:');
+    fcn_INTERNAL_reportFlagStatus(name_flags,'NAMING FLAGS AFTER FIXING:', fid);
     
 
 
@@ -452,21 +455,21 @@ end % Ends fcn_INTERNAL_checkFlagsForExit
 
 
 %% fcn_INTERNAL_reportFlagStatus
-function fcn_INTERNAL_reportFlagStatus(flagStructure,printTitle)
-fprintf(1,'\n%s\n',printTitle);
+function fcn_INTERNAL_reportFlagStatus(flagStructure,printTitle, fid)
+fprintf(fid,'\n%s\n',printTitle);
 fieldsToprint = fieldnames(flagStructure);
 NcharactersField = 50;
 for ith_field = 1:length(fieldsToprint)
     thisField = fieldsToprint{ith_field};
     formattedHeaderString  = fcn_DebugTools_debugPrintStringToNCharacters(thisField,NcharactersField);
-    fprintf(1,'%s\t',formattedHeaderString);
+    fprintf(fid,'%s\t',formattedHeaderString);
     fieldValue = flagStructure.(thisField);
     if 1==fieldValue
         fieldString = 'yes';
     else
         fieldString = 'no';
     end
-    fprintf(1,'%s\n',fieldString);    
+    fprintf(fid,'%s\n',fieldString);    
 end
-fprintf(1,'\n');
+fprintf(fid,'\n');
 end % Ends fcn_INTERNAL_reportFlagStatus

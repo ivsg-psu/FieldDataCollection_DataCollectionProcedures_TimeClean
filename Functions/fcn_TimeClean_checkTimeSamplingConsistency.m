@@ -105,6 +105,9 @@ function [flags,offending_sensor,return_flag] = fcn_TimeClean_checkTimeSamplingC
 %
 % 2025_11_25 by Sean Brennan, sbrennan@psu.edu
 % - Updated docstrings in header to show return_flag output
+%
+% 2025_12_17 by Sean Brennan, sbrennan@psu.edu
+% - Updated debugging to use fcn_DebugTools_debugPrintTableToNCharacters
 
 % TO-DO:
 %
@@ -378,26 +381,41 @@ for ith_sensor = 1:Ndata
             fprintf(fid,'\t\t Actual number of samples:    %.0f.\n',length(timeData));
 
             if ~isempty(indiciesOfBadIntervals)
+                Npoints = length(timeData(:,1));
                 bad_index = indiciesOfBadIntervals(1);
                 indexRange = 10;
                 start_print = max(bad_index-indexRange,1);
                 end_print = min(bad_index+indexRange,length(timeDifferences(:,1)));
+                sampleNumbers = (1:length(timeDifferences(:,1)))';
                 if isfield(sensor_data,'Trigger_Time')
                     timeLabelString = 'Trigger_Time';
-                    temp = [sensor_data.Trigger_Time timeData  timeDifferences effectiveSamplingIntervals];
+                    temp = [zeros(Npoints,1) sampleNumbers sensor_data.Trigger_Time timeData  timeDifferences effectiveSamplingIntervals];
                 elseif isfield(sensor_data,'GPS_Time')
                     timeLabelString = 'GPS_Time';
-                    temp = [sensor_data.GPS_Time timeData  timeDifferences effectiveSamplingIntervals];
+                    temp = [zeros(Npoints,1) sampleNumbers sensor_data.GPS_Time timeData  timeDifferences effectiveSamplingIntervals];
                 end
-                fprintf(1,'\t\tExample of failure:\n')
-                fprintf(1,'\t\t\t (%s) \t (%s) \t (timeDifferences) \t (effectiveSamplingIntervals)\n',timeLabelString, field_name)
-                for ith_index = start_print:end_print
-                    if ith_index~=bad_index
-                        fprintf(1,'\t\t\t %.4f \t %.4f \t %.4f \t\t\t %.0f\n',temp(ith_index,1),temp(ith_index,2),temp(ith_index,3),temp(ith_index,4))
-                    else
-                        fcn_DebugTools_cprintf('Red','\t\t\t %.4f \t %.4f \t %.4f \t\t\t %.0f\n',temp(ith_index,1), temp(ith_index,2),temp(ith_index,3),temp(ith_index,4))
-                    end
-                end
+
+                % Set up table format
+                header_strings = [{'            '},{'(sample number)'},{sprintf('(%s)',timeLabelString)}, {sprintf('(%s)',field_name)},{'(timeDifferences)'},{'(effectiveSamplingIntervals)'}];
+                formatter_strings = [...
+                    {'%.0d'},{'%.0d'},{'%.4f'},{'%.4f'},{'%.4f'},{'%.0f'},{[]};
+                    {'%.0d'},{'%.0d'},{'%.4f'},{'red %.4f'},{'red %.4f'},{'red %.0f'},{[bad_index]};
+                    ];
+                N_chars = 20; % All columns have same number of characters
+
+                fprintf(fid,'\t\t Example of failure:\n');
+                table_data = temp(start_print:end_print,:);
+                fcn_DebugTools_debugPrintTableToNCharacters(table_data, header_strings, formatter_strings, N_chars, fid);
+
+
+                % fprintf(fid,'\t\t\t (%s) \t (%s) \t (timeDifferences) \t (effectiveSamplingIntervals)\n',timeLabelString, field_name)
+                % for ith_index = start_print:end_print
+                %     if ith_index~=bad_index
+                %         fprintf(fid,'\t\t\t %.4f \t %.4f \t %.4f \t\t\t %.0f\n',temp(ith_index,1),temp(ith_index,2),temp(ith_index,3),temp(ith_index,4))
+                %     else
+                %         fcn_DebugTools_cprintf('Red','\t\t\t %.4f \t %.4f \t %.4f \t\t\t %.0f\n',temp(ith_index,1), temp(ith_index,2),temp(ith_index,3),temp(ith_index,4))
+                %     end
+                % end
             end
         else
             % Throw warnings on catastrophic errors that are not fixable
