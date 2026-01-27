@@ -114,6 +114,11 @@ function [cleanDataStruct, subPathStrings]  = fcn_TimeClean_cleanTimeInStruct(ra
 % 2025_12_17 by Sean Brennan, sbrennan@psu.edu
 % - Made some of the test cases more verbose
 % - Fixed errors in printing where print-to-fid was not working
+%
+% 2025_12_18 by Sean Brennan, sbrennan@psu.edu
+% - In fcn_TimeClean_cleanTimeInStruct
+%   % * Added automatic capture of error information to make test cases
+%   % * See checkTimeSamplingConsistency
 
 % TO-DO:
 %
@@ -373,7 +378,7 @@ while 1==flag_stay_in_main_loop
 
     [timeFlags,offending_sensor] = fcn_TimeClean_checkIfFieldInSensors(nextDataStructure,'GPS_Time',timeFlags,'any','GPS',fid);
 
-    if (1==flag_keep_checking) && (0==timeFlags.GPS_Time_exists_in_at_least_one_GPS_sensor)
+    if (0==timeFlags.GPS_Time_exists_in_at_least_one_GPS_sensor)
         fcn_INTERNAL_printChecking(fid,'*red','FAIL\n');
         warning('on','backtrace');
         warning('Fundamental error on GPS_time: no sensors detected that have GPS time!?');
@@ -396,7 +401,7 @@ while 1==flag_stay_in_main_loop
 
     [timeFlags,offending_sensor] = fcn_TimeClean_checkIfFieldInSensors(nextDataStructure,'GPS_Time',timeFlags,'all','GPS',fid);
 
-    if (1==flag_keep_checking) && (0==timeFlags.GPS_Time_exists_in_all_GPS_sensors)
+    if (0==timeFlags.GPS_Time_exists_in_all_GPS_sensors)
         fcn_INTERNAL_printChecking(fid,'*red','FAIL\n');
         warning('on','backtrace');
         warning('Fundamental error on GPS_time: a GPS sensor is missing GPS time!?');
@@ -420,7 +425,7 @@ while 1==flag_stay_in_main_loop
     [timeFlags,offending_sensor] = fcn_TimeClean_checkIfFieldInSensors(nextDataStructure,'centiSeconds',timeFlags,'all','GPS',fid);
 
 
-    if (1==flag_keep_checking) && (0==timeFlags.centiSeconds_exists_in_all_GPS_sensors)
+    if (0==timeFlags.centiSeconds_exists_in_all_GPS_sensors)
         fcn_INTERNAL_printChecking(fid,'*red','FAIL\n');
         disp(nextDataStructure.(offending_sensor))
         warning('on','backtrace');
@@ -447,7 +452,7 @@ while 1==flag_stay_in_main_loop
 
     [timeFlags,offending_sensor] = fcn_TimeClean_checkIfFieldHasRepeatedValues(nextDataStructure,'GPS_Time',timeFlags, 'GPS', (fid),(-1));
 
-    if (1==flag_keep_checking) && (0==timeFlags.GPS_Time_has_no_repeats_in_GPS_sensors)
+    if (0==timeFlags.GPS_Time_has_no_repeats_in_GPS_sensors)
         % Fix the data
         fcn_INTERNAL_printChecking(fid,'*cyan','POSSIBLE ERROR\n');
         fcn_INTERNAL_printChecking(fid,'*cyan', sprintf('Found repeated GPS_Time values in sensor: %s \n\tAttempting a fix... ', offending_sensor));
@@ -491,7 +496,7 @@ while 1==flag_stay_in_main_loop
     verificationTypeFlag = 0; 
     [timeFlags,offending_sensor] = fcn_TimeClean_checkTimeSamplingConsistency(nextDataStructure,'GPS_Time', verificationTypeFlag, timeFlags, 'GPS',fid, plotFlags.figNum_checkTimeSamplingConsistency_GPSTime);
 
-    if (1==flag_keep_checking) && (0==timeFlags.GPS_Time_sample_modes_match_centiSeconds_in_GPS_sensors)
+    if (0==timeFlags.GPS_Time_sample_modes_match_centiSeconds_in_GPS_sensors)
         fcn_INTERNAL_printChecking(fid,'*red',sprintf('FAIL: GPS_Time sampling rate does not match centiSeconds in sensor %s\n', offending_sensor));
         error('Inconsistent data detected: the following GPS sensor has an average sampling rate different than predicted from centiSeconds: %s.',offending_sensor);
     else
@@ -515,7 +520,7 @@ while 1==flag_stay_in_main_loop
 
     [timeFlags, offending_sensor,~] = fcn_TimeClean_checkDataStrictlyIncreasing(nextDataStructure, 'GPS_Time', (timeFlags), ('GPS'), (fid), ([]));
 
-    if (1==flag_keep_checking) && (0==timeFlags.GPS_Time_strictly_ascends_in_GPS_sensors)
+    if (0==timeFlags.GPS_Time_strictly_ascends_in_GPS_sensors)
         % Fix the data
         fcn_INTERNAL_printChecking(fid,'*cyan','POSSIBLE ERROR\n');
         fcn_INTERNAL_printChecking(fid,'*cyan', sprintf('Found repeated GPS_Time values that are out of order in sensor: %s \n\tAttempting a fix... ', offending_sensor));
@@ -571,7 +576,7 @@ while 1==flag_stay_in_main_loop
     [timeFlags, offending_sensor, ~] = fcn_TimeClean_checkConsistencyOfStartEnd(nextDataStructure, 'GPS_Time', (timeFlags), ('GPS'), ('_within_5_seconds'), (5.0), (fid), ([]));
 
 
-    if (1==flag_keep_checking) && (0==timeFlags.GPS_Time_has_consistent_start_end_within_5_seconds)
+    if (0==timeFlags.GPS_Time_has_consistent_start_end_within_5_seconds)
         % Fix the data
         fcn_INTERNAL_printChecking(fid,'*cyan','POSSIBLE ERROR\n');
         fcn_INTERNAL_printChecking(fid,'*cyan', sprintf('Found starting GPS_Time values between sensors that are more than 5 seconds apart, for example in sensor: %s \n\tAttempting a fix... ', offending_sensor));
@@ -615,7 +620,7 @@ while 1==flag_stay_in_main_loop
 
     [timeFlags, offending_sensor, ~] = fcn_TimeClean_checkConsistencyOfStartEnd(nextDataStructure, 'GPS_Time', (timeFlags), ('GPS'), ('_across_GPS_sensors'), (.025), (fid), ([]));
 
-    if (1==flag_keep_checking) && (0==timeFlags.GPS_Time_has_consistent_start_end_across_GPS_sensors)
+    if (0==timeFlags.GPS_Time_has_consistent_start_end_across_GPS_sensors)
         % Fix the data
         fcn_INTERNAL_printChecking(fid,'*cyan','POSSIBLE ERROR\n');
         fcn_INTERNAL_printChecking(fid,'*cyan', sprintf('Found starting GPS_Time values between sensors that start at different times, for example in sensor: %s \n\tAttempting a fix... ', offending_sensor));
@@ -669,7 +674,7 @@ while 1==flag_stay_in_main_loop
     [timeFlags,offending_sensor] = fcn_TimeClean_checkFieldDifferencesForJumps(...
         nextDataStructure,'GPS_Time',timeFlags,threshold_in_standard_deviations, custom_lower_threshold,'any','GPS', fid);
 
-    if (1==flag_keep_checking) && (0==timeFlags.GPS_Time_has_no_sampling_jumps_in_any_GPS_sensors)
+    if (0==timeFlags.GPS_Time_has_no_sampling_jumps_in_any_GPS_sensors)
         % Used to create test data
         if 1==0
             fullExampleFilePath = fullfile(cd,'Data','ExampleData_fillMissingsInGPSUnits.mat');
@@ -681,7 +686,7 @@ while 1==flag_stay_in_main_loop
     end
 
 
-    if (1==flag_keep_checking) && (0==timeFlags.GPS_Time_has_no_sampling_jumps_in_any_GPS_sensors)
+    if (0==timeFlags.GPS_Time_has_no_sampling_jumps_in_any_GPS_sensors)
         % Fix the data
         fcn_INTERNAL_printChecking(fid,'*cyan','POSSIBLE ERROR\n');
         fcn_INTERNAL_printChecking(fid,'*cyan', sprintf('Found sampling jumps in a GPS sensor, in sensor: %s \n\tAttempting a fix... ', offending_sensor));
@@ -734,7 +739,7 @@ while 1==flag_stay_in_main_loop
         nextDataStructure, 'GPS_Time', (timeFlags), (threshold_for_agreement), (expectedJump), (string_any_or_all), (sensors_to_check), (fid));
 
 
-    if (1==flag_keep_checking) && (0==timeFlags.GPS_Time_has_no_missing_sample_differences_in_any_GPS_sensors)
+    if (0==timeFlags.GPS_Time_has_no_missing_sample_differences_in_any_GPS_sensors)
         % Fix the data
         fcn_INTERNAL_printChecking(fid,'*cyan','POSSIBLE ERROR\n');
         fcn_INTERNAL_printChecking(fid,'*cyan', sprintf('Found missing time samples in a GPS sensor, in sensor: %s \n\tAttempting a fix... ', offending_sensor));
@@ -795,7 +800,7 @@ while 1==flag_stay_in_main_loop
 
     [timeFlags,offending_sensor,~] = fcn_TimeClean_checkIfFieldInSensors(nextDataStructure,'Trigger_Time',timeFlags,'all','GPS',fid);
 
-    if (1==flag_keep_checking) && (0==timeFlags.Trigger_Time_exists_in_all_GPS_sensors)
+    if (0==timeFlags.Trigger_Time_exists_in_all_GPS_sensors)
         % Fix the data
         fcn_INTERNAL_printChecking(fid,'*cyan','POSSIBLE ERROR\n');
         fcn_INTERNAL_printChecking(fid,'*cyan', sprintf('Found missing Trigger_Time in a GPS sensor, in sensor: %s \n\tAttempting a fix... ', offending_sensor));
@@ -853,7 +858,7 @@ while 1==flag_stay_in_main_loop
 
     [timeFlags,offending_sensor,~] = fcn_TimeClean_checkIfFieldInSensors(nextDataStructure,'ROS_Time',timeFlags,'all','GPS',fid);
 
-    if (1==flag_keep_checking) && (0==timeFlags.ROS_Time_exists_in_all_GPS_sensors)
+    if (0==timeFlags.ROS_Time_exists_in_all_GPS_sensors)
         fcn_INTERNAL_printChecking(fid,'*red','FAIL\n');
         warning('on','backtrace');
         warning('Fundamental error on ROS_time: a GPS sensor was found that has no ROS time!? Sensor name: %s', offending_sensor);
@@ -879,7 +884,7 @@ while 1==flag_stay_in_main_loop
 
     [timeFlags,offending_sensor,~] = fcn_INTERNAL_checkIfROSTimeMisScaled(fid, nextDataStructure, timeFlags);
 
-    if (1==flag_keep_checking) && (0==timeFlags.ROS_Time_scaled_correctly_as_seconds)
+    if (0==timeFlags.ROS_Time_scaled_correctly_as_seconds)
         % Fix the data
         fcn_INTERNAL_printChecking(fid,'*cyan','POSSIBLE ERROR\n');
         fcn_INTERNAL_printChecking(fid,'*cyan', sprintf('Found incorrectly scaled ROS time in a GPS sensor, in sensor: %s \n\tAttempting a fix... ', offending_sensor));
@@ -929,12 +934,11 @@ while 1==flag_stay_in_main_loop
     [timeFlags,offending_sensor] = fcn_TimeClean_checkTimeSamplingConsistency(nextDataStructure,'ROS_Time', verificationTypeFlag, timeFlags, 'GPS',fid, plotFlags.figNum_checkTimeSamplingConsistency_ROSTime);
 
 
-    if (1==flag_keep_checking) && (0==timeFlags.ROS_Time_sample_modes_match_centiSeconds_in_GPS_sensors)
+    if  (0==timeFlags.ROS_Time_sample_modes_match_centiSeconds_in_GPS_sensors)
         fcn_INTERNAL_printChecking(fid,'*red','FAIL\n');
         warning('on','backtrace');
         warning('Fundamental error on ROS_time: a GPS sensor was found that has a ROS time sample rate different than the GPS sample rate!? Sensor name: %s',offending_sensor);
         error('ROS time is mis-sampled.\');
-        flag_keep_checking = 0;
     end
 
     fcn_INTERNAL_printChecking(fid,'*green','\tPASSED\n');
@@ -956,12 +960,11 @@ while 1==flag_stay_in_main_loop
 
     [timeFlags,offending_sensor,~] = fcn_TimeClean_checkDataStrictlyIncreasing(nextDataStructure, 'ROS_Time', (timeFlags), ('GPS'), (fid), ([]));
 
-    if (1==flag_keep_checking) && (0==timeFlags.ROS_Time_strictly_ascends_in_GPS_sensors)
+    if (0==timeFlags.ROS_Time_strictly_ascends_in_GPS_sensors)
         fcn_INTERNAL_printChecking(fid,'*red','FAIL\n');
         warning('on','backtrace');
         warning('Fundamental error on ROS_time: it is not counting up!? Sensor name: %s', offending_sensor);
         error('ROS time is not strictly ascending.');
-        flag_keep_checking = 0;
     end
 
     fcn_INTERNAL_printChecking(fid,'*green','\tPASSED\n');
@@ -990,7 +993,7 @@ while 1==flag_stay_in_main_loop
     [timeFlags, offending_sensor, ~] = fcn_TimeClean_checkConsistencyOfStartEnd(nextDataStructure, 'ROS_Time', (timeFlags), ('GPS'), ('_across_GPS_sensors'), (maxSamplingIntervalCentiSeconds*0.01/2), (fid), ([]));
 
 
-    if (1==flag_keep_checking) && (0==timeFlags.ROS_Time_has_consistent_start_end_across_GPS_sensors)
+    if (0==timeFlags.ROS_Time_has_consistent_start_end_across_GPS_sensors)
         % Fix the data
         fcn_INTERNAL_printChecking(fid,'*cyan','POSSIBLE ERROR\n');
         fcn_INTERNAL_printChecking(fid,'*cyan', sprintf('Found ROS time with inconsistent start or stop, in sensor: %s \n\tAttempting a fix... ', offending_sensor));
@@ -1054,12 +1057,11 @@ while 1==flag_stay_in_main_loop
 
     [timeFlags,offending_sensor,~]  = fcn_TimeClean_checkFieldCountMatchesTimeCount(nextDataStructure,'ROS_Time',timeFlags,'Trigger_Time','GPS',fid);
 
-    if (1==flag_keep_checking) && (0==timeFlags.ROS_Time_has_same_length_as_Trigger_Time_in_GPS_sensors)
+    if (0==timeFlags.ROS_Time_has_same_length_as_Trigger_Time_in_GPS_sensors)
         fcn_INTERNAL_printChecking(fid,'*red',sprintf('FAIL - ROS_Time is not same length as Trigger_time in GPS sensor: %s\n', offending_sensor));
         warning('on','backtrace');
         warning('Fundamental error on ROS_time: unexpected count');
         error('ROS time does not have expected count.\');
-        flag_keep_checking = 0;
     end
 
     fcn_INTERNAL_printChecking(fid,'*green','\tPASSED\n');
@@ -1078,7 +1080,7 @@ while 1==flag_stay_in_main_loop
 
     timeFlags.ROS_Time_calibrated_to_GPS_Time = 0;
 
-    if (1==flag_keep_checking) && (0==timeFlags.ROS_Time_calibrated_to_GPS_Time)
+    if (0==timeFlags.ROS_Time_calibrated_to_GPS_Time)
         % Used to create test data
         if 1==0
             fullExampleFilePath = fullfile(cd,'Data','ExampleData_fitROSTime2GPSTime.mat');
@@ -1113,7 +1115,7 @@ while 1==flag_stay_in_main_loop
 
     [timeFlags,offending_sensor] = fcn_TimeClean_checkIfFieldInSensors(nextDataStructure,'GPSfromROS_Time',timeFlags,'all','GPS',fid);
 
-    if (1==flag_keep_checking) && (0==timeFlags.GPSfromROS_Time_exists_in_all_GPS_sensors)
+    if (0==timeFlags.GPSfromROS_Time_exists_in_all_GPS_sensors)
         % Fix the data
         fcn_INTERNAL_printChecking(fid,'*cyan','POSSIBLE ERROR\n');
         fcn_INTERNAL_printChecking(fid,'*cyan', sprintf('Found GPS sensor without GPSfromROS_Time, in sensor: %s \n\tAttempting a fix... ', offending_sensor));
@@ -1177,7 +1179,7 @@ while 1==flag_stay_in_main_loop
     %    expectations from centiSeconds, e.g. the "length" of the vector is
     %    correct
     %    * If the length is wrong, this means that there are missing data
-    %    at start end
+    %    at start, middle, or end
     %    ### DETECTION:
     %    * calculate the the number of expected samples based on the
     %    centiSeconds. If they are not the same, the start/end needs to be
@@ -1191,16 +1193,27 @@ while 1==flag_stay_in_main_loop
     [timeFlags,offending_sensor] = fcn_TimeClean_checkTimeSamplingConsistency(nextDataStructure,'GPSfromROS_Time', verificationTypeFlag, timeFlags, 'GPS',fid, plotFlags.figNum_checkTimeSamplingConsistency_GPSTime);
 
 
-    if (1==flag_keep_checking) && (0==timeFlags.GPSfromROS_Time_sample_counts_match_centiSeconds_in_GPS_sensors)
+    if (0==timeFlags.GPSfromROS_Time_sample_counts_match_centiSeconds_in_GPS_sensors)
         fcn_INTERNAL_printChecking(fid,'*red',sprintf('FAIL - GPSfromROS_Time sample counts does not match centiSeconds in sensor: %s\n', offending_sensor));
         % Used to create test data
-        if 1==0
-            fullExampleFilePath = fullfile(cd,'Data','ExampleData_fitROSTime2GPSTime.mat');
+        if 1==1
+            [fileName, flagSuccessful] = fcn_DebugTools_filenameForTestCase( fullfile(cd,'Data'), 'DEBUG_TimeClean_checkTimeSamplingConsistency_Case9');
+            assert(flagSuccessful);
+
+            % FORMAT:
+            %      [flags,offending_sensor] = fcn_TimeClean_checkTimeSamplingConsistency(...
+            %          dataStructure, field_name, verificationTypeFlag, ...
+            %          (flags), (sensors_to_check), (fid), (figNum))
+
             dataStructure = nextDataStructure;
-            save(fullExampleFilePath,'dataStructure');
+            field_name = 'GPSfromROS_Time';
+            flags = timeFlags;
+            sensors_to_check = 'GPS';
+            figNum = plotFlags.figNum_checkTimeSamplingConsistency_GPSTime;
+            save(fileName,'dataStructure','field_name','verificationTypeFlag','flags','sensors_to_check','fid','figNum');
+            error('Fault encountered in using fcn_TimeClean_checkTimeSamplingConsistency. Fault detection variables saved to: %s',fileName);
         end
 
-        error('This is not programmed yet');
         % nextDataStructure = fcn_TimeClean_recalculateTriggerTimes(nextDataStructure,'gps',fid);
     else
         fcn_INTERNAL_printChecking(fid,'*green','\tPASSED\n');
@@ -1240,7 +1253,7 @@ while 1==flag_stay_in_main_loop
 
 
 
-    if (1==flag_keep_checking) && (0==timeFlags.GPSfromROS_Time_sampling_matches_centiSeconds_in_GPS_sensors)
+    if (0==timeFlags.GPSfromROS_Time_sampling_matches_centiSeconds_in_GPS_sensors)
         % Fix the data
         fcn_INTERNAL_printChecking(fid,'*cyan','POSSIBLE ERROR\n');
         fcn_INTERNAL_printChecking(fid,'*cyan', sprintf('Found GPS sensor where GPSfromROS_Time sampling does not match centiSeconds, in sensor: %s \n\tAttempting a fix... ', offending_sensor));
@@ -1303,7 +1316,7 @@ while 1==flag_stay_in_main_loop
 
     [timeFlags,offending_sensor] = fcn_TimeClean_checkIfFieldInSensors(nextDataStructure,'centiSeconds',timeFlags,'all',[],fid);
 
-    if (1==flag_keep_checking) && (0==timeFlags.centiSeconds_exists_in_all_sensors)
+    if (0==timeFlags.centiSeconds_exists_in_all_sensors)
         fcn_INTERNAL_printChecking(fid,'*red','FAIL\n');
         disp(nextDataStructure.(offending_sensor))
         warning('on','backtrace');
@@ -1328,7 +1341,7 @@ while 1==flag_stay_in_main_loop
     [timeFlags, offending_sensor] = fcn_TimeClean_checkIfFieldHasRepeatedValues(nextDataStructure,'ROS_Time',timeFlags, 'nonGPS', (fid),(-1));
 
 
-    if (1==flag_keep_checking) && (0==timeFlags.ROS_Time_has_no_repeats_in_nonGPS_sensors)
+    if (0==timeFlags.ROS_Time_has_no_repeats_in_nonGPS_sensors)
         % Fix the data
         fcn_INTERNAL_printChecking(fid,'*cyan','POSSIBLE ERROR\n');
         fcn_INTERNAL_printChecking(fid,'*cyan', sprintf('Found sensor where ROS_Time has repeats or NaN values, in sensor: %s \n\tAttempting a fix... ', offending_sensor));
@@ -1387,7 +1400,7 @@ while 1==flag_stay_in_main_loop
 
     [timeFlags,offending_sensor,~] = fcn_TimeClean_checkDataStrictlyIncreasing(nextDataStructure, 'ROS_Time', (timeFlags), ([]), (fid), ([]));
 
-    if (1==flag_keep_checking) && (0==timeFlags.ROS_Time_strictly_ascends_in_all_sensors)
+    if (0==timeFlags.ROS_Time_strictly_ascends_in_all_sensors)
         fcn_INTERNAL_printChecking(fid,'*red','FAIL\n');
         warning('on','backtrace');
         warning('Fundamental error on ROS_time: it is not counting up!? Sensor name: %s', offending_sensor);
@@ -1411,7 +1424,7 @@ while 1==flag_stay_in_main_loop
 
     [timeFlags,offending_sensor] = fcn_TimeClean_checkIfFieldInSensors(nextDataStructure,'GPSfromROS_Time',timeFlags,'all',[],fid);
 
-    if (1==flag_keep_checking) && (0==timeFlags.GPSfromROS_Time_exists_in_all_sensors)
+    if (0==timeFlags.GPSfromROS_Time_exists_in_all_sensors)
         % Tell user what is happening
         fcn_INTERNAL_printChecking(fid,'*cyan','POSSIBLE ERROR\n');
         fcn_INTERNAL_printChecking(fid,'*cyan', sprintf('Found sensor where GPSfromROS_Time does not exist, in sensor: %s \n\tAttempting a fix... ', offending_sensor));
@@ -1465,7 +1478,7 @@ while 1==flag_stay_in_main_loop
 
     [timeFlags, offending_sensor, ~] = fcn_TimeClean_checkConsistencyOfStartEnd(nextDataStructure, 'GPSfromROS_Time', (timeFlags), ('GPS'), ('_across_all_sensors'), (.05), (fid), ([]));
 
-    if (1==flag_keep_checking) && (0==timeFlags.GPSfromROS_Time_has_consistent_start_end_across_all_sensors)
+    if (0==timeFlags.GPSfromROS_Time_has_consistent_start_end_across_all_sensors)
         % Tell user what is happening
         fcn_INTERNAL_printChecking(fid,'*cyan','POSSIBLE ERROR\n');
         fcn_INTERNAL_printChecking(fid,'*cyan', sprintf('Found sensor where GPSfromROS_Time does not have consistent start/end, in sensor: %s \n\tAttempting a fix... ', offending_sensor));
@@ -1535,7 +1548,7 @@ while 1==flag_stay_in_main_loop
 
     [timeFlags,offending_sensor] = fcn_TimeClean_checkIfFieldInSensors(nextDataStructure,'Trigger_Time',timeFlags,'all',[],fid);
 
-    if (1==flag_keep_checking) && (0==timeFlags.Trigger_Time_exists_in_all_sensors)
+    if (0==timeFlags.Trigger_Time_exists_in_all_sensors)
         % Tell user what is happening
         fcn_INTERNAL_printChecking(fid,'*cyan','POSSIBLE ERROR\n');
         fcn_INTERNAL_printChecking(fid,'*cyan', sprintf('Found sensor where Trigger_Time does not exist, in sensor: %s \n\tAttempting a fix... ', offending_sensor));
@@ -1582,7 +1595,7 @@ while 1==flag_stay_in_main_loop
     [timeFlags,offending_sensor,~]  = fcn_TimeClean_checkFieldCountMatchesTimeCount(nextDataStructure,'ROS_Time',timeFlags,'Trigger_Time','',fid);
 
 
-    if (1==flag_keep_checking) && (0==timeFlags.ROS_Time_has_same_length_as_Trigger_Time_in_all_sensors)
+    if (0==timeFlags.ROS_Time_has_same_length_as_Trigger_Time_in_all_sensors)
         % Tell user what is happening
         fcn_INTERNAL_printChecking(fid,'*cyan','POSSIBLE ERROR\n');
         fcn_INTERNAL_printChecking(fid,'*cyan', sprintf('Found sensors where Trigger_Time does not match ROS_Time in sensor: %s \n\tAttempting a fix... ', offending_sensor));

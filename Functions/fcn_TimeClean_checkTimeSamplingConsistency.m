@@ -316,7 +316,11 @@ for ith_sensor = 1:Ndata
     % NOTE: the rounding operation above will still produce 1 values if the
     % sampling rate is systematically off, say 6 centiSeconds instead of 5.
     % Need to also check that the expected number of samples is there.
-    expectedNsamples = round((max(timeData) - min(timeData))/(0.01*centiSeconds))+1;
+    if ~any(isnan([timeData(1); timeData(end)]))
+        expectedNsamples = round((max(timeData) - min(timeData))/(0.01*centiSeconds))+1;
+    else
+        expectedNsamples = length(timeData);
+    end
 
     % Find indicies of any situations that are NOT 1, these are errors
     indiciesOfBadIntervals = find(1~=effectiveSamplingIntervals);
@@ -366,7 +370,7 @@ for ith_sensor = 1:Ndata
         ratioBadIntervals = NbadIntervals/length(timeDifferences);
         maxInterval = max(timeDifferences);
         minInterval = min(timeDifferences);
-        meanInterval = mean(timeDifferences);
+        meanInterval = mean(timeDifferences,'omitmissing');
 
         if 0~=fid
             fprintf(fid,'\t\t Sensor failed!\n');
@@ -382,29 +386,57 @@ for ith_sensor = 1:Ndata
 
             if ~isempty(indiciesOfBadIntervals)
                 Npoints = length(timeData(:,1));
-                bad_index = indiciesOfBadIntervals(1);
-                indexRange = 10;
-                start_print = max(bad_index-indexRange,1);
-                end_print = min(bad_index+indexRange,length(timeDifferences(:,1)));
+
+                rangeBeforeAfter = 3;
+                indicesToPrint = [];
+                for ith_bad_index = 1:length(indiciesOfBadIntervals)
+                    thisBadIndex = indiciesOfBadIntervals(ith_bad_index);
+                    rangeAroundThisIndex = ((thisBadIndex-rangeBeforeAfter):(thisBadIndex+rangeBeforeAfter))';
+                    indicesToPrint = [indicesToPrint; rangeAroundThisIndex]; %#ok<AGROW>
+                end
+                indicesToPrintUnique = unique(indicesToPrint);
+                indicesToPrintUnique = indicesToPrintUnique(indicesToPrintUnique>0);
+                indicesToPrintUnique = indicesToPrintUnique(indicesToPrintUnique<=Npoints);
+
+                % Which rows should be highlighted?
+                bad_rows = indiciesOfBadIntervals;
+                bad_index = nan(size(bad_rows));
+                for ith_bad_row = 1:length(bad_rows)
+                    thisBadRow = bad_rows(ith_bad_row);
+                    bad_index(ith_bad_row,1) = find(indicesToPrintUnique==thisBadRow);
+                end
+
+                % if Npoints>2000
+                %     bad_index = indiciesOfBadIntervals(1);
+                % else
+                %     bad_index = indiciesOfBadIntervals;
+                % end
+                % indexRange = 10;
+                % start_print = max(min(bad_index)-indexRange,1);
+                % end_print = min(max(bad_index)+indexRange,length(timeDifferences(:,1)));
+
+
+
                 sampleNumbers = (1:length(timeDifferences(:,1)))';
                 if isfield(sensor_data,'Trigger_Time')
                     timeLabelString = 'Trigger_Time';
-                    temp = [zeros(Npoints,1) sampleNumbers sensor_data.Trigger_Time timeData  timeDifferences effectiveSamplingIntervals];
+                    temp = [zeros(Npoints,1) sampleNumbers sensor_data.Trigger_Time sensor_data.ROS_Time timeData  timeDifferences effectiveSamplingIntervals];
                 elseif isfield(sensor_data,'GPS_Time')
                     timeLabelString = 'GPS_Time';
-                    temp = [zeros(Npoints,1) sampleNumbers sensor_data.GPS_Time timeData  timeDifferences effectiveSamplingIntervals];
+                    temp = [zeros(Npoints,1) sampleNumbers sensor_data.GPS_Time sensor_data.ROS_Time timeData  timeDifferences effectiveSamplingIntervals];
                 end
 
                 % Set up table format
-                header_strings = [{'            '},{'(sample number)'},{sprintf('(%s)',timeLabelString)}, {sprintf('(%s)',field_name)},{'(timeDifferences)'},{'(effectiveSamplingIntervals)'}];
+                header_strings = [{'            '},{'(sample number)'},{sprintf('(%s)',timeLabelString)}, {'(ROS_Time)'}, {sprintf('(%s)',field_name)},{'(timeDifferences)'},{'(effectiveSamplingIntervals)'}];
                 formatter_strings = [...
-                    {'%.0d'},{'%.0d'},{'%.4f'},{'%.4f'},{'%.4f'},{'%.0f'},{[]};
-                    {'%.0d'},{'%.0d'},{'%.4f'},{'red %.4f'},{'red %.4f'},{'red %.0f'},{[bad_index]};
+                    {'%.0d'},{'%.0d'},{'%.4f'},{'%.4f'},{'%.4f'},{'%.4f'},{'%.0f'},{[]};
+                    {'%.0d'},{'%.0d'},{'%.4f'},{'%.4f'},{'red %.4f'},{'red %.4f'},{'red %.0f'},{[bad_index]};
                     ];
                 N_chars = 20; % All columns have same number of characters
 
                 fprintf(fid,'\t\t Example of failure:\n');
-                table_data = temp(start_print:end_print,:);
+                % table_data = temp(start_print:end_print,:);
+                table_data = temp(indicesToPrintUnique,:);
                 fcn_DebugTools_debugPrintTableToNCharacters(table_data, header_strings, formatter_strings, N_chars, fid);
 
 
